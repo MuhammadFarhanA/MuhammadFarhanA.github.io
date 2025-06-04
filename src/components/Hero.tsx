@@ -25,7 +25,7 @@ const Hero: React.FC = () => {
   }, []);
 
   const scrollToProjects = () => {
-    const projectsSection = document.getElementById('projects');
+    const projectsSection = document.getElementById('about');
     if (projectsSection) {
       projectsSection.scrollIntoView({ behavior: 'smooth' });
     }
