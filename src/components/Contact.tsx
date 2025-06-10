@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { Send, Github, Linkedin, Users } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Send, Github, Linkedin, Users, CheckCircle, AlertCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const Contact: React.FC = () => {
+  const form = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -10,41 +12,62 @@ const Contact: React.FC = () => {
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState('');
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitMessage, setSubmitMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    // Map EmailJS field names to our state
+    const fieldMap: { [key: string]: string } = {
+      'user_name': 'name',
+      'user_email': 'email',
+      'subject': 'subject',
+      'message': 'message'
+    };
+    
+    const stateField = fieldMap[name] || name;
+    setFormData(prev => ({ ...prev, [stateField]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!form.current) return;
+    
     setIsSubmitting(true);
-    setSubmitError('');
+    setSubmitStatus('idle');
+    setSubmitMessage('');
     
     try {
-      const form = e.target as HTMLFormElement;
-      const formData = new FormData(form);
+      // Your actual EmailJS configuration
+      const serviceId = 'service_io5fvnc';
+      const templateId = 'template_w6adcfj';
+      const publicKey = 'HB1oMyt3lOhWF0qfG';
       
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData as any).toString()
-      });
+      const result = await emailjs.sendForm(
+        serviceId,
+        templateId,
+        form.current,
+        publicKey
+      );
 
-      if (response.ok) {
-        setSubmitSuccess(true);
+      if (result.status === 200) {
+        setSubmitStatus('success');
+        setSubmitMessage('Your message has been sent successfully! I\'ll get back to you soon.');
         setFormData({ name: '', email: '', subject: '', message: '' });
         
+        // Auto-hide success message after 5 seconds
         setTimeout(() => {
-          setSubmitSuccess(false);
+          setSubmitStatus('idle');
+          setSubmitMessage('');
         }, 5000);
       } else {
-        throw new Error('Form submission failed');
+        throw new Error('Failed to send message');
       }
     } catch (error) {
-      setSubmitError('There was an error sending your message. Please try again or contact me directly via email.');
+      console.error('EmailJS Error:', error);
+      setSubmitStatus('error');
+      setSubmitMessage('There was an error sending your message. Please try again or contact me directly via email at farhan45778@gmail.com');
     } finally {
       setIsSubmitting(false);
     }
@@ -77,58 +100,56 @@ const Contact: React.FC = () => {
                   </h3>
                 </div>
                 
-                {submitSuccess && (
-                  <div className="mb-6 p-4 bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-lg text-accent-800 dark:text-accent-200">
-                    Your message has been sent successfully! I'll respond as soon as possible.
+                {/* Status Messages */}
+                {submitStatus === 'success' && (
+                  <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-start gap-3">
+                    <CheckCircle size={20} className="text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-green-800 dark:text-green-200">{submitMessage}</p>
                   </div>
                 )}
                 
-                {submitError && (
-                  <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-800 dark:text-red-200">
-                    {submitError}
+                {submitStatus === 'error' && (
+                  <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-start gap-3">
+                    <AlertCircle size={20} className="text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-red-800 dark:text-red-200">{submitMessage}</p>
                   </div>
                 )}
                 
                 <form 
-                  name="contact" 
-                  method="POST" 
-                  data-netlify="true" 
-                  data-netlify-honeypot="bot-field"
+                  ref={form}
                   onSubmit={handleSubmit} 
                   className="space-y-6"
                 >
-                  {/* Hidden fields for Netlify */}
-                  <input type="hidden" name="form-name" value="contact" />
-                  <input type="hidden" name="bot-field" />
-                  
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                      <label htmlFor="user_name" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
                         Your Name
                       </label>
                       <input 
                         type="text" 
-                        id="name" 
-                        name="name" 
+                        id="user_name" 
+                        name="user_name" 
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white/80 dark:bg-surface-dark text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-colors backdrop-blur-sm"
+                        disabled={isSubmitting}
+                        className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         placeholder="Enter your name"
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                      <label htmlFor="user_email" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
                         Your Email
                       </label>
                       <input 
                         type="email" 
-                        id="email" 
-                        name="email" 
+                        id="user_email" 
+                        name="user_email" 
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white/80 dark:bg-surface-dark text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-colors backdrop-blur-sm"
+                        disabled={isSubmitting}
+                        className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         placeholder="Enter your email"
                       />
                     </div>
@@ -145,7 +166,8 @@ const Contact: React.FC = () => {
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white/80 dark:bg-surface-dark text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-colors backdrop-blur-sm"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                       placeholder="What's this about?"
                     />
                   </div>
@@ -161,7 +183,8 @@ const Contact: React.FC = () => {
                       value={formData.message}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white/80 dark:bg-surface-dark text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-colors resize-none backdrop-blur-sm"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-colors resize-none disabled:opacity-50 disabled:cursor-not-allowed"
                       placeholder="Tell me about your project or idea..."
                     ></textarea>
                   </div>
@@ -256,6 +279,34 @@ const Contact: React.FC = () => {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Alternative Contact Methods */}
+          <div className="mt-12 text-center">
+            <div className="bg-white/60 dark:bg-surface-dark/60 backdrop-blur-sm rounded-2xl p-6 border border-neutral-200/50 dark:border-neutral-700/50 layered-shadow">
+              <h4 className="text-lg font-bold text-neutral-800 dark:text-neutral-100 mb-3">
+                Prefer a different way to connect?
+              </h4>
+              <p className="text-neutral-600 dark:text-neutral-400 mb-4">
+                You can also reach me directly via email or connect with me on social media platforms.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <a 
+                  href="mailto:farhan45778@gmail.com?subject=Portfolio Contact&body=Hi Farhan, I'd like to discuss..."
+                  className="px-6 py-3 bg-secondary-600 hover:bg-secondary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-medium hover:shadow-strong"
+                >
+                  Send Direct Email
+                </a>
+                <a 
+                  href="https://www.linkedin.com/in/muhammad-farhan-atif/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-medium hover:shadow-strong"
+                >
+                  Message on LinkedIn
+                </a>
               </div>
             </div>
           </div>
