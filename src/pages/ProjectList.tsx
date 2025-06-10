@@ -55,7 +55,7 @@ const ProjectList: React.FC = () => {
   return (
     <PageTransition>
       <div className="min-h-screen bg-background-light dark:bg-background-dark py-20">
-        <div className="container mx-auto px-8 md:px-16">
+        <div className="container mx-auto px-4 md:px-8 lg:px-16">
           <div className="flex items-center gap-4 mb-8">
             <button
               onClick={() => navigate('/')}

@@ -4,11 +4,13 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
 import WorkExperience from './components/WorkExperience';
-import Skills from './components/Skills';
+// import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import BackToTop from './components/BackToTop';
 import ProjectList from './pages/ProjectList';
+import Poems from './pages/Poems';
 import './index.css';
 
 function App() {
@@ -51,15 +53,17 @@ function App() {
               <Hero />
               <About />
               <WorkExperience />
-              <Skills />
+              {/* <Skills /> */}
               <Projects />
               <Contact />
             </main>
             <Footer />
+            <BackToTop />
           </div>
         }
       />
       <Route path="/projects" element={<ProjectList />} />
+      <Route path="/poems" element={<Poems />} />
     </Routes>
   );
 }

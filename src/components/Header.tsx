@@ -14,7 +14,7 @@ const Header: React.FC = () => {
       setIsScrolled(window.scrollY > 50);
 
       // Update active section based on scroll position
-      const sections = ['about', 'experience', 'skills', 'projects', 'contact'];
+      const sections = ['about', 'experience', /* 'skills', */ 'projects', 'contact'];
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -51,7 +51,7 @@ const Header: React.FC = () => {
           : 'bg-transparent py-6'
       }`}
     >
-      <div className="container mx-auto px-8 md:px-16">
+      <div className="container mx-auto px-4 md:px-8 lg:px-16">
         <div className="flex items-center justify-between">
           <Link to="/" className="text-xl font-bold tracking-tighter">
             <span className="text-primary-600 dark:text-primary-400">farhan</span>
@@ -72,12 +72,12 @@ const Header: React.FC = () => {
             >
               Experience
             </a>
-            <a
+            {/* <a
               href="#skills"
               className={getLinkClass('skills')}
             >
               Skills
-            </a>
+            </a> */}
             <a
               href="#projects"
               className={getLinkClass('projects')}
@@ -115,7 +115,7 @@ const Header: React.FC = () => {
             : 'opacity-0 -translate-y-4 pointer-events-none'
         }`}
       >
-        <div className="container mx-auto px-8 py-4">
+        <div className="container mx-auto px-4 py-4">
           <nav className="flex flex-col space-y-4">
             <a
               href="#about"
@@ -131,13 +131,13 @@ const Header: React.FC = () => {
             >
               Experience
             </a>
-            <a
+            {/* <a
               href="#skills"
               className={getLinkClass('skills')}
               onClick={() => setIsMenuOpen(false)}
             >
               Skills
-            </a>
+            </a> */}
             <a
               href="#projects"
               className={getLinkClass('projects')}

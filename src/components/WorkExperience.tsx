@@ -11,42 +11,44 @@ interface Experience {
 const WorkExperience: React.FC = () => {
   const experiences: Experience[] = [
     {
-      title: "Senior UI/UX Designer",
-      company: "Tech Innovation Labs",
-      period: "2021 - Present",
+      title: "Software Engineer II",
+      company: "Illumina Technology Solutions",
+      period: "January 2025 - Present",
       description: [
-        "Led the redesign of core products resulting in 40% increase in user engagement",
-        "Managed a team of 4 designers and collaborated with product managers",
-        "Implemented design system used across 12 different products"
+        "Developing and maintaining enterprise-level software solutions",
+        "Collaborating with cross-functional teams to deliver high-quality products",
+        "Implementing best practices in software development and code review processes"
       ]
     },
     {
-      title: "UI/UX Designer",
-      company: "Digital Solutions Inc",
-      period: "2019 - 2021",
+      title: "Consultant Frontend",
+      company: "PartnerLinq",
+      period: "2022 - 2025",
       description: [
-        "Designed user interfaces for web and mobile applications",
-        "Conducted user research and usability testing",
-        "Created wireframes, prototypes, and high-fidelity designs"
+        "Led frontend development for client projects using modern web technologies",
+        "Designed and implemented responsive user interfaces and user experiences",
+        "Collaborated with backend teams to integrate APIs and optimize performance",
+        "Mentored junior developers and conducted code reviews"
       ]
     },
     {
-      title: "Junior Designer",
-      company: "Creative Agency",
-      period: "2018 - 2019",
+      title: "Junior Consultant",
+      company: "Systems Limited",
+      period: "2021 - 2022",
       description: [
-        "Assisted in the design of marketing materials and websites",
-        "Collaborated with developers to ensure design implementation",
-        "Participated in client meetings and presentations"
+        "Assisted in the development of web applications and software solutions",
+        "Participated in requirement gathering and analysis sessions with clients",
+        "Contributed to testing and quality assurance processes",
+        "Gained experience in various programming languages and frameworks"
       ]
     }
   ];
 
   return (
-    <section id="experience" className="py-20 bg-white dark:bg-surface-dark">
-      <div className="container mx-auto px-8 md:px-16">
+    <section id="experience" className="py-20 bg-gradient-to-br from-orange-50 via-amber-50/80 to-yellow-50/60 dark:from-surface-dark dark:to-background-dark backdrop-blur-sm">
+      <div className="container mx-auto px-4 md:px-8 lg:px-16">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-12">
+          <h2 className="text-3xl font-bold text-neutral-800 dark:text-neutral-100 mb-12">
             Work Experience
           </h2>
 
@@ -56,14 +58,14 @@ const WorkExperience: React.FC = () => {
                 key={index}
                 className="group relative pl-8 border-l-2 border-primary-200 dark:border-primary-800 hover:border-primary-500 dark:hover:border-primary-400 transition-colors"
               >
-                <div className="absolute -left-3 top-0 w-6 h-6 bg-white dark:bg-surface-dark border-2 border-primary-200 dark:border-primary-800 group-hover:border-primary-500 dark:group-hover:border-primary-400 rounded-full transition-colors">
+                <div className="absolute -left-3 top-0 w-6 h-6 bg-white/80 dark:bg-surface-dark border-2 border-primary-200 dark:border-primary-800 group-hover:border-primary-500 dark:group-hover:border-primary-400 rounded-full transition-colors backdrop-blur-sm">
                   <Briefcase size={14} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-primary-500 dark:text-primary-400" />
                 </div>
                 
-                <div className="bg-white dark:bg-surface-dark p-6 rounded-lg layered-shadow">
+                <div className="bg-white/70 dark:bg-surface-dark backdrop-blur-sm p-6 rounded-lg border border-neutral-200/50 dark:border-neutral-700/50 layered-shadow">
                   <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
                     <div>
-                      <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100">
+                      <h3 className="text-xl font-bold text-neutral-800 dark:text-neutral-100">
                         {exp.title}
                       </h3>
                       <p className="text-primary-600 dark:text-primary-400 font-medium">

@@ -10,7 +10,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
     <a 
       href={project.link || '#'} 
-      className="block group grid md:grid-cols-2 gap-8 items-center hover:bg-neutral-50 dark:hover:bg-neutral-800/50 rounded-2xl p-8 transition-all duration-300 cursor-pointer layered-shadow"
+      className="block group grid md:grid-cols-2 gap-8 items-center hover:bg-white/80 dark:hover:bg-neutral-800/50 rounded-2xl p-8 transition-all duration-300 cursor-pointer border border-neutral-200/50 dark:border-neutral-700/50 layered-shadow hover-shadow-lift backdrop-blur-sm"
     >
       <div className="order-1 md:order-1">
         <div className="aspect-[16/9] rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800">
@@ -35,7 +35,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             ))}
           </div>
 
-          <h3 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h3 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
             {project.title}
           </h3>
           
