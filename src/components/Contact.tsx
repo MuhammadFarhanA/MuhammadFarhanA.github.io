@@ -92,10 +92,10 @@ const Contact: React.FC = () => {
                 <form 
                   name="contact" 
                   method="POST" 
-                  
+                  data-netlify="true" 
+                  data-netlify-honeypot="bot-field"
                   onSubmit={handleSubmit} 
                   className="space-y-6"
-                  netlify
                 >
                   {/* Hidden fields for Netlify */}
                   <input type="hidden" name="form-name" value="contact" />
