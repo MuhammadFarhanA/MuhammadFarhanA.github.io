@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Send, Github, Linkedin, Users, CheckCircle, AlertCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
@@ -14,6 +14,31 @@ const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -74,9 +99,21 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-violet-50 via-purple-50/80 to-indigo-50/60 dark:from-background-dark dark:to-surface-dark">
-      <div className="container mx-auto px-4 md:px-8 lg:px-16">
-        <div className="text-center mb-16">
+    <section 
+      ref={sectionRef}
+      id="contact" 
+      className="py-20 bg-gradient-to-br from-violet-50 via-purple-50/80 to-indigo-50/60 dark:from-background-dark dark:to-surface-dark relative overflow-hidden"
+    >
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-br from-violet-200/20 to-purple-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+        <div className="absolute bottom-20 right-20 w-72 h-72 bg-gradient-to-br from-indigo-200/20 to-violet-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+      </div>
+
+      <div className="container mx-auto px-4 md:px-8 lg:px-16 relative z-10">
+        <div className={`text-center mb-16 transform transition-all duration-700 ${
+          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+        }`}>
           <h2 className="text-3xl md:text-4xl font-bold text-neutral-800 dark:text-neutral-100 mb-4">
             Get In Touch
           </h2>
@@ -89,10 +126,13 @@ const Contact: React.FC = () => {
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Send A Message - Takes up 2 columns */}
-            <div className="lg:col-span-2">
-              <div className="bg-white/80 dark:bg-surface-dark backdrop-blur-sm rounded-2xl p-8 md:p-10 border border-neutral-200/50 dark:border-neutral-700/50 layered-shadow h-full">
+            <div className={`lg:col-span-2 transform transition-all duration-700 ${
+              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+            }`}
+            style={{ transitionDelay: '0.2s' }}>
+              <div className="group bg-white/80 dark:bg-surface-dark backdrop-blur-sm rounded-2xl p-8 md:p-10 border border-neutral-200/50 dark:border-neutral-700/50 layered-shadow hover:shadow-strong transition-all duration-500 h-full">
                 <div className="flex items-center gap-3 mb-8">
-                  <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-full">
+                  <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-full group-hover:scale-110 transition-transform duration-300">
                     <Send size={24} className="text-primary-600 dark:text-primary-400" />
                   </div>
                   <h3 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
@@ -102,14 +142,14 @@ const Contact: React.FC = () => {
                 
                 {/* Status Messages */}
                 {submitStatus === 'success' && (
-                  <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-start gap-3">
+                  <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-start gap-3 animate-in">
                     <CheckCircle size={20} className="text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
                     <p className="text-green-800 dark:text-green-200">{submitMessage}</p>
                   </div>
                 )}
                 
                 {submitStatus === 'error' && (
-                  <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-start gap-3">
+                  <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-start gap-3 animate-in">
                     <AlertCircle size={20} className="text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
                     <p className="text-red-800 dark:text-red-200">{submitMessage}</p>
                   </div>
@@ -121,7 +161,7 @@ const Contact: React.FC = () => {
                   className="space-y-6"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
+                    <div className="group/input">
                       <label htmlFor="user_name" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
                         Your Name
                       </label>
@@ -133,11 +173,11 @@ const Contact: React.FC = () => {
                         onChange={handleChange}
                         required
                         disabled={isSubmitting}
-                        className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group-hover/input:border-primary-300 dark:group-hover/input:border-primary-600"
                         placeholder="Enter your name"
                       />
                     </div>
-                    <div>
+                    <div className="group/input">
                       <label htmlFor="user_email" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
                         Your Email
                       </label>
@@ -149,13 +189,13 @@ const Contact: React.FC = () => {
                         onChange={handleChange}
                         required
                         disabled={isSubmitting}
-                        className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group-hover/input:border-primary-300 dark:group-hover/input:border-primary-600"
                         placeholder="Enter your email"
                       />
                     </div>
                   </div>
                   
-                  <div>
+                  <div className="group/input">
                     <label htmlFor="subject" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
                       Subject
                     </label>
@@ -167,12 +207,12 @@ const Contact: React.FC = () => {
                       onChange={handleChange}
                       required
                       disabled={isSubmitting}
-                      className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group-hover/input:border-primary-300 dark:group-hover/input:border-primary-600"
                       placeholder="What's this about?"
                     />
                   </div>
                   
-                  <div>
+                  <div className="group/input">
                     <label htmlFor="message" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
                       Your Message
                     </label>
@@ -184,7 +224,7 @@ const Contact: React.FC = () => {
                       onChange={handleChange}
                       required
                       disabled={isSubmitting}
-                      className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-colors resize-none disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all duration-300 resize-none disabled:opacity-50 disabled:cursor-not-allowed group-hover/input:border-primary-300 dark:group-hover/input:border-primary-600"
                       placeholder="Tell me about your project or idea..."
                     ></textarea>
                   </div>
@@ -193,22 +233,27 @@ const Contact: React.FC = () => {
                     <button 
                       type="submit" 
                       disabled={isSubmitting}
-                      className={`w-full md:w-auto px-8 py-4 rounded-lg font-medium inline-flex items-center justify-center gap-2 transition-all duration-300 transform hover:-translate-y-1 ${
+                      className={`group/btn w-full md:w-auto px-8 py-4 rounded-lg font-medium inline-flex items-center justify-center gap-2 transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden ${
                         isSubmitting 
                           ? 'bg-neutral-400 dark:bg-neutral-600 cursor-not-allowed shadow-soft' 
                           : 'bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-700 shadow-medium hover:shadow-strong'
                       } text-white`}
                     >
-                      {isSubmitting ? (
-                        <>
-                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          Send Message 
-                          <Send size={18} />
-                        </>
+                      <span className="relative z-10 flex items-center gap-2">
+                        {isSubmitting ? (
+                          <>
+                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            Send Message 
+                            <Send size={18} className="group-hover/btn:animate-pulse" />
+                          </>
+                        )}
+                      </span>
+                      {!isSubmitting && (
+                        <div className="absolute inset-0 bg-gradient-to-r from-primary-700 to-secondary-600 transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-300 origin-left"></div>
                       )}
                     </button>
                   </div>
@@ -217,10 +262,13 @@ const Contact: React.FC = () => {
             </div>
             
             {/* Connect with Me - Takes up 1 column */}
-            <div className="lg:col-span-1">
-              <div className="bg-white/80 dark:bg-surface-dark backdrop-blur-sm rounded-2xl p-8 border border-neutral-200/50 dark:border-neutral-700/50 layered-shadow h-full">
+            <div className={`lg:col-span-1 transform transition-all duration-700 ${
+              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+            }`}
+            style={{ transitionDelay: '0.4s' }}>
+              <div className="group bg-white/80 dark:bg-surface-dark backdrop-blur-sm rounded-2xl p-8 border border-neutral-200/50 dark:border-neutral-700/50 layered-shadow hover:shadow-strong transition-all duration-500 h-full">
                 <div className="flex items-center gap-3 mb-8">
-                  <div className="p-3 bg-secondary-50 dark:bg-secondary-900/20 rounded-full">
+                  <div className="p-3 bg-secondary-50 dark:bg-secondary-900/20 rounded-full group-hover:scale-110 transition-transform duration-300">
                     <Users size={24} className="text-secondary-600 dark:text-secondary-400" />
                   </div>
                   <h3 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
@@ -229,13 +277,13 @@ const Contact: React.FC = () => {
                 </div>
                 
                 <div className="space-y-6">
-                  <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed transform transition-all duration-300 group-hover:translate-x-2">
                     Let's connect and explore opportunities together. Follow me on social media 
                     or reach out directly via email.
                   </p>
                   
                   <div className="space-y-4">
-                    <div>
+                    <div className="transform transition-all duration-300 group-hover:translate-x-2">
                       <h4 className="text-neutral-800 dark:text-neutral-100 font-medium mb-2">Email</h4>
                       <a 
                         href="mailto:farhan45778@gmail.com" 
@@ -245,7 +293,7 @@ const Contact: React.FC = () => {
                       </a>
                     </div>
                     
-                    <div>
+                    <div className="transform transition-all duration-300 group-hover:translate-x-2" style={{ transitionDelay: '0.1s' }}>
                       <h4 className="text-neutral-800 dark:text-neutral-100 font-medium mb-2">Location</h4>
                       <p className="text-neutral-600 dark:text-neutral-400">
                         Lahore, Pakistan
@@ -260,53 +308,25 @@ const Contact: React.FC = () => {
                         href="https://github.com/MuhammadFarhanA" 
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-xl hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg group text-center"
+                        className="flex-1 p-4 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-xl transition-all duration-300 transform hover:-translate-y-1 shadow-soft hover:shadow-medium group/social text-center"
                         aria-label="GitHub Profile"
                       >
-                        <Github size={24} className="mx-auto mb-2 group-hover:scale-110 transition-transform" />
+                        <Github size={24} className="mx-auto mb-2 group-hover/social:scale-110 transition-transform group-hover/social:animate-pulse" />
                         <span className="text-sm font-medium">GitHub</span>
                       </a>
                       <a 
                         href="https://www.linkedin.com/in/muhammad-farhan-atif/" 
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg group text-center"
+                        className="flex-1 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg group/social text-center"
                         aria-label="LinkedIn Profile"
                       >
-                        <Linkedin size={24} className="mx-auto mb-2 group-hover:scale-110 transition-transform" />
+                        <Linkedin size={24} className="mx-auto mb-2 group-hover/social:scale-110 transition-transform group-hover/social:animate-pulse" />
                         <span className="text-sm font-medium">LinkedIn</span>
                       </a>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Alternative Contact Methods */}
-          <div className="mt-12 text-center">
-            <div className="bg-white/60 dark:bg-surface-dark/60 backdrop-blur-sm rounded-2xl p-6 border border-neutral-200/50 dark:border-neutral-700/50 layered-shadow">
-              <h4 className="text-lg font-bold text-neutral-800 dark:text-neutral-100 mb-3">
-                Prefer a different way to connect?
-              </h4>
-              <p className="text-neutral-600 dark:text-neutral-400 mb-4">
-                You can also reach me directly via email or connect with me on social media platforms.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <a 
-                  href="mailto:farhan45778@gmail.com?subject=Portfolio Contact&body=Hi Farhan, I'd like to discuss..."
-                  className="px-6 py-3 bg-secondary-600 hover:bg-secondary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-medium hover:shadow-strong"
-                >
-                  Send Direct Email
-                </a>
-                <a 
-                  href="https://www.linkedin.com/in/muhammad-farhan-atif/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-medium hover:shadow-strong"
-                >
-                  Message on LinkedIn
-                </a>
               </div>
             </div>
           </div>

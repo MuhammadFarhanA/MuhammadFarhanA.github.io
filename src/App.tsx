@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import BackToTop from './components/BackToTop';
 import ProjectList from './pages/ProjectList';
 import Poems from './pages/Poems';
+import CaseStudy from './pages/CaseStudy';
 import './index.css';
 
 function App() {
@@ -43,28 +44,31 @@ function App() {
   }, []);
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <div className="min-h-screen bg-background-light dark:bg-background-dark text-neutral-900 dark:text-neutral-100">
-            <Header />
-            <main>
-              <Hero />
-              <About />
-              <WorkExperience />
-              {/* <Skills /> */}
-              <Projects />
-              <Contact />
-            </main>
-            <Footer />
-            <BackToTop />
-          </div>
-        }
-      />
-      <Route path="/projects" element={<ProjectList />} />
-      <Route path="/poems" element={<Poems />} />
-    </Routes>
+    <div className="relative">
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="min-h-screen bg-background-light dark:bg-background-dark text-neutral-900 dark:text-neutral-100 relative z-10">
+              <Header />
+              <main>
+                <Hero />
+                <About />
+                <WorkExperience />
+                {/* <Skills /> */}
+                <Projects />
+                <Contact />
+              </main>
+              <Footer />
+              <BackToTop />
+            </div>
+          }
+        />
+        <Route path="/projects" element={<ProjectList />} />
+        <Route path="/poems" element={<Poems />} />
+        <Route path="/case-study/:projectId" element={<CaseStudy />} />
+      </Routes>
+    </div>
   );
 }
 

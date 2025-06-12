@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
                   href="https://github.com/MuhammadFarhanA" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 bg-neutral-800 hover:bg-primary-600 rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg group"
+                  className="p-3 bg-neutral-800 hover:bg-neutral-700 rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg group"
                   aria-label="GitHub Profile"
                 >
                   <Github size={20} className="text-neutral-400 group-hover:text-white" />
