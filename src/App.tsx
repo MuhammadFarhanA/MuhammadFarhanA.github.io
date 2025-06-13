@@ -16,7 +16,7 @@ import './index.css';
 
 function App() {
   useEffect(() => {
-    document.title = 'Design Portfolio | UI/UX Designer';
+    document.title = 'Muhammad Farhan Atif';
     
     if (!localStorage.getItem('theme')) {
       const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
