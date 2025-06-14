@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { poems } from "../data/poems";
 import { BookOpen, ArrowLeft } from "lucide-react";
+import Header from "../components/Header";
 
 const PoemList: React.FC = () => {
   const navigate = useNavigate();
@@ -14,18 +15,22 @@ const PoemList: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50/80 to-zinc-50/60 dark:from-background-dark dark:to-surface-dark relative overflow-hidden">
+      {/* Use the same Header component */}
+      <Header />
+
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
         <div className="absolute top-32 right-32 w-64 h-64 bg-gradient-to-br from-secondary-200/20 to-secondary-100/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         <div className="absolute bottom-32 left-32 w-64 h-64 bg-gradient-to-br from-secondary-100/20 to-secondary-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
       </div>
 
-      {/* Header (sticky, blurred, bordered) */}
-      <div className={`bg-white/80 dark:bg-surface-dark/80 backdrop-blur-sm border-b border-neutral-200/50 dark:border-neutral-700/50 sticky top-0 z-40 transform transition-all duration-700 ${
-        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
-      }`}>
-        <div className="container mx-auto px-4 md:px-8 lg:px-16 py-6">
-          <div className="flex items-center justify-between">
+      {/* Main Content */}
+      <div className="container mx-auto px-4 md:px-8 lg:px-16 py-20 pt-32 relative z-10">
+        <div className="max-w-3xl mx-auto">
+          {/* Back Button - Outside Header */}
+          <div className={`mb-8 transform transition-all duration-700 ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          }`}>
             <button
               onClick={() => navigate("/")}
               className="group inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-all duration-300 font-medium"
@@ -34,12 +39,7 @@ const PoemList: React.FC = () => {
               <span>Back to Portfolio</span>
             </button>
           </div>
-        </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 md:px-8 lg:px-16 py-20 relative z-10">
-        <div className="max-w-3xl mx-auto">
           <div className="mb-12 text-center">
             <div className={`flex items-center justify-center gap-3 mb-4 transform transition-all duration-700 ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
@@ -51,11 +51,6 @@ const PoemList: React.FC = () => {
                 Poetry Collection
               </h2>
             </div>
-            <p className={`text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto transform transition-all duration-700 ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`} style={{ transitionDelay: '0.4s' }}>
-              A collection of original poems exploring creativity, code, and life.
-            </p>
           </div>
 
           <div className="flex flex-col gap-6">
@@ -63,13 +58,14 @@ const PoemList: React.FC = () => {
               <div
                 key={poem.id}
                 onClick={() => navigate(`/poems/${idx}`)}
-                className="cursor-pointer w-full bg-white dark:bg-surface-dark border border-neutral-200 dark:border-neutral-700 rounded-2xl px-6 py-8 transition-all duration-300 layered-shadow group hover-shadow-lift hover:bg-primary-50/30 dark:hover:bg-primary-900/10"
+                className={`group cursor-pointer w-full bg-white/80 dark:bg-surface-dark backdrop-blur-sm border border-neutral-200/50 dark:border-neutral-700/50 rounded-2xl px-8 py-8 transition-all duration-500 layered-shadow hover:shadow-strong hover:-translate-y-2 transform ${
+                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+                }`}
+                style={{ transitionDelay: `${idx * 100 + 400}ms` }}
               >
-                <h2 className="text-xl md:text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-1">{poem.title}</h2>
-                <p className="text-secondary-600 dark:text-secondary-400 font-medium text-sm mb-2">{poem.date}</p>
-                <p className="text-base text-neutral-700 dark:text-neutral-300 truncate">
-                  {poem.content.find(line => line.trim())?.slice(0, 80) || ""}...
-                </p>
+                <h2 className="text-xl md:text-2xl font-bold text-neutral-900 dark:text-neutral-100 text-center group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-all duration-300 transform group-hover:translate-x-2">
+                  {poem.title}
+                </h2>
               </div>
             ))}
           </div>

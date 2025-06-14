@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Calendar, ExternalLink, Github, Clock, User, Target, Lightbulb, TrendingUp, Code2, CheckCircle } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
+import Header from '../components/Header';
 import { projects } from '../data/projects';
 import { getTagColor } from '../data/tagColors';
 
@@ -104,18 +105,22 @@ const CaseStudy: React.FC = () => {
   return (
     <PageTransition>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50/80 to-zinc-50/60 dark:from-background-dark dark:to-surface-dark relative overflow-hidden">
+        {/* Use the same Header component */}
+        <Header />
+
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-slate-200/20 to-gray-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.5s' }}></div>
           <div className="absolute bottom-20 left-20 w-64 h-64 bg-gradient-to-br from-zinc-200/20 to-slate-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
         </div>
 
-        {/* Header */}
-        <div className={`bg-white/80 dark:bg-surface-dark/80 backdrop-blur-sm border-b border-neutral-200/50 dark:border-neutral-700/50 sticky top-0 z-40 transform transition-all duration-700 ${
-          isVisible ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
-        }`}>
-          <div className="container mx-auto px-4 md:px-8 lg:px-16 py-6">
-            <div className="flex items-center justify-between">
+        {/* Hero Section */}
+        <div className="container mx-auto px-4 md:px-8 lg:px-16 py-12 pt-32 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            {/* Back Button - Outside Header */}
+            <div className={`mb-8 transform transition-all duration-700 ${
+              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`}>
               <button
                 onClick={() => navigate('/')}
                 className="group inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-all duration-300 font-medium"
@@ -123,8 +128,32 @@ const CaseStudy: React.FC = () => {
                 <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
                 <span>Back to Portfolio</span>
               </button>
+            </div>
+
+            {/* Project Header */}
+            <div className={`text-center mb-12 transform transition-all duration-700 ${
+              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`} style={{ transitionDelay: '0.2s' }}>
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <span className="px-4 py-2 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 text-sm font-medium rounded-full">
+                  {project.category}
+                </span>
+                <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400">
+                  <Calendar size={16} />
+                  <span>{project.year}</span>
+                </div>
+              </div>
               
-              <div className="flex items-center gap-4">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 dark:text-neutral-100 mb-6">
+                {project.title}
+              </h1>
+              
+              <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto leading-relaxed">
+                {project.description}
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex items-center justify-center gap-4 mt-8">
                 {project.link && (
                   <a
                     href={project.link}
@@ -151,34 +180,6 @@ const CaseStudy: React.FC = () => {
                   </a>
                 )}
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Hero Section */}
-        <div className="container mx-auto px-4 md:px-8 lg:px-16 py-12 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            {/* Project Header */}
-            <div className={`text-center mb-12 transform transition-all duration-700 ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`} style={{ transitionDelay: '0.2s' }}>
-              <div className="flex items-center justify-center gap-4 mb-6">
-                <span className="px-4 py-2 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 text-sm font-medium rounded-full">
-                  {project.category}
-                </span>
-                <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400">
-                  <Calendar size={16} />
-                  <span>{project.year}</span>
-                </div>
-              </div>
-              
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 dark:text-neutral-100 mb-6">
-                {project.title}
-              </h1>
-              
-              <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto leading-relaxed">
-                {project.description}
-              </p>
             </div>
 
             {/* Hero Image */}

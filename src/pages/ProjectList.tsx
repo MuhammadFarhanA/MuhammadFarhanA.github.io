@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, Calendar, ExternalLink, Github, Code2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import PageTransition from '../components/PageTransition';
+import Header from '../components/Header';
 import { allProjects } from '../data/projects';
 import { getTagColor } from '../data/tagColors';
 
@@ -63,18 +64,21 @@ const ProjectList: React.FC = () => {
   return (
     <PageTransition>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50/80 to-zinc-50/60 dark:from-background-dark dark:to-surface-dark relative overflow-hidden">
+        {/* Use the same Header component */}
+        <Header />
+
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-32 right-32 w-64 h-64 bg-gradient-to-br from-slate-200/20 to-gray-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
           <div className="absolute bottom-32 left-32 w-64 h-64 bg-gradient-to-br from-zinc-200/20 to-slate-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         </div>
 
-        {/* Header */}
-        <div className={`bg-white/80 dark:bg-surface-dark/80 backdrop-blur-sm border-b border-neutral-200/50 dark:border-neutral-700/50 sticky top-0 z-40 transform transition-all duration-700 ${
-          isVisible ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
-        }`}>
-          <div className="container mx-auto px-4 md:px-8 lg:px-16 py-6">
-            <div className="flex items-center justify-between">
+        <div className="container mx-auto px-4 md:px-8 lg:px-16 py-20 pt-32 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            {/* Back Button - Outside Header */}
+            <div className={`mb-8 transform transition-all duration-700 ${
+              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`}>
               <button
                 onClick={() => navigate('/')}
                 className="group inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-all duration-300 font-medium"
@@ -83,11 +87,7 @@ const ProjectList: React.FC = () => {
                 <span>Back to Portfolio</span>
               </button>
             </div>
-          </div>
-        </div>
 
-        <div className="container mx-auto px-4 md:px-8 lg:px-16 py-20 relative z-10">
-          <div className="max-w-6xl mx-auto">
             {/* Header */}
             <div className="mb-12">
               <div className="text-center">
