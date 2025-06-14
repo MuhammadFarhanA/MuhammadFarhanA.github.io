@@ -11,10 +11,11 @@ const ProjectList: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
   
-  // Scroll to top when component mounts
-  {/*} useEffect(() => {
+  // Scroll to top and reset animations when component mounts
+  useEffect(() => {
     window.scrollTo(0, 0);
-  }, []); */}
+    setVisibleProjects([]); // Reset visible projects for animation
+  }, []);
 
   // Animate in on mount
   useEffect(() => {
@@ -26,34 +27,37 @@ const ProjectList: React.FC = () => {
 
   // Intersection Observer for scroll animations
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = projectRefs.current.findIndex(ref => ref === entry.target);
-            if (index !== -1 && !visibleProjects.includes(index)) {
-              setTimeout(() => {
+    // Add a small delay to allow scroll and reset before observing
+    const observerTimeout = setTimeout(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const index = projectRefs.current.findIndex(ref => ref === entry.target);
+              if (index !== -1 && !visibleProjects.includes(index)) {
                 setVisibleProjects(prev => [...prev, index]);
-              }, index * 150);
+              }
             }
-          }
-        });
-      },
-      { 
-        threshold: 0.3,
-        rootMargin: '-20px 0px -20px 0px'
-      }
-    );
+          });
+        },
+        { 
+          threshold: 0.3,
+          rootMargin: '-20px 0px -20px 0px'
+        }
+      );
 
-    projectRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => {
       projectRefs.current.forEach((ref) => {
-        if (ref) observer.unobserve(ref);
+        if (ref) observer.observe(ref);
       });
-    };
+
+      // Cleanup
+      return () => {
+        projectRefs.current.forEach((ref) => {
+          if (ref) observer.unobserve(ref);
+        });
+      };
+    }, 200); // Short delay to allow scroll reset
+    return () => clearTimeout(observerTimeout);
   }, [visibleProjects]);
 
   return (
@@ -78,14 +82,6 @@ const ProjectList: React.FC = () => {
                 <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
                 <span>Back to Portfolio</span>
               </button>
-              
-              <div className="text-center">
-                <h1 className="text-xl md:text-2xl font-bold text-neutral-900 dark:text-neutral-100">
-                  Project Archive
-                </h1>
-              </div>
-
-              <div className="w-32"></div> {/* Spacer for centering */}
             </div>
           </div>
         </div>

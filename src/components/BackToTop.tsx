@@ -139,13 +139,13 @@ const BackToTop: React.FC = () => {
         </button>
 
         {/* Progress percentage tooltip */}
-        <div className={`absolute bottom-full right-0 mb-3 px-3 py-1.5 bg-neutral-900/90 dark:bg-neutral-100/90 text-white dark:text-neutral-900 text-xs font-medium rounded-lg backdrop-blur-sm transition-all duration-300 ${
+        {/* <div className={`absolute bottom-full right-0 mb-3 px-3 py-1.5 bg-neutral-900/90 dark:bg-neutral-100/90 text-white dark:text-neutral-900 text-xs font-medium rounded-lg backdrop-blur-sm transition-all duration-300 ${
           scrollProgress > 10 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
         }`}>
           <span>{Math.round(scrollProgress)}%</span>
-          {/* Tooltip arrow */}
+          
           <div className="absolute top-full right-3 w-0 h-0 border-l-2 border-r-2 border-t-4 border-transparent border-t-neutral-900/90 dark:border-t-neutral-100/90"></div>
-        </div>
+        </div> */}
 
         {/* Floating particles effect */}
         <div className="absolute inset-0 pointer-events-none">

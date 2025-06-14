@@ -10,19 +10,27 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import BackToTop from './components/BackToTop';
 import ProjectList from './pages/ProjectList';
-import Poems from './pages/Poems';
+import PoemList from './pages/PoemList';
+import PoemDetail from './pages/PoemDetail';
 import CaseStudy from './pages/CaseStudy';
 import './index.css';
 
 function App() {
   useEffect(() => {
     document.title = 'Muhammad Farhan Atif';
-    
-    if (!localStorage.getItem('theme')) {
+
+    // Always apply saved theme on mount
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else if (savedTheme === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      // No saved preference, use system
       const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       document.documentElement.classList.toggle('dark', isDark);
     }
-    
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -65,7 +73,8 @@ function App() {
           }
         />
         <Route path="/projects" element={<ProjectList />} />
-        <Route path="/poems" element={<Poems />} />
+        <Route path="/poems" element={<PoemList />} />
+        <Route path="/poems/:id" element={<PoemDetail />} />
         <Route path="/case-study/:projectId" element={<CaseStudy />} />
       </Routes>
     </div>
