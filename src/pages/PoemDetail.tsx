@@ -34,7 +34,7 @@ const PoemDetail: React.FC = () => {
         <div className="absolute bottom-32 left-32 w-64 h-64 bg-gradient-to-br from-secondary-100/20 to-secondary-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
       </div>
 
-      {/* Header */}
+      {/* Sticky Header */}
       <div className={`bg-white/80 dark:bg-surface-dark/80 backdrop-blur-sm border-b border-neutral-200/50 dark:border-neutral-700/50 sticky top-0 z-40 transform transition-all duration-700 ${
         isVisible ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
       }`}>
@@ -53,7 +53,7 @@ const PoemDetail: React.FC = () => {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 md:px-8 lg:px-16 py-20 relative z-10">
-        <div className="w-full max-w-3xl mx-auto bg-white dark:bg-surface-dark border border-neutral-200 dark:border-neutral-700 rounded-2xl px-8 py-12 md:px-16 md:py-16 layered-shadow">
+        <div className="w-full max-w-3xl mx-auto bg-white/80 dark:bg-surface-dark backdrop-blur-sm border border-neutral-200/50 dark:border-neutral-700/50 rounded-2xl px-8 py-12 md:px-16 md:py-16 layered-shadow hover:shadow-strong transition-all duration-500">
           <div className={`mb-8 text-center transform transition-all duration-700 ${
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`} style={{ transitionDelay: '0.2s' }}>

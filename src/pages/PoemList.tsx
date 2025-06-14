@@ -20,7 +20,7 @@ const PoemList: React.FC = () => {
         <div className="absolute bottom-32 left-32 w-64 h-64 bg-gradient-to-br from-secondary-100/20 to-secondary-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
       </div>
 
-      {/* Header */}
+      {/* Sticky Header */}
       <div className={`bg-white/80 dark:bg-surface-dark/80 backdrop-blur-sm border-b border-neutral-200/50 dark:border-neutral-700/50 sticky top-0 z-40 transform transition-all duration-700 ${
         isVisible ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
       }`}>
@@ -58,12 +58,12 @@ const PoemList: React.FC = () => {
               <div
                 key={poem.id}
                 onClick={() => navigate(`/poems/${idx}`)}
-                className={`cursor-pointer w-full bg-white dark:bg-surface-dark border border-neutral-200 dark:border-neutral-700 rounded-2xl px-6 py-8 transition-all duration-300 layered-shadow group hover-shadow-lift hover:bg-primary-50/30 dark:hover:bg-primary-900/10 transform ${
+                className={`group cursor-pointer w-full bg-white/80 dark:bg-surface-dark backdrop-blur-sm border border-neutral-200/50 dark:border-neutral-700/50 rounded-2xl px-8 py-8 transition-all duration-500 layered-shadow hover:shadow-strong hover:-translate-y-2 transform ${
                   isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
                 }`}
-                style={{ transitionDelay: `${idx * 100}ms` }}
+                style={{ transitionDelay: `${idx * 100 + 400}ms` }}
               >
-                <h2 className="text-xl md:text-2xl font-bold text-neutral-900 dark:text-neutral-100 text-center group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                <h2 className="text-xl md:text-2xl font-bold text-neutral-900 dark:text-neutral-100 text-center group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-all duration-300 transform group-hover:translate-x-2">
                   {poem.title}
                 </h2>
               </div>
