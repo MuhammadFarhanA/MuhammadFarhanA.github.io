@@ -24,11 +24,11 @@ export const projects: Project[] = [
     id: 1,
     title: "Teledental",
     description: "A dental oriented website with live dental consultations and dental related guidance and blogs.",
-    image: "https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: "",
     tags: ["React", "TypeScript", "Bootstrap", "Ant", "Node.js"],
     link: "#",
     github: "#",
-    year: "2024",
+    year: "2024 - Present",
     category: "Web Application",
     caseStudy: {
       overview: "Designed and developed a comprehensive financial dashboard to help users track their investments, expenses, and financial goals in real-time. The platform integrates with multiple financial institutions to provide a unified view of users' financial health.",
