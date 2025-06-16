@@ -22,10 +22,10 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 1,
-    title: "Finance Dashboard App",
-    description: "A comprehensive finance dashboard with data visualization, portfolio tracking, and real-time analytics for modern financial management.",
+    title: "Teledental",
+    description: "A dental oriented website with live dental consultations and dental related guidance and blogs.",
     image: "https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tags: ["React", "TypeScript", "Tailwind CSS", "Chart.js", "Node.js"],
+    tags: ["React", "TypeScript", "Bootstrap", "Ant", "Node.js"],
     link: "#",
     github: "#",
     year: "2024",
