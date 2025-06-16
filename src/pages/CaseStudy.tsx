@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, ExternalLink, Github, Clock, User, Target, Lightbulb, TrendingUp, Code2, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Calendar, ExternalLink, Github, Clock, User, Target, Lightbulb, TrendingUp, Code2, CheckCircle, Palette } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
 import Header from '../components/Header';
 import { projects } from '../data/projects';
@@ -36,13 +36,8 @@ const CaseStudy: React.FC = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const index = sectionRefs.current.findIndex(ref => ref === entry.target);
-            if (index !== -1) {
-              setVisibleSections(prev => {
-                if (!prev.includes(index)) {
-                  return [...prev, index];
-                }
-                return prev;
-              });
+            if (index !== -1 && !visibleSections.includes(index)) {
+              setVisibleSections(prev => [...prev, index]);
             }
           }
         });
@@ -66,7 +61,7 @@ const CaseStudy: React.FC = () => {
       clearTimeout(timeoutId);
       observer.disconnect();
     };
-  }, [project]); // Re-run when project loads
+  }, [project, visibleSections]); // Re-run when project loads
 
   useEffect(() => {
     if (projectId) {
@@ -101,6 +96,11 @@ const CaseStudy: React.FC = () => {
       </PageTransition>
     );
   }
+
+  // Calculate dynamic section indices
+  const baseSectionCount = 6; // Overview, Challenge, Solution, Results, and 2 initial sections
+  const designEvolutionCount = project.caseStudy.designEvolution ? project.caseStudy.designEvolution.length : 0;
+  const sidebarStartIndex = baseSectionCount + designEvolutionCount;
 
   return (
     <PageTransition>
@@ -328,15 +328,86 @@ const CaseStudy: React.FC = () => {
                     ))}
                   </div>
                 </section>
+
+                {/* Design Evolution Section */}
+                {project.caseStudy.designEvolution && project.caseStudy.designEvolution.length > 0 && (
+                  <section 
+                    ref={(el) => (sectionRefs.current[baseSectionCount] = el)}
+                    className={`bg-white/80 dark:bg-surface-dark/80 backdrop-blur-sm rounded-2xl p-8 border border-neutral-200/50 dark:border-neutral-700/50 layered-shadow hover:shadow-strong transition-all duration-700 transform ${
+                      visibleSections.includes(baseSectionCount) ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3 mb-8">
+                      <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-full">
+                        <Palette size={24} className="text-purple-600 dark:text-purple-400" />
+                      </div>
+                      <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">Design Evolution</h2>
+                    </div>
+                    
+                    <div className="space-y-12">
+                      {project.caseStudy.designEvolution.map((evolution: any, index: number) => (
+                        <div 
+                          key={index}
+                          ref={(el) => (sectionRefs.current[baseSectionCount + 1 + index] = el)}
+                          className={`transform transition-all duration-700 ${
+                            visibleSections.includes(baseSectionCount + 1 + index) ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+                          }`}
+                        >
+                          <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-6 text-center">
+                            {evolution.title || `Design Iteration ${index + 1}`}
+                          </h3>
+                          
+                          {/* Before/After Image Comparison */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+                            {/* Before Image */}
+                            <div className="space-y-3">
+                              <h4 className="text-lg font-medium text-neutral-800 dark:text-neutral-200 text-center">
+                                Before
+                              </h4>
+                              <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md border border-neutral-200 dark:border-neutral-700">
+                                <img 
+                                  src={evolution.beforeImage} 
+                                  alt={`Before - ${evolution.title || `Design ${index + 1}`}`}
+                                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                                />
+                              </div>
+                            </div>
+                            
+                            {/* After Image */}
+                            <div className="space-y-3">
+                              <h4 className="text-lg font-medium text-neutral-800 dark:text-neutral-200 text-center">
+                                After
+                              </h4>
+                              <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md border border-neutral-200 dark:border-neutral-700">
+                                <img 
+                                  src={evolution.afterImage} 
+                                  alt={`After - ${evolution.title || `Design ${index + 1}`}`}
+                                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          
+                          {/* Description */}
+                          <div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-6 border border-neutral-200/50 dark:border-neutral-700/50">
+                            <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed text-center">
+                              {evolution.description}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )}
               </div>
 
               {/* Sidebar */}
               <div className="space-y-8">
                 {/* Technologies */}
                 <div 
-                  ref={(el) => (sectionRefs.current[6] = el)}
+                  ref={(el) => (sectionRefs.current[sidebarStartIndex] = el)}
                   className={`bg-white/80 dark:bg-surface-dark/80 backdrop-blur-sm rounded-2xl p-6 border border-neutral-200/50 dark:border-neutral-700/50 layered-shadow hover:shadow-strong transition-all duration-700 transform ${
-                    visibleSections.includes(6) ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+                    visibleSections.includes(sidebarStartIndex) ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
                   }`}
                 >
                   <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-6">
@@ -356,9 +427,9 @@ const CaseStudy: React.FC = () => {
 
                 {/* Project Tags */}
                 <div 
-                  ref={(el) => (sectionRefs.current[7] = el)}
+                  ref={(el) => (sectionRefs.current[sidebarStartIndex + 1] = el)}
                   className={`bg-white/80 dark:bg-surface-dark/80 backdrop-blur-sm rounded-2xl p-6 border border-neutral-200/50 dark:border-neutral-700/50 layered-shadow hover:shadow-strong transition-all duration-700 transform ${
-                    visibleSections.includes(7) ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+                    visibleSections.includes(sidebarStartIndex + 1) ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
                   }`}
                 >
                   <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-6">
@@ -378,9 +449,9 @@ const CaseStudy: React.FC = () => {
 
                 {/* Quick Actions */}
                 <div 
-                  ref={(el) => (sectionRefs.current[8] = el)}
+                  ref={(el) => (sectionRefs.current[sidebarStartIndex + 2] = el)}
                   className={`bg-white/80 dark:bg-surface-dark/80 backdrop-blur-sm rounded-2xl p-6 border border-neutral-200/50 dark:border-neutral-700/50 layered-shadow hover:shadow-strong transition-all duration-700 transform ${
-                    visibleSections.includes(8) ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+                    visibleSections.includes(sidebarStartIndex + 2) ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
                   }`}
                 >
                   <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-6">
@@ -419,9 +490,9 @@ const CaseStudy: React.FC = () => {
 
             {/* Navigation */}
             <div 
-              ref={(el) => (sectionRefs.current[9] = el)}
+              ref={(el) => (sectionRefs.current[sidebarStartIndex + 3] = el)}
               className={`mt-16 pt-12 border-t border-neutral-200 dark:border-neutral-700 transform transition-all duration-700 ${
-                visibleSections.includes(9) ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+                visibleSections.includes(sidebarStartIndex + 3) ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
               }`}
             >
               <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
