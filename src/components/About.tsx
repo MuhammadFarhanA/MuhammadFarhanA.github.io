@@ -74,7 +74,7 @@ const About: React.FC = () => {
                 
                 <p className="transform transition-all duration-300 group-hover:translate-x-2" style={{ transitionDelay: '0.1s' }}>
                   Currently working as a Software Engineer II at Illumina, where I get to work on design making and implementation. Currently learning Figma design. Before that, I spent time 
-                  designing frontends for different projects at PartnerLinq and cut my teeth as a junior at Systems Limited.
+                  designing frontends for different projects at PartnerLinQ and cut my teeth as a junior at Systems Limited.
                 </p>
               </div>
             </div>
