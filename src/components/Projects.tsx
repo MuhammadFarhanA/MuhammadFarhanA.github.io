@@ -176,9 +176,9 @@ const Projects: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Action Buttons - Poetry Button Style */}
+                    {/* Action Buttons */}
                     <div className="flex gap-2 pt-4 mt-auto">
-                      {/* Primary Action Button - Poetry Button Style */}
+                      {/* Primary Action Button */}
                       {project.link ? (
                         <button
                           onClick={() => openDemo(project.link!)}
@@ -187,7 +187,7 @@ const Projects: React.FC = () => {
                           <Eye size={16} className="group-hover/btn:animate-pulse" />
                           View demo
                         </button>
-                      ) : (
+                      ) : project.caseStudy ? (
                         <button
                           onClick={() => openCaseStudy(project)}
                           className="group/btn flex-1 inline-flex items-center gap-2 text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-300 font-medium transition-all duration-300 transform hover:translate-x-2"
@@ -195,9 +195,11 @@ const Projects: React.FC = () => {
                           <FileText size={16} className="group-hover/btn:animate-pulse" />
                           Read case study
                         </button>
+                      ) : (
+                        <div className="flex-1"></div>
                       )}
                       
-                      {/* GitHub Button - Consistent with Project Archive styling */}
+                      {/* GitHub Button - Only show if github link exists */}
                       {project.github && (
                         <a
                           href={project.github}

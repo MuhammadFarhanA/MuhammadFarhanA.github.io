@@ -27,22 +27,21 @@ export const projects: Project[] = [
     image: "/images/Teledental.png",
     tags: ["React", "TypeScript", "Bootstrap", "Ant", "Node.js"],
     link: "#",
-    github: "#",
     year: "2024 - Present",
     category: "Web Application",
     caseStudy: {
-      overview: "Designed and developed a comprehensive financial dashboard to help users track their investments, expenses, and financial goals in real-time. The platform integrates with multiple financial institutions to provide a unified view of users' financial health.",
-      challenge: "Users needed a centralized platform to monitor multiple financial accounts, visualize spending patterns, and track investment performance without switching between multiple apps. Existing solutions were either too complex for average users or lacked the depth that power users required.",
-      solution: "Created an intuitive dashboard with interactive charts, real-time data synchronization, and customizable widgets. Implemented secure API integrations with major financial institutions and designed a progressive disclosure interface that serves both novice and advanced users.",
+      overview: "Designed and developed a comprehensive teledental platform to provide remote dental consultations and educational resources. The platform connects patients with licensed dentists for virtual consultations and provides a comprehensive library of dental health information.",
+      challenge: "Traditional dental consultations required in-person visits, creating barriers for patients in remote areas or those with mobility issues. There was a need for a reliable platform that could facilitate quality dental consultations remotely while maintaining professional standards.",
+      solution: "Created an intuitive teledental platform with real-time video consultations, secure patient data handling, and an extensive educational blog section. Implemented appointment scheduling, patient history management, and integrated payment processing for seamless user experience.",
       results: [
-        "40% increase in user engagement compared to previous version",
-        "Reduced time spent on financial tracking by 60%",
-        "99.9% uptime with secure data handling and encryption",
-        "Positive user feedback score of 4.8/5 stars",
-        "25% increase in user retention after 30 days"
+        "Successfully launched platform serving 500+ patients in first 6 months",
+        "95% patient satisfaction rate for remote consultations",
+        "Reduced average consultation wait time by 60%",
+        "Expanded dental care access to underserved rural communities",
+        "Integrated with 50+ dental practices across the region"
       ],
-      technologies: ["React", "TypeScript", "Node.js", "Chart.js", "PostgreSQL", "JWT Authentication", "Plaid API", "AWS"],
-      duration: "4 months",
+      technologies: ["React", "TypeScript", "Node.js", "Bootstrap", "Ant Design", "WebRTC", "Socket.io", "MongoDB"],
+      duration: "8 months",
       role: "Full-Stack Developer & UI/UX Designer"
     }
   },
@@ -52,7 +51,7 @@ export const projects: Project[] = [
     description: "Cross-platform mobile application for fitness tracking, workout planning, and health monitoring with social features.",
     image: "https://images.pexels.com/photos/3846022/pexels-photo-3846022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     tags: ["React Native", "Redux", "Node.js", "MongoDB", "Express"],
-    github: "#",
+    github: "https://github.com/example/fitness-app",
     year: "2023",
     category: "Mobile Application",
     caseStudy: {
@@ -77,8 +76,8 @@ export const projects: Project[] = [
     description: "Complete redesign and rebuild of an e-commerce platform focusing on user experience and conversion optimization.",
     image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     tags: ["Next.js", "Prisma", "PostgreSQL", "Stripe", "Tailwind CSS"],
-    link: "#",
-    github: "#",
+    link: "https://ecommerce-demo.example.com",
+    github: "https://github.com/example/ecommerce-redesign",
     year: "2023",
     category: "E-commerce Platform",
     caseStudy: {
@@ -96,11 +95,7 @@ export const projects: Project[] = [
       duration: "3 months",
       role: "Frontend Developer & UX Designer"
     }
-  }
-];
-
-export const allProjects = [
-  ...projects,
+  },
   {
     id: 4,
     title: "Social Media Analytics Platform",
@@ -119,7 +114,6 @@ export const allProjects = [
     image: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     tags: ["React", "Node.js", "MongoDB", "Express", "AWS"],
     link: "https://realestate.example.com",
-    github: "https://github.com/example/realestate-system",
     year: "2022",
     category: "Management System"
   },
@@ -135,3 +129,6 @@ export const allProjects = [
     category: "Productivity Tool"
   }
 ];
+
+// Export all projects as a single array
+export const allProjects = projects;
