@@ -52,7 +52,12 @@ export const projects: Project[] = [
       ],
       technologies: ["React Native", "Redux", "Node.js", "MongoDB", "Firebase", "Machine Learning APIs", "HealthKit", "Google Fit"],
       duration: "6 months",
-      role: "Lead Mobile Developer"
+      role: "Lead Mobile Developer",
+      designEvolution: {
+        beforeImage: "",
+        afterImage: "",
+        description
+      }
     }
   },
   {
