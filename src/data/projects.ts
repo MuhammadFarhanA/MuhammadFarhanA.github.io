@@ -53,11 +53,11 @@ export const projects: Project[] = [
       technologies: ["React Native", "Redux", "Node.js", "MongoDB", "Firebase", "Machine Learning APIs", "HealthKit", "Google Fit"],
       duration: "6 months",
       role: "Lead Mobile Developer",
-      designEvolution: {
-        beforeImage: "",
-        afterImage: "",
-        description
-      }
+      designEvolution: [{
+        beforeImage: "https://images.pexels.com/photos/1036808/pexels-photo-1036808.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        afterImage: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        description: "these are some changes"
+      }]
     }
   },
   {
