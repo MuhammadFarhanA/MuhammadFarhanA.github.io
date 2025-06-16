@@ -99,7 +99,7 @@ const About: React.FC = () => {
                 </p>
                 
                 <p className="transform transition-all duration-300 group-hover:translate-x-2" style={{ transitionDelay: '0.1s' }}>
-                  I believe the written word has a powerful way to extract your subconscious thoughts and ideas
+                  I believe the written word has a powerful way to extract your subconscious thoughts and ideas. If you would like to analyze my subconscious have a gander at what I have written.
                 </p>
                 
                 <div className="mt-6">
