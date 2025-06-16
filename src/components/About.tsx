@@ -95,16 +95,11 @@ const About: React.FC = () => {
               
               <div className="space-y-4 text-neutral-600 dark:text-gray-300">
                 <p className="transform transition-all duration-300 group-hover:translate-x-2">
-                  When I'm not coding, I'm usually writing. I do a lot of technical writing - 
-                  documentation, API guides, blog posts about development. There's an art to 
-                  making complex stuff actually understandable.
+                  I have a passion for the creative side of things, not just from a design perspective but also from a writing perspective. I have some experience with technical writing but my main focus is to write poems in my free time.
                 </p>
                 
                 <p className="transform transition-all duration-300 group-hover:translate-x-2" style={{ transitionDelay: '0.1s' }}>
-                  But I also write poetry and creative pieces when the mood strikes. Sometimes 
-                  the same attention to detail that goes into clean code finds its way into 
-                  crafting verses. Both require patience, revision, and knowing when something 
-                  finally feels right.
+                  I believe the written word has a powerful way to extract your subconscious thoughts and ideas
                 </p>
                 
                 <div className="mt-6">
