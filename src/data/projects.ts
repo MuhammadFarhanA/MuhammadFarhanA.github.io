@@ -24,7 +24,7 @@ export const projects: Project[] = [
     id: 1,
     title: "Teledental",
     description: "A dental oriented website with live dental consultations and dental related guidance and blogs.",
-    image: "",
+    image: "/images/Teledental.png",
     tags: ["React", "TypeScript", "Bootstrap", "Ant", "Node.js"],
     link: "#",
     github: "#",
