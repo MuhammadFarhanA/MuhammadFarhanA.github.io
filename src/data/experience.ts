@@ -18,7 +18,7 @@ export const experiences: Experience[] = [
   },
   {
     title: "Consultant Frontend",
-    company: "PartnerLinQ",
+    company: "PartnerLinq",
     period: "2022 - 2025",
     description: [
       "Led frontend development for client projects using modern web technologies",
