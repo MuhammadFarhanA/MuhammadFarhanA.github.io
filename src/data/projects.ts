@@ -22,33 +22,17 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 1,
-    title: "Finance Dashboard App",
-    description: "A comprehensive finance dashboard with data visualization, portfolio tracking, and real-time analytics for modern financial management.",
-    image: "https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tags: ["React", "TypeScript", "Tailwind CSS", "Chart.js", "Node.js"],
-    link: "#",
-    github: "#",
+    title: "Teledental",
+    description: "A dental health management platform that connects patients with dental professionals for virtual consultations, appointment scheduling, and treatment tracking. Also has dental guidance blogs.",
+    image: "images/Teledental.png",
+    tags: ["React", "TypeScript", "Bootstrap", "Ant Design", "Node.js"],
+    link: "https:teledental.com",
     year: "2024",
     category: "Web Application",
-    caseStudy: {
-      overview: "Designed and developed a comprehensive financial dashboard to help users track their investments, expenses, and financial goals in real-time. The platform integrates with multiple financial institutions to provide a unified view of users' financial health.",
-      challenge: "Users needed a centralized platform to monitor multiple financial accounts, visualize spending patterns, and track investment performance without switching between multiple apps. Existing solutions were either too complex for average users or lacked the depth that power users required.",
-      solution: "Created an intuitive dashboard with interactive charts, real-time data synchronization, and customizable widgets. Implemented secure API integrations with major financial institutions and designed a progressive disclosure interface that serves both novice and advanced users.",
-      results: [
-        "40% increase in user engagement compared to previous version",
-        "Reduced time spent on financial tracking by 60%",
-        "99.9% uptime with secure data handling and encryption",
-        "Positive user feedback score of 4.8/5 stars",
-        "25% increase in user retention after 30 days"
-      ],
-      technologies: ["React", "TypeScript", "Node.js", "Chart.js", "PostgreSQL", "JWT Authentication", "Plaid API", "AWS"],
-      duration: "4 months",
-      role: "Full-Stack Developer & UI/UX Designer"
-    }
   },
   {
     id: 2,
-    title: "Health & Fitness Mobile App",
+    title: "PartnerlinQ",
     description: "Cross-platform mobile application for fitness tracking, workout planning, and health monitoring with social features.",
     image: "https://images.pexels.com/photos/3846022/pexels-photo-3846022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     tags: ["React Native", "Redux", "Node.js", "MongoDB", "Express"],

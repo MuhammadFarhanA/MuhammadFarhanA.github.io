@@ -160,7 +160,7 @@ const Projects: React.FC = () => {
 
                       {/* Technology Tags */}
                       <div className="flex flex-wrap gap-2">
-                        {project.tags.slice(0, 3).map((tag, tagIndex) => (
+                        {project.tags.map((tag, tagIndex) => (
                           <span 
                             key={tagIndex} 
                             className={`tech-tag px-2 py-1 text-xs font-medium rounded-md border ${getTagColor(tag)}`}
@@ -168,11 +168,6 @@ const Projects: React.FC = () => {
                             {tag}
                           </span>
                         ))}
-                        {project.tags.length > 3 && (
-                          <span className="tech-tag px-2 py-1 text-xs font-medium rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
-                            +{project.tags.length - 3}
-                          </span>
-                        )}
                       </div>
                     </div>
 
@@ -185,7 +180,7 @@ const Projects: React.FC = () => {
                           className="group/btn flex-1 inline-flex items-center gap-2 text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-300 font-medium transition-all duration-300 transform hover:translate-x-2"
                         >
                           <Eye size={16} className="group-hover/btn:animate-pulse" />
-                          View demo
+                          Live demo
                         </button>
                       ) : project.caseStudy ? (
                         <button
