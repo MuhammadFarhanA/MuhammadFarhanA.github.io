@@ -81,7 +81,7 @@ export const allProjects = [
     description: "Decided to finally build my own portfolio website to showcase my work and skills. It is deployed on Netlify and uses EmailJS for contact form functionality. Built using React, TypeScript, and Tailwind with a mobile-first approach.",
     image: "images/Portfolio.png",
     tags: ["HTML", "CSS", "React", "TypeScript", "SCSS", "Tailwind CSS", "EmailJS", "Vite"],
-    year: "2022",
+    year: "2025",
     category: "Web Application"
   },
   {
