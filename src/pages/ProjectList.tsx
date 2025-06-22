@@ -133,11 +133,11 @@ const ProjectList: React.FC = () => {
                 >
                   {/* Project Image */}
                   <div className="lg:w-1/2 relative overflow-hidden">
-                    <div className="aspect-[4/3] lg:aspect-[3/2] overflow-hidden">
+                    <div className="aspect-[4/3] overflow-hidden">
                       <img 
                         src={project.image} 
                         alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="w-full h-full object-cover transition-transform duration-700 scale-105 group-hover:scale-100"
                       />
                     </div>
                     
@@ -175,7 +175,7 @@ const ProjectList: React.FC = () => {
                         {project.tags.map((tech, techIndex) => (
                             <span 
                             key={techIndex} 
-                            className={`tech-tag px-3 py-1.5 text-sm font-medium rounded-lg border ${getTagColor(typeof tech === 'string' ? tech.toLowerCase() : tech)}`}
+                            className={`tech-tag px-3 py-1.5 text-sm font-medium rounded-lg border ${getTagColor(tech)}`}
                             >
                             {tech}
                             </span>

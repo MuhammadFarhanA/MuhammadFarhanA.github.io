@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import PageTransition from "../components/PageTransition";
 import Header from "../components/Header";
-import { projects } from "../data/projects";
+import { allProjects } from "../data/projects";
 import { getTagColor } from "../data/tagColors";
 
 const CaseStudy: React.FC = () => {
@@ -80,7 +80,9 @@ const CaseStudy: React.FC = () => {
 
 	useEffect(() => {
 		if (projectId) {
-			const foundProject = projects.find((p) => p.id === parseInt(projectId));
+			const foundProject = allProjects.find(
+				(p) => p.id === parseInt(projectId),
+			);
 			setProject(foundProject || null);
 		}
 	}, [projectId]);
@@ -416,7 +418,7 @@ const CaseStudy: React.FC = () => {
 										</h2>
 									</div>
 									<div className="space-y-4">
-										{project.caseStudy.results.map(
+										{project.caseStudy?.results?.map(
 											(result: string, index: number) => (
 												<div
 													key={index}
@@ -433,7 +435,7 @@ const CaseStudy: React.FC = () => {
 													</p>
 												</div>
 											),
-										)}
+										) ?? null}
 									</div>
 								</section>
 
@@ -495,7 +497,16 @@ const CaseStudy: React.FC = () => {
 																				</h4>
 																				<div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md border border-neutral-200 dark:border-neutral-700">
 																					<img
-																						src={evolution.beforeImage}
+																						src={
+																							evolution.beforeImage?.startsWith(
+																								"http",
+																							) ||
+																							evolution.beforeImage?.startsWith(
+																								"/",
+																							)
+																								? evolution.beforeImage
+																								: "/" + evolution.beforeImage
+																						}
 																						alt={`Before - ${
 																							evolution.title ||
 																							`Design ${index + 1}`
@@ -512,7 +523,16 @@ const CaseStudy: React.FC = () => {
 																				</h4>
 																				<div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md border border-neutral-200 dark:border-neutral-700">
 																					<img
-																						src={evolution.afterImage}
+																						src={
+																							evolution.afterImage?.startsWith(
+																								"http",
+																							) ||
+																							evolution.afterImage?.startsWith(
+																								"/",
+																							)
+																								? evolution.afterImage
+																								: "/" + evolution.afterImage
+																						}
 																						alt={`After - ${
 																							evolution.title ||
 																							`Design ${index + 1}`
@@ -569,21 +589,21 @@ const CaseStudy: React.FC = () => {
 								</div>
 
 								{/* Quick Actions */}
-								<div
-									ref={(el) =>
-										(sectionRefs.current[sidebarStartIndex + 2] = el)
-									}
-									className={`bg-white/80 dark:bg-surface-dark/80 backdrop-blur-sm rounded-2xl p-6 border border-neutral-200/50 dark:border-neutral-700/50 layered-shadow hover:shadow-strong transition-all duration-700 transform ${
-										visibleSections.includes(sidebarStartIndex + 2)
-											? "translate-y-0 opacity-100"
-											: "translate-y-12 opacity-0"
-									}`}
-								>
-									<h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-6">
-										Project Links
-									</h3>
-									<div className="space-y-3">
-										{project.link && (
+								{project.link && (
+									<div
+										ref={(el) =>
+											(sectionRefs.current[sidebarStartIndex + 2] = el)
+										}
+										className={`bg-white/80 dark:bg-surface-dark/80 backdrop-blur-sm rounded-2xl p-6 border border-neutral-200/50 dark:border-neutral-700/50 layered-shadow hover:shadow-strong transition-all duration-700 transform ${
+											visibleSections.includes(sidebarStartIndex + 2)
+												? "translate-y-0 opacity-100"
+												: "translate-y-12 opacity-0"
+										}`}
+									>
+										<h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-6">
+											Project Links
+										</h3>
+										<div className="space-y-3">
 											<a
 												href={project.link}
 												target="_blank"
@@ -596,31 +616,27 @@ const CaseStudy: React.FC = () => {
 												</span>
 												<div className="absolute inset-0 bg-gradient-to-r from-primary-700 to-secondary-600 transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-300 origin-left"></div>
 											</a>
-										)}
-										{project.github && (
-											<a
-												href={project.github}
-												target="_blank"
-												rel="noopener noreferrer"
-												className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-soft hover:shadow-medium"
-											>
-												<Github size={16} />
-												View Source Code
-											</a>
-										)}
+											{project.github && (
+												<a
+													href={project.github}
+													target="_blank"
+													rel="noopener noreferrer"
+													className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-soft hover:shadow-medium"
+												>
+													<Github size={16} />
+													View Source Code
+												</a>
+											)}
+										</div>
 									</div>
-								</div>
+								)}
 							</div>
 						</div>
 
 						{/* Navigation */}
 						<div
 							ref={(el) => (sectionRefs.current[sidebarStartIndex + 3] = el)}
-							className={`mt-16 pt-12 border-t border-neutral-200 dark:border-neutral-700 transform transition-all duration-700 ${
-								visibleSections.includes(sidebarStartIndex + 3)
-									? "translate-y-0 opacity-100"
-									: "translate-y-8 opacity-0"
-							}`}
+							className={`mt-16 pt-12 border-t border-neutral-200 dark:border-neutral-700 transform transition-all duration-700`}
 						>
 							<div className="flex flex-col sm:flex-row justify-between items-center gap-6">
 								<button

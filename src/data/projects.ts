@@ -12,7 +12,7 @@ export interface Project {
     overview: string;
     challenge: string;
     solution: string;
-    results: string[];
+    results?: string[];
     duration: string;
     role: string;
     designEvolution?: {
@@ -29,7 +29,7 @@ export const projects: Project[] = [
     title: "Teledental",
     description: "A dental health management platform that connects patients with dental professionals for virtual consultations, appointment scheduling, and treatment tracking. Also has dental guidance blogs. Built frontend view using React and mobile-first approach.",
     image: "images/Teledental.png",
-    tags: ["HTML", "CSS" , "React", "TypeScript", "Bootstrap", "Ant Design", "Node.js"],
+    tags: ["HTML", "CSS", "React", "TypeScript", "Bootstrap", "Ant Design", "Node.js"],
     link: "https:teledental.com",
     year: "2024",
     category: "Web Application",
@@ -39,7 +39,7 @@ export const projects: Project[] = [
     title: "PartnerlinQ",
     description: "An EDI platform for various international partners to use for onboarding and exchanging data with their respective partners. Implemented the design first using Angular Material and MAterial UI then switched to PrimeNG.",
     image: "images/Partnerlinq.png",
-    tags: ["HTML", "CSS" ,"Angular", "TypeScript", "SCSS" , "Material UI", "Bootstrap", "Angular Material" , "PrimeNG"],
+    tags: ["HTML", "CSS", "Angular", "TypeScript", "SCSS", "Material UI", "Bootstrap", "Angular Material", "PrimeNG"],
     year: "2022",
     category: "Web Application",
     caseStudy: {
@@ -52,7 +52,7 @@ export const projects: Project[] = [
         "90% reduction in CSS file size due to custom utility classes",
         "Enhanced maintainability with a unified design system"
       ],
-      
+
       duration: "3 years",
       role: "Lead Mobile Developer",
       designEvolution: [{
@@ -65,25 +65,10 @@ export const projects: Project[] = [
     title: "Soletechs",
     description: "A marketing website for an HCM (Human Capital Management) service provider in the Middle East. Built from scratch using mobile-first approach. Current updates to the live version are ongoing. Also implemented design strategy for RTL and LTR due to arabic text direction requirements.",
     image: "images/Soletechs.png",
-    tags: ["HTML", "CSS" ,"Angular", "TypeScript", "SCSS" ,  "Bootstrap"],
+    tags: ["HTML", "CSS", "Angular", "TypeScript", "SCSS", "Bootstrap"],
     link: "https://soletechs.com/",
     year: "2023",
     category: "Marketing Website",
-    caseStudy: {
-      overview: "Redesigned and rebuilt an existing e-commerce platform to improve user experience, increase conversion rates, and modernize the technology stack. The project involved comprehensive user research, A/B testing, and performance optimization.",
-      challenge: "The original platform had a 68% cart abandonment rate and poor mobile experience, resulting in significant revenue loss. The outdated design and slow loading times were driving customers away to competitors.",
-      solution: "Implemented a mobile-first design approach, streamlined checkout process, and added advanced search and filtering capabilities. Optimized images and implemented lazy loading to improve performance across all devices.",
-      results: [
-        "35% reduction in cart abandonment rate",
-        "50% increase in mobile conversions",
-        "25% improvement in page load speeds",
-        "20% increase in average order value",
-        "15% boost in overall revenue within 3 months"
-      ],
-      
-      duration: "3 months",
-      role: "Frontend Developer & UX Designer"
-    }
   }
 ];
 
@@ -91,35 +76,38 @@ export const allProjects = [
   ...projects,
   {
     id: 4,
-    title: "Social Media Analytics Platform",
-    description: "Advanced analytics platform for social media managers to track performance, engagement, and growth metrics across multiple platforms.",
-    image: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tags: ["Vue.js", "Python", "FastAPI", "PostgreSQL", "Redis"],
-    link: "https://analytics.example.com",
-    github: "https://github.com/example/social-analytics",
+    title: "Portfolio Website",
+    link: "https://farhanatif.com",
+    description: "Decided to finally build my own portfolio website to showcase my work and skills. It is deployed on Netlify and uses EmailJS for contact form functionality. Built using React, TypeScript, and Tailwind with a mobile-first approach.",
+    image: "images/Portfolio.png",
+    tags: ["HTML", "CSS", "React", "TypeScript", "SCSS", "Tailwind CSS", "EmailJS", "Vite"],
     year: "2022",
-    category: "Analytics Platform"
+    category: "Web Application"
   },
   {
     id: 5,
-    title: "Real Estate Management System",
-    description: "Comprehensive property management system for real estate agencies with CRM, listing management, and client portal features.",
-    image: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tags: ["React", "Node.js", "MongoDB", "Express", "AWS"],
-    link: "https://realestate.example.com",
-    github: "https://github.com/example/realestate-system",
-    year: "2022",
-    category: "Management System"
+    title: "Microsoft POS Order Modifier Screen Redesign",
+    description: "Legacy POS software provided by Microsoft for hospitality industry. The goal was to redesign the order modifier screen to improve usability and reduce complexity. The original design was very old and not very conducive to modern user experience standards.",
+    image: "images/POS.png",
+    tags: ["Figma"],
+    year: "2025",
+    category: "Management System",
+    caseStudy: {
+      overview: "Worked on redesigning the order modifier screen of a legacy POS software provided by Microsoft for the hospitality industry. The code written was very old has not been changed by Microsoft after acquiring the software from another company.",
+      challenge: "The modifier screen was very flat as opposed to the modern design standards. The action button placement was not intuitive and neither was the item selection and listing. The goal was to redesign the screen to improve usability and reduce complexity. The item details were also not very clear and in dark mode the text was not very readable.",
+      solution: "Rework the whole design of the screen to fit modern UI/UX standards. I looked towards different design inspirations for POS systems and came up with a color scheme that would clearly highlight selections and errors. Since this was a POS screen the flow had to be fast with minimal interruptions, so I focused on making the action buttons more prominent and intuitive. The item selection was also made more clear with better spacing and item details. The dark mode was also improved with better contrast and readability.",
+      duration: "Ongoing",
+      role: "UI/UX Designer",
+      designEvolution: [{
+        beforeImage: "images/POS.png",
+        afterImage: "images/POS-light.png",
+        description: "I chose to go with a blue theme for the light mode. I designed new cards and sections to clearly divide different parts of an order. The order list has been moved to the right side because on the previous screen the button to redirect to this screen was on the right side. The parents in the list are collapsible accordions to avoid clutter when modifying a certain order with clear border divisions. The complete order button has also been made more prominent and visible as opposed to a small tick button on the bottom right corner in the previous design.",
+      },
+      {
+        beforeImage: "images/POS.png",
+        afterImage: "images/POS-dark.png",
+        description: "For the dark mode I more or less stayed with the same color scheme but reversed the colors of the box shadow for the parent containers. The light blue highlight color showing selection was switched to a darker shade ",
+      }]
+    }
   },
-  {
-    id: 6,
-    title: "Task Management Application",
-    description: "Collaborative task management application with team features, project tracking, and productivity analytics.",
-    image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tags: ["Angular", "Firebase", "TypeScript", "Material UI"],
-    link: "https://taskmanager.example.com",
-    github: "https://github.com/example/task-manager",
-    year: "2021",
-    category: "Productivity Tool"
-  }
 ];
