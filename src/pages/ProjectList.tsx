@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, Calendar, ExternalLink, Github, Code2 } from 'lucide-react';
+import { ArrowLeft, Calendar, ExternalLink, Github, Code2, FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import PageTransition from '../components/PageTransition';
 import Header from '../components/Header';
@@ -11,6 +11,13 @@ const ProjectList: React.FC = () => {
   const [visibleProjects, setVisibleProjects] = useState<number[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const openCaseStudy = (project: any) => {
+    navigate(`/case-study/${project.id}`);
+  };
+
+  const openDemo = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
   
   // Scroll to top and reset animations when component mounts
   useEffect(() => {
@@ -166,29 +173,36 @@ const ProjectList: React.FC = () => {
                       {/* Technology Tags */}
                       <div className="flex flex-wrap gap-2 transform transition-all duration-300 group-hover:translate-x-2" style={{ transitionDelay: '0.2s' }}>
                         {project.tags.map((tech, techIndex) => (
-                          <span 
+                            <span 
                             key={techIndex} 
-                            className={`tech-tag px-3 py-1.5 text-sm font-medium rounded-lg border ${getTagColor(tech)}`}
-                          >
+                            className={`tech-tag px-3 py-1.5 text-sm font-medium rounded-lg border ${getTagColor(typeof tech === 'string' ? tech.toLowerCase() : tech)}`}
+                            >
                             {tech}
-                          </span>
+                            </span>
                         ))}
                       </div>
 
                       {/* Project Links */}
                       <div className="flex flex-wrap gap-3 pt-4 transform transition-all duration-300 group-hover:translate-x-2" style={{ transitionDelay: '0.3s' }}>
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group/btn inline-flex items-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-medium hover:shadow-strong relative overflow-hidden"
-                        >
-                          <span className="relative z-10 flex items-center gap-2">
-                            <ExternalLink size={16} />
-                            Live Demo
-                          </span>
-                          <div className="absolute inset-0 bg-gradient-to-r from-primary-700 to-secondary-600 transform scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-300 origin-left"></div>
-                        </a>
+                        {project.link ? (
+                          <button
+                            onClick={() => openDemo(project.link!)}
+                            className="group/btn flex-1 inline-flex items-center gap-2 text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-300 font-medium transition-all duration-300 transform hover:translate-x-2"
+                          >
+                            <ExternalLink size={16} className="group-hover/btn:animate-pulse" />
+                            Live demo
+                          </button>
+                        ) : project.caseStudy ? (
+                          <button
+                            onClick={() => openCaseStudy(project)}
+                            className="group/btn flex-1 inline-flex items-center gap-2 text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-300 font-medium transition-all duration-300 transform hover:translate-x-2"
+                          >
+                            <FileText size={16} className="group-hover/btn:animate-pulse" />
+                            Read case study
+                          </button>
+                        ) : (
+                          <div className="flex-1"></div>
+                        )}
                         {project.github && (
                           <a
                             href={project.github}
@@ -200,16 +214,6 @@ const ProjectList: React.FC = () => {
                             Source Code
                           </a>
                         )}
-                      </div>
-
-                      {/* Project Meta */}
-                      <div className="flex items-center gap-4 pt-2 text-sm text-neutral-500 dark:text-neutral-400 transform transition-all duration-300 group-hover:translate-x-2" style={{ transitionDelay: '0.4s' }}>
-                        <span className="flex items-center gap-1">
-                          <Calendar size={14} />
-                          {project.year}
-                        </span>
-                        <span>•</span>
-                        <span>{project.category}</span>
                       </div>
                     </div>
                   </div>

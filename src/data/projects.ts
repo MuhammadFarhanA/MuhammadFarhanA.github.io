@@ -13,9 +13,13 @@ export interface Project {
     challenge: string;
     solution: string;
     results: string[];
-    technologies: string[];
     duration: string;
     role: string;
+    designEvolution?: {
+      beforeImage?: string;
+      afterImage?: string;
+      description?: string;
+    }[];
   };
 }
 
@@ -23,9 +27,9 @@ export const projects: Project[] = [
   {
     id: 1,
     title: "Teledental",
-    description: "A dental health management platform that connects patients with dental professionals for virtual consultations, appointment scheduling, and treatment tracking. Also has dental guidance blogs.",
+    description: "A dental health management platform that connects patients with dental professionals for virtual consultations, appointment scheduling, and treatment tracking. Also has dental guidance blogs. Built frontend view using React and mobile-first approach.",
     image: "images/Teledental.png",
-    tags: ["React", "TypeScript", "Bootstrap", "Ant Design", "Node.js"],
+    tags: ["HTML", "CSS" , "React", "TypeScript", "Bootstrap", "Ant Design", "Node.js"],
     link: "https:teledental.com",
     year: "2024",
     category: "Web Application",
@@ -33,43 +37,38 @@ export const projects: Project[] = [
   {
     id: 2,
     title: "PartnerlinQ",
-    description: "Cross-platform mobile application for fitness tracking, workout planning, and health monitoring with social features.",
-    image: "https://images.pexels.com/photos/3846022/pexels-photo-3846022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tags: ["React Native", "Redux", "Node.js", "MongoDB", "Express"],
-    github: "#",
-    year: "2023",
-    category: "Mobile Application",
+    description: "An EDI platform for various international partners to use for onboarding and exchanging data with their respective partners. Implemented the design first using Angular Material and MAterial UI then switched to PrimeNG.",
+    image: "images/Partnerlinq.png",
+    tags: ["HTML", "CSS" ,"Angular", "TypeScript", "SCSS" , "Material UI", "Bootstrap", "Angular Material" , "PrimeNG"],
+    year: "2022",
+    category: "Web Application",
     caseStudy: {
-      overview: "Developed a cross-platform mobile app to help users maintain healthy lifestyles through fitness tracking, personalized workout plans, and social motivation features. The app combines health monitoring with gamification elements to increase user engagement.",
-      challenge: "Existing fitness apps lacked social features and personalized workout recommendations, leading to low user retention rates. Users often abandoned their fitness goals due to lack of motivation and generic workout plans that didn't adapt to their progress.",
-      solution: "Built a comprehensive app with AI-powered workout recommendations, social challenges, progress tracking, and gamification elements. Implemented a community feature where users can share achievements, join challenges, and motivate each other.",
+      overview: "Worked as a UI/UX developer for about 3 years on new features and enhancements as well as maintaining the existing codebase of PartnerlinQ, an EDI platform used by various international partners for onboarding and exchanging data. The platform had multiple internal portals all with their own functionality and user experience requirements.",
+      challenge: "Since it was an evolving product with multiple internal portals, there was always the issue of increasing design inconsistencies and user confusion. The goal was to create a unified design system that could be used across all portals, ensuring a consistent user experience. There was significant design burden with global styling reaching thousands of lines across multiple platforms rather than a unified design system. Using Material UI and Angular Material also added on significant complexity with multiple design overrides needed as per changing design requirements.",
+      solution: "Replaced Material UI and Angular Material with PrimeNG to create a more consistent and maintainable design system. Developed a custom design system that could be used across all portals, ensuring a unified user experience. Created custom utility classes using mixins mimicing Tailwind functionality since completely removing Bootstrap was not part of current scope. Reworked all components' reusability and modularity to reduce design burden and improve maintainability. Moving to PrimeNG also allowed us to shift the design towards a more modern style, aligning with current design trends.",
       results: [
-        "50,000+ downloads in first 6 months",
-        "85% user retention rate after 30 days",
-        "Average session time of 12 minutes",
-        "Featured in App Store's 'Health & Fitness' category",
-        "4.7-star rating with over 2,000 reviews"
+        "80% reduction in design inconsistencies across portals",
+        "50% faster development time for new features due to easier class structure",
+        "90% reduction in CSS file size due to custom utility classes",
+        "Enhanced maintainability with a unified design system"
       ],
-      technologies: ["React Native", "Redux", "Node.js", "MongoDB", "Firebase", "Machine Learning APIs", "HealthKit", "Google Fit"],
-      duration: "6 months",
+      
+      duration: "3 years",
       role: "Lead Mobile Developer",
       designEvolution: [{
-        beforeImage: "https://images.pexels.com/photos/1036808/pexels-photo-1036808.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        afterImage: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        description: "these are some changes"
+        description: "Due to NDA and confidentiality agreements, I am unable to share specific before and after images of the design evolution. However, the transition from Material UI and Angular Material to PrimeNG significantly improved the design consistency and maintainability of the platform.",
       }]
     }
   },
   {
     id: 3,
-    title: "E-commerce Website Redesign",
-    description: "Complete redesign and rebuild of an e-commerce platform focusing on user experience and conversion optimization.",
-    image: "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tags: ["Next.js", "Prisma", "PostgreSQL", "Stripe", "Tailwind CSS"],
-    link: "#",
-    github: "#",
+    title: "Soletechs",
+    description: "A marketing website for an HCM (Human Capital Management) service provider in the Middle East. Built from scratch using mobile-first approach. Current updates to the live version are ongoing. Also implemented design strategy for RTL and LTR due to arabic text direction requirements.",
+    image: "images/Soletechs.png",
+    tags: ["HTML", "CSS" ,"Angular", "TypeScript", "SCSS" ,  "Bootstrap"],
+    link: "https://soletechs.com/",
     year: "2023",
-    category: "E-commerce Platform",
+    category: "Marketing Website",
     caseStudy: {
       overview: "Redesigned and rebuilt an existing e-commerce platform to improve user experience, increase conversion rates, and modernize the technology stack. The project involved comprehensive user research, A/B testing, and performance optimization.",
       challenge: "The original platform had a 68% cart abandonment rate and poor mobile experience, resulting in significant revenue loss. The outdated design and slow loading times were driving customers away to competitors.",
@@ -81,7 +80,7 @@ export const projects: Project[] = [
         "20% increase in average order value",
         "15% boost in overall revenue within 3 months"
       ],
-      technologies: ["Next.js", "Prisma", "PostgreSQL", "Stripe", "Tailwind CSS", "Vercel", "Algolia Search"],
+      
       duration: "3 months",
       role: "Frontend Developer & UX Designer"
     }

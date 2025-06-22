@@ -123,9 +123,9 @@ const Projects: React.FC = () => {
                   <div className="relative overflow-hidden">
                     <div className="aspect-[16/10] overflow-hidden">
                       <img 
-                        src={project.image} 
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      src={project.image} 
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-700 scale-105 group-hover:scale-100"
                       />
                     </div>
                     
@@ -154,7 +154,7 @@ const Projects: React.FC = () => {
                       </h3>
                       
                       {/* Description */}
-                      <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm line-clamp-3">
+                      <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm">
                         {project.description}
                       </p>
 
@@ -179,7 +179,7 @@ const Projects: React.FC = () => {
                           onClick={() => openDemo(project.link!)}
                           className="group/btn flex-1 inline-flex items-center gap-2 text-secondary-600 dark:text-secondary-400 hover:text-secondary-700 dark:hover:text-secondary-300 font-medium transition-all duration-300 transform hover:translate-x-2"
                         >
-                          <Eye size={16} className="group-hover/btn:animate-pulse" />
+                          <ExternalLink size={16} className="group-hover/btn:animate-pulse" />
                           Live demo
                         </button>
                       ) : project.caseStudy ? (
