@@ -49,11 +49,11 @@ const WorkExperience: React.FC = () => {
 			{/* Animated Background Elements */}
 			<div className="absolute inset-0 overflow-hidden">
 				<div
-					className="absolute top-32 right-32 w-48 h-48 bg-gradient-to-br from-orange-200/20 to-amber-200/20 rounded-full blur-3xl animate-pulse"
+					className="absolute bottom-32 right-32 w-48 h-48 bg-gradient-to-br from-orange-200/20 to-amber-200/20 rounded-full blur-3xl animate-pulse"
 					style={{ animationDelay: "1s" }}
 				></div>
 				<div
-					className="absolute bottom-32 left-32 w-48 h-48 bg-gradient-to-br from-yellow-200/20 to-orange-200/20 rounded-full blur-3xl animate-pulse"
+					className="absolute top-32 left-32 w-48 h-48 bg-gradient-to-br from-yellow-200/20 to-orange-200/20 rounded-full blur-3xl animate-pulse"
 					style={{ animationDelay: "2s" }}
 				></div>
 			</div>

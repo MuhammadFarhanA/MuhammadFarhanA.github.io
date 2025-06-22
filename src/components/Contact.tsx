@@ -309,20 +309,20 @@ const Contact: React.FC = () => {
                         href="https://github.com/MuhammadFarhanA" 
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 p-4 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-xl transition-all duration-300 transform hover:-translate-y-1 shadow-soft hover:shadow-medium group/social text-center"
+                        className="flex-1 p-4 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-800 hover:text-neutral-300 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-xl transition-all duration-300 transform hover:-translate-y-1 shadow-soft hover:shadow-medium group/social text-center"
                         aria-label="GitHub Profile"
                       >
-                        <Github size={24} className="mx-auto mb-2 group-hover/social:scale-110 transition-transform group-hover/social:animate-pulse" />
+                        <Github size={24} className="mx-auto mb-2 group-hover/social:scale-110 transition-transform" />
                         <span className="text-sm font-medium">GitHub</span>
                       </a>
                       <a 
                         href="https://www.linkedin.com/in/muhammad-farhan-atif/" 
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 p-4 dark:bg-neutral-800 dark:hover:bg-blue-600 bg-neutral-100 text-neutral-300 rounded-xl hover:bg-blue-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg group/social text-center"
+                        className="flex-1 p-4 dark:bg-neutral-800 dark:hover:bg-blue-600 bg-neutral-100 text-neutral-700 dark:text-neutral-300 rounded-xl hover:bg-blue-600 hover:text-neutral-300 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg group/social text-center"
                         aria-label="LinkedIn Profile"
                       >
-                        <Linkedin size={24} className="mx-auto mb-2 group-hover/social:scale-110 transition-transform group-hover/social:animate-pulse" />
+                        <Linkedin size={24} className="mx-auto mb-2 group-hover/social:scale-110 transition-transform" />
                         <span className="text-sm font-medium">LinkedIn</span>
                       </a>
                     </div>

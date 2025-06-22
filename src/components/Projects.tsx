@@ -96,6 +96,10 @@ const Projects: React.FC = () => {
 			id="projects"
 			className="py-20 bg-gradient-to-tl from-slate-50 via-blue-50/50 to-indigo-100/40 dark:from-surface-dark dark:to-background-dark relative overflow-hidden"
 		>
+			<div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-br from-violet-200/20 to-purple-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+        <div className="absolute bottom-20 left-20 w-72 h-72 bg-gradient-to-br from-indigo-200/20 to-violet-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+      </div>
 			<div className="container mx-auto px-4 md:px-8 lg:px-16">
 				<div className="max-w-6xl mx-auto">
 					{/* Section Header */}
