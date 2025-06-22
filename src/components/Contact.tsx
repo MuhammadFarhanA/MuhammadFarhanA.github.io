@@ -102,7 +102,8 @@ const Contact: React.FC = () => {
     <section 
       ref={sectionRef}
       id="contact" 
-      className="py-20 bg-gradient-to-br from-violet-50 via-purple-50/80 to-indigo-50/60 dark:from-background-dark dark:to-surface-dark relative overflow-hidden"
+      className="py-20 bg-gradient-to-tl from-slate-100 via-indigo-100/70 to-blue-200/50 dark:from-surface-dark dark:to-background-dark relative overflow-hidden"
+
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">

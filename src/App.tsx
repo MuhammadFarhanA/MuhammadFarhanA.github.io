@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -16,6 +16,8 @@ import CaseStudy from './pages/CaseStudy';
 import './index.css';
 
 function App() {
+  const location = useLocation();
+
   useEffect(() => {
     document.title = 'Muhammad Farhan Atif';
 
@@ -50,6 +52,18 @@ function App() {
       elements.forEach((el) => observer.unobserve(el));
     };
   }, []);
+
+  useEffect(() => {
+    if (location.state && (location.state as any).scrollTo) {
+      const section = (location.state as any).scrollTo;
+      const el = document.getElementById(section);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }, 100); // slight delay to ensure DOM is ready
+      }
+    }
+  }, [location]);
 
   return (
     <div className="relative">
