@@ -22,6 +22,7 @@ import PageTransition from "../components/PageTransition";
 import Header from "../components/Header";
 import { allProjects } from "../data/projects";
 import { getTagColor } from "../data/tagColors";
+import FullScreenCarousel from "../components/FullScreenCarousel";
 
 const CaseStudy: React.FC = () => {
 	const { projectId } = useParams<{ projectId: string }>();
@@ -31,7 +32,9 @@ const CaseStudy: React.FC = () => {
 	const [visibleSections, setVisibleSections] = useState<number[]>([]);
 	const [modalOpen, setModalOpen] = useState(false);
 	const [currentIterationIndex, setCurrentIterationIndex] = useState(0);
-	const [currentView, setCurrentView] = useState<'before' | 'after' | 'split'>('split');
+	const [currentView, setCurrentView] = useState<"before" | "after" | "split">(
+		"split",
+	);
 	const sectionRefs = useRef<(HTMLElement | null)[]>([]);
 
 	// Scroll to top when component mounts
@@ -104,26 +107,26 @@ const CaseStudy: React.FC = () => {
 	const openModal = (iterationIndex: number) => {
 		setCurrentIterationIndex(iterationIndex);
 		setModalOpen(true);
-		document.body.style.overflow = 'hidden';
+		document.body.style.overflow = "hidden";
 	};
 
 	const closeModal = () => {
 		setModalOpen(false);
-		document.body.style.overflow = 'unset';
+		document.body.style.overflow = "unset";
 	};
 
 	const nextIteration = () => {
 		if (project?.caseStudy?.designEvolution) {
-			setCurrentIterationIndex((prev) => 
-				prev < project.caseStudy.designEvolution.length - 1 ? prev + 1 : 0
+			setCurrentIterationIndex((prev) =>
+				prev < project.caseStudy.designEvolution.length - 1 ? prev + 1 : 0,
 			);
 		}
 	};
 
 	const prevIteration = () => {
 		if (project?.caseStudy?.designEvolution) {
-			setCurrentIterationIndex((prev) => 
-				prev > 0 ? prev - 1 : project.caseStudy.designEvolution.length - 1
+			setCurrentIterationIndex((prev) =>
+				prev > 0 ? prev - 1 : project.caseStudy.designEvolution.length - 1,
 			);
 		}
 	};
@@ -131,17 +134,17 @@ const CaseStudy: React.FC = () => {
 	// Handle escape key
 	useEffect(() => {
 		const handleEscape = (e: KeyboardEvent) => {
-			if (e.key === 'Escape') {
+			if (e.key === "Escape") {
 				closeModal();
 			}
 		};
 
 		if (modalOpen) {
-			document.addEventListener('keydown', handleEscape);
+			document.addEventListener("keydown", handleEscape);
 		}
 
 		return () => {
-			document.removeEventListener('keydown', handleEscape);
+			document.removeEventListener("keydown", handleEscape);
 		};
 	}, [modalOpen]);
 
@@ -173,7 +176,8 @@ const CaseStudy: React.FC = () => {
 		: 0;
 	const sidebarStartIndex = baseSectionCount + designEvolutionCount;
 
-	const currentEvolution = project.caseStudy.designEvolution?.[currentIterationIndex];
+	const currentEvolution =
+		project.caseStudy.designEvolution?.[currentIterationIndex];
 
 	return (
 		<PageTransition>
@@ -183,213 +187,13 @@ const CaseStudy: React.FC = () => {
 
 				{/* Design Iteration Modal */}
 				{modalOpen && currentEvolution && (
-					<div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4">
-						<div className="relative w-full max-w-7xl mx-auto bg-white dark:bg-surface-dark rounded-2xl overflow-hidden shadow-2xl">
-							{/* Modal Header */}
-							<div className="flex items-center justify-between p-4 md:p-6 border-b border-neutral-200 dark:border-neutral-700">
-								<div className="flex items-center gap-4">
-									<h3 className="text-xl md:text-2xl font-bold text-neutral-900 dark:text-neutral-100">
-										Design Iteration {currentIterationIndex + 1}
-									</h3>
-									{project.caseStudy.designEvolution && project.caseStudy.designEvolution.length > 1 && (
-										<div className="flex items-center gap-2">
-											<button
-												onClick={prevIteration}
-												className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
-												aria-label="Previous iteration"
-											>
-												<ChevronLeft size={20} />
-											</button>
-											<span className="text-sm text-neutral-600 dark:text-neutral-400 px-2">
-												{currentIterationIndex + 1} of {project.caseStudy.designEvolution.length}
-											</span>
-											<button
-												onClick={nextIteration}
-												className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
-												aria-label="Next iteration"
-											>
-												<ChevronRight size={20} />
-											</button>
-										</div>
-									)}
-								</div>
-								
-								{/* View Toggle Buttons - Desktop */}
-								<div className="hidden md:flex items-center gap-2">
-									<button
-										onClick={() => setCurrentView('before')}
-										className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-all ${
-											currentView === 'before'
-												? 'bg-primary-600 text-white'
-												: 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-										}`}
-									>
-										Before
-									</button>
-									<button
-										onClick={() => setCurrentView('split')}
-										className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-all ${
-											currentView === 'split'
-												? 'bg-primary-600 text-white'
-												: 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-										}`}
-									>
-										Split
-									</button>
-									<button
-										onClick={() => setCurrentView('after')}
-										className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-all ${
-											currentView === 'after'
-												? 'bg-primary-600 text-white'
-												: 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-										}`}
-									>
-										After
-									</button>
-								</div>
-
-								<button
-									onClick={closeModal}
-									className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
-									aria-label="Close modal"
-								>
-									<X size={24} />
-								</button>
-							</div>
-
-							{/* View Toggle Buttons - Mobile */}
-							<div className="md:hidden flex items-center justify-center gap-2 p-4 border-b border-neutral-200 dark:border-neutral-700">
-								<button
-									onClick={() => setCurrentView('before')}
-									className={`flex-1 px-3 py-2 text-sm font-medium rounded-lg transition-all ${
-										currentView === 'before'
-											? 'bg-primary-600 text-white'
-											: 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300'
-									}`}
-								>
-									Before
-								</button>
-								<button
-									onClick={() => setCurrentView('split')}
-									className={`flex-1 px-3 py-2 text-sm font-medium rounded-lg transition-all ${
-										currentView === 'split'
-											? 'bg-primary-600 text-white'
-											: 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300'
-									}`}
-								>
-									Split
-								</button>
-								<button
-									onClick={() => setCurrentView('after')}
-									className={`flex-1 px-3 py-2 text-sm font-medium rounded-lg transition-all ${
-										currentView === 'after'
-											? 'bg-primary-600 text-white'
-											: 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300'
-									}`}
-								>
-									After
-								</button>
-							</div>
-
-							{/* Modal Content */}
-							<div className="p-4 md:p-6">
-								{/* Images Container */}
-								<div className="mb-6">
-									{currentView === 'split' && currentEvolution.beforeImage && currentEvolution.afterImage ? (
-										/* Split View */
-										<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-											<div className="space-y-3">
-												<h4 className="text-lg font-semibold text-neutral-800 dark:text-neutral-200 text-center">
-													Before
-												</h4>
-												<div className="aspect-[4/3] rounded-lg overflow-hidden border border-neutral-200 dark:border-neutral-700">
-													<img
-														src={
-															currentEvolution.beforeImage?.startsWith("http") ||
-															currentEvolution.beforeImage?.startsWith("/")
-																? currentEvolution.beforeImage
-																: "/" + currentEvolution.beforeImage
-														}
-														alt={`Before - Design ${currentIterationIndex + 1}`}
-														className="w-full h-full object-contain bg-neutral-50 dark:bg-neutral-900"
-													/>
-												</div>
-											</div>
-											<div className="space-y-3">
-												<h4 className="text-lg font-semibold text-neutral-800 dark:text-neutral-200 text-center">
-													After
-												</h4>
-												<div className="aspect-[4/3] rounded-lg overflow-hidden border border-neutral-200 dark:border-neutral-700">
-													<img
-														src={
-															currentEvolution.afterImage?.startsWith("http") ||
-															currentEvolution.afterImage?.startsWith("/")
-																? currentEvolution.afterImage
-																: "/" + currentEvolution.afterImage
-														}
-														alt={`After - Design ${currentIterationIndex + 1}`}
-														className="w-full h-full object-contain bg-neutral-50 dark:bg-neutral-900"
-													/>
-												</div>
-											</div>
-										</div>
-									) : currentView === 'before' && currentEvolution.beforeImage ? (
-										/* Before Only View */
-										<div className="space-y-3">
-											<h4 className="text-xl font-semibold text-neutral-800 dark:text-neutral-200 text-center">
-												Before
-											</h4>
-											<div className="aspect-[4/3] rounded-lg overflow-hidden border border-neutral-200 dark:border-neutral-700 max-w-4xl mx-auto">
-												<img
-													src={
-														currentEvolution.beforeImage?.startsWith("http") ||
-														currentEvolution.beforeImage?.startsWith("/")
-															? currentEvolution.beforeImage
-															: "/" + currentEvolution.beforeImage
-													}
-													alt={`Before - Design ${currentIterationIndex + 1}`}
-													className="w-full h-full object-contain bg-neutral-50 dark:bg-neutral-900"
-												/>
-											</div>
-										</div>
-									) : currentView === 'after' && currentEvolution.afterImage ? (
-										/* After Only View */
-										<div className="space-y-3">
-											<h4 className="text-xl font-semibold text-neutral-800 dark:text-neutral-200 text-center">
-												After
-											</h4>
-											<div className="aspect-[4/3] rounded-lg overflow-hidden border border-neutral-200 dark:border-neutral-700 max-w-4xl mx-auto">
-												<img
-													src={
-														currentEvolution.afterImage?.startsWith("http") ||
-														currentEvolution.afterImage?.startsWith("/")
-															? currentEvolution.afterImage
-															: "/" + currentEvolution.afterImage
-													}
-													alt={`After - Design ${currentIterationIndex + 1}`}
-													className="w-full h-full object-contain bg-neutral-50 dark:bg-neutral-900"
-												/>
-											</div>
-										</div>
-									) : (
-										/* Fallback for description only */
-										<div className="text-center py-8">
-											<p className="text-neutral-600 dark:text-neutral-400">
-												No images available for this iteration.
-											</p>
-										</div>
-									)}
-								</div>
-
-								{/* Description */}
-								<div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4 md:p-6 border border-neutral-200/50 dark:border-neutral-700/50">
-									<p className="text-neutral-700 dark:text-neutral-300 leading-relaxed text-center">
-										{currentEvolution.description}
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
+					<FullScreenCarousel
+						iterations={project.caseStudy.designEvolution}
+						currentIndex={currentIterationIndex}
+						onClose={closeModal}
+						onPrevIteration={prevIteration}
+						onNextIteration={nextIteration}
+					/>
 				)}
 
 				{/* Animated Background Elements */}
@@ -663,7 +467,8 @@ const CaseStudy: React.FC = () => {
 								</section>
 
 								{/* Results */}
-								<section
+								{project.caseStudy.results && project.caseStudy.results.length > 0 && (
+                  <section
 									ref={(el) => (sectionRefs.current[5] = el)}
 									className={`bg-white/80 dark:bg-surface-dark/80 backdrop-blur-sm rounded-2xl p-8 border border-neutral-200/50 dark:border-neutral-700/50 layered-shadow hover:shadow-strong transition-all duration-700 transform ${
 										visibleSections.includes(5)
@@ -702,7 +507,7 @@ const CaseStudy: React.FC = () => {
 											),
 										) ?? null}
 									</div>
-								</section>
+								</section>)}
 
 								{/* Design Evolution Section */}
 								{project.caseStudy.designEvolution &&
@@ -758,7 +563,9 @@ const CaseStudy: React.FC = () => {
 																				className="group inline-flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-medium hover:shadow-strong"
 																			>
 																				<ZoomIn size={16} />
-																				<span className="hidden sm:inline">View Larger</span>
+																				<span className="hidden sm:inline">
+																					View Larger
+																				</span>
 																				<span className="sm:hidden">Zoom</span>
 																			</button>
 																		</div>
@@ -770,7 +577,7 @@ const CaseStudy: React.FC = () => {
 																				<h4 className="text-lg font-medium text-neutral-800 dark:text-neutral-200 text-center">
 																					Before
 																				</h4>
-																				<div 
+																				<div
 																					className="aspect-[4/3] rounded-lg overflow-hidden shadow-md border border-neutral-200 dark:border-neutral-700 cursor-pointer hover:shadow-lg transition-shadow"
 																					onClick={() => openModal(index)}
 																				>
@@ -799,7 +606,7 @@ const CaseStudy: React.FC = () => {
 																				<h4 className="text-lg font-medium text-neutral-800 dark:text-neutral-200 text-center">
 																					After
 																				</h4>
-																				<div 
+																				<div
 																					className="aspect-[4/3] rounded-lg overflow-hidden shadow-md border border-neutral-200 dark:border-neutral-700 cursor-pointer hover:shadow-lg transition-shadow"
 																					onClick={() => openModal(index)}
 																				>
@@ -917,14 +724,12 @@ const CaseStudy: React.FC = () => {
 						{/* Navigation */}
 						<div
 							ref={(el) => (sectionRefs.current[sidebarStartIndex + 3] = el)}
-							className={`mt-16 pt-12 border-t border-neutral-200 dark:border-neutral-700 transform transition-all duration-700 ${
-								visibleSections.includes(sidebarStartIndex + 3) ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-							}`}
+							className={`mt-16 pt-12 border-t border-neutral-200 dark:border-neutral-700 transform transition-all duration-700`}
 						>
 							<div className="flex flex-col sm:flex-row justify-between items-center gap-6">
 								<button
 									onClick={() => navigate("/projects")}
-									className="group inline-flex items-center gap-2 px-6 py-3 bg-secondary-600 hover:bg-secondary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-medium hover:shadow-strong relative overflow-hidden"
+									className="group inline-flex items-center gap-2 px-6 py-3 bg-secondary-600 hover:bg-secondary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-medium hover:shadow-strong relative overflow-hidden lg:w-fit w-auto"
 								>
 									<span className="relative z-10">View More Projects</span>
 									<div className="absolute inset-0 bg-gradient-to-r from-secondary-700 to-tertiary-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
@@ -932,7 +737,7 @@ const CaseStudy: React.FC = () => {
 
 								<button
 									onClick={() => navigate("/#contact")}
-									className="group inline-flex items-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-medium hover:shadow-strong relative overflow-hidden"
+									className="group inline-flex items-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-medium hover:shadow-strong relative overflow-hidden lg:w-fit w-auto"
 								>
 									<span className="relative z-10">Get In Touch</span>
 									<div className="absolute inset-0 bg-gradient-to-r from-primary-700 to-secondary-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>

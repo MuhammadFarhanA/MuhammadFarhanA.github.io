@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
     <footer className="bg-surface-dark text-white py-12 relative">
       <div className="container mx-auto px-4 md:px-8 lg:px-16">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start gap-8">
+          <div className="flex flex-col md:flex-row justify-between Lg:items-start gap-8">
             {/* Brand and Description */}
             <div className="max-w-md">
               <a href="#" className="text-xl font-bold tracking-tighter mb-4 inline-block">
