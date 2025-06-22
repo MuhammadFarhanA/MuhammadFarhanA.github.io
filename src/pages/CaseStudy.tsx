@@ -13,6 +13,10 @@ import {
 	Code2,
 	CheckCircle,
 	Palette,
+	X,
+	ZoomIn,
+	ChevronLeft,
+	ChevronRight,
 } from "lucide-react";
 import PageTransition from "../components/PageTransition";
 import Header from "../components/Header";
@@ -25,6 +29,9 @@ const CaseStudy: React.FC = () => {
 	const [project, setProject] = useState<any>(null);
 	const [isVisible, setIsVisible] = useState(false);
 	const [visibleSections, setVisibleSections] = useState<number[]>([]);
+	const [modalOpen, setModalOpen] = useState(false);
+	const [currentIterationIndex, setCurrentIterationIndex] = useState(0);
+	const [currentView, setCurrentView] = useState<'before' | 'after' | 'split'>('split');
 	const sectionRefs = useRef<(HTMLElement | null)[]>([]);
 
 	// Scroll to top when component mounts
@@ -93,6 +100,51 @@ const CaseStudy: React.FC = () => {
 		}
 	}, [project]);
 
+	// Modal control functions
+	const openModal = (iterationIndex: number) => {
+		setCurrentIterationIndex(iterationIndex);
+		setModalOpen(true);
+		document.body.style.overflow = 'hidden';
+	};
+
+	const closeModal = () => {
+		setModalOpen(false);
+		document.body.style.overflow = 'unset';
+	};
+
+	const nextIteration = () => {
+		if (project?.caseStudy?.designEvolution) {
+			setCurrentIterationIndex((prev) => 
+				prev < project.caseStudy.designEvolution.length - 1 ? prev + 1 : 0
+			);
+		}
+	};
+
+	const prevIteration = () => {
+		if (project?.caseStudy?.designEvolution) {
+			setCurrentIterationIndex((prev) => 
+				prev > 0 ? prev - 1 : project.caseStudy.designEvolution.length - 1
+			);
+		}
+	};
+
+	// Handle escape key
+	useEffect(() => {
+		const handleEscape = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') {
+				closeModal();
+			}
+		};
+
+		if (modalOpen) {
+			document.addEventListener('keydown', handleEscape);
+		}
+
+		return () => {
+			document.removeEventListener('keydown', handleEscape);
+		};
+	}, [modalOpen]);
+
 	if (!project || !project.caseStudy) {
 		return (
 			<PageTransition>
@@ -121,11 +173,224 @@ const CaseStudy: React.FC = () => {
 		: 0;
 	const sidebarStartIndex = baseSectionCount + designEvolutionCount;
 
+	const currentEvolution = project.caseStudy.designEvolution?.[currentIterationIndex];
+
 	return (
 		<PageTransition>
 			<div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50/80 to-zinc-50/60 dark:from-background-dark dark:to-surface-dark relative overflow-hidden">
 				{/* Use the same Header component */}
 				<Header />
+
+				{/* Design Iteration Modal */}
+				{modalOpen && currentEvolution && (
+					<div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4">
+						<div className="relative w-full max-w-7xl mx-auto bg-white dark:bg-surface-dark rounded-2xl overflow-hidden shadow-2xl">
+							{/* Modal Header */}
+							<div className="flex items-center justify-between p-4 md:p-6 border-b border-neutral-200 dark:border-neutral-700">
+								<div className="flex items-center gap-4">
+									<h3 className="text-xl md:text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+										Design Iteration {currentIterationIndex + 1}
+									</h3>
+									{project.caseStudy.designEvolution && project.caseStudy.designEvolution.length > 1 && (
+										<div className="flex items-center gap-2">
+											<button
+												onClick={prevIteration}
+												className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
+												aria-label="Previous iteration"
+											>
+												<ChevronLeft size={20} />
+											</button>
+											<span className="text-sm text-neutral-600 dark:text-neutral-400 px-2">
+												{currentIterationIndex + 1} of {project.caseStudy.designEvolution.length}
+											</span>
+											<button
+												onClick={nextIteration}
+												className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
+												aria-label="Next iteration"
+											>
+												<ChevronRight size={20} />
+											</button>
+										</div>
+									)}
+								</div>
+								
+								{/* View Toggle Buttons - Desktop */}
+								<div className="hidden md:flex items-center gap-2">
+									<button
+										onClick={() => setCurrentView('before')}
+										className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-all ${
+											currentView === 'before'
+												? 'bg-primary-600 text-white'
+												: 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
+										}`}
+									>
+										Before
+									</button>
+									<button
+										onClick={() => setCurrentView('split')}
+										className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-all ${
+											currentView === 'split'
+												? 'bg-primary-600 text-white'
+												: 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
+										}`}
+									>
+										Split
+									</button>
+									<button
+										onClick={() => setCurrentView('after')}
+										className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-all ${
+											currentView === 'after'
+												? 'bg-primary-600 text-white'
+												: 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
+										}`}
+									>
+										After
+									</button>
+								</div>
+
+								<button
+									onClick={closeModal}
+									className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
+									aria-label="Close modal"
+								>
+									<X size={24} />
+								</button>
+							</div>
+
+							{/* View Toggle Buttons - Mobile */}
+							<div className="md:hidden flex items-center justify-center gap-2 p-4 border-b border-neutral-200 dark:border-neutral-700">
+								<button
+									onClick={() => setCurrentView('before')}
+									className={`flex-1 px-3 py-2 text-sm font-medium rounded-lg transition-all ${
+										currentView === 'before'
+											? 'bg-primary-600 text-white'
+											: 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300'
+									}`}
+								>
+									Before
+								</button>
+								<button
+									onClick={() => setCurrentView('split')}
+									className={`flex-1 px-3 py-2 text-sm font-medium rounded-lg transition-all ${
+										currentView === 'split'
+											? 'bg-primary-600 text-white'
+											: 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300'
+									}`}
+								>
+									Split
+								</button>
+								<button
+									onClick={() => setCurrentView('after')}
+									className={`flex-1 px-3 py-2 text-sm font-medium rounded-lg transition-all ${
+										currentView === 'after'
+											? 'bg-primary-600 text-white'
+											: 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300'
+									}`}
+								>
+									After
+								</button>
+							</div>
+
+							{/* Modal Content */}
+							<div className="p-4 md:p-6">
+								{/* Images Container */}
+								<div className="mb-6">
+									{currentView === 'split' && currentEvolution.beforeImage && currentEvolution.afterImage ? (
+										/* Split View */
+										<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+											<div className="space-y-3">
+												<h4 className="text-lg font-semibold text-neutral-800 dark:text-neutral-200 text-center">
+													Before
+												</h4>
+												<div className="aspect-[4/3] rounded-lg overflow-hidden border border-neutral-200 dark:border-neutral-700">
+													<img
+														src={
+															currentEvolution.beforeImage?.startsWith("http") ||
+															currentEvolution.beforeImage?.startsWith("/")
+																? currentEvolution.beforeImage
+																: "/" + currentEvolution.beforeImage
+														}
+														alt={`Before - Design ${currentIterationIndex + 1}`}
+														className="w-full h-full object-contain bg-neutral-50 dark:bg-neutral-900"
+													/>
+												</div>
+											</div>
+											<div className="space-y-3">
+												<h4 className="text-lg font-semibold text-neutral-800 dark:text-neutral-200 text-center">
+													After
+												</h4>
+												<div className="aspect-[4/3] rounded-lg overflow-hidden border border-neutral-200 dark:border-neutral-700">
+													<img
+														src={
+															currentEvolution.afterImage?.startsWith("http") ||
+															currentEvolution.afterImage?.startsWith("/")
+																? currentEvolution.afterImage
+																: "/" + currentEvolution.afterImage
+														}
+														alt={`After - Design ${currentIterationIndex + 1}`}
+														className="w-full h-full object-contain bg-neutral-50 dark:bg-neutral-900"
+													/>
+												</div>
+											</div>
+										</div>
+									) : currentView === 'before' && currentEvolution.beforeImage ? (
+										/* Before Only View */
+										<div className="space-y-3">
+											<h4 className="text-xl font-semibold text-neutral-800 dark:text-neutral-200 text-center">
+												Before
+											</h4>
+											<div className="aspect-[4/3] rounded-lg overflow-hidden border border-neutral-200 dark:border-neutral-700 max-w-4xl mx-auto">
+												<img
+													src={
+														currentEvolution.beforeImage?.startsWith("http") ||
+														currentEvolution.beforeImage?.startsWith("/")
+															? currentEvolution.beforeImage
+															: "/" + currentEvolution.beforeImage
+													}
+													alt={`Before - Design ${currentIterationIndex + 1}`}
+													className="w-full h-full object-contain bg-neutral-50 dark:bg-neutral-900"
+												/>
+											</div>
+										</div>
+									) : currentView === 'after' && currentEvolution.afterImage ? (
+										/* After Only View */
+										<div className="space-y-3">
+											<h4 className="text-xl font-semibold text-neutral-800 dark:text-neutral-200 text-center">
+												After
+											</h4>
+											<div className="aspect-[4/3] rounded-lg overflow-hidden border border-neutral-200 dark:border-neutral-700 max-w-4xl mx-auto">
+												<img
+													src={
+														currentEvolution.afterImage?.startsWith("http") ||
+														currentEvolution.afterImage?.startsWith("/")
+															? currentEvolution.afterImage
+															: "/" + currentEvolution.afterImage
+													}
+													alt={`After - Design ${currentIterationIndex + 1}`}
+													className="w-full h-full object-contain bg-neutral-50 dark:bg-neutral-900"
+												/>
+											</div>
+										</div>
+									) : (
+										/* Fallback for description only */
+										<div className="text-center py-8">
+											<p className="text-neutral-600 dark:text-neutral-400">
+												No images available for this iteration.
+											</p>
+										</div>
+									)}
+								</div>
+
+								{/* Description */}
+								<div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-lg p-4 md:p-6 border border-neutral-200/50 dark:border-neutral-700/50">
+									<p className="text-neutral-700 dark:text-neutral-300 leading-relaxed text-center">
+										{currentEvolution.description}
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				)}
 
 				{/* Animated Background Elements */}
 				<div className="absolute inset-0 overflow-hidden">
@@ -483,19 +748,32 @@ const CaseStudy: React.FC = () => {
 															{evolution.beforeImage &&
 																evolution.afterImage && (
 																	<>
-																		<h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-6 text-center">
-																			{evolution.title ||
-																				`Design Iteration ${index + 1}`}
-																		</h3>
+																		<div className="flex items-center justify-between mb-6">
+																			<h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+																				{evolution.title ||
+																					`Design Iteration ${index + 1}`}
+																			</h3>
+																			<button
+																				onClick={() => openModal(index)}
+																				className="group inline-flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-medium hover:shadow-strong"
+																			>
+																				<ZoomIn size={16} />
+																				<span className="hidden sm:inline">View Larger</span>
+																				<span className="sm:hidden">Zoom</span>
+																			</button>
+																		</div>
 
-																		{/* Before/After Image Comparison */}
-																		<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+																		{/* Before/After Image Comparison - Smaller Preview */}
+																		<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
 																			{/* Before Image */}
 																			<div className="space-y-3">
 																				<h4 className="text-lg font-medium text-neutral-800 dark:text-neutral-200 text-center">
 																					Before
 																				</h4>
-																				<div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md border border-neutral-200 dark:border-neutral-700">
+																				<div 
+																					className="aspect-[4/3] rounded-lg overflow-hidden shadow-md border border-neutral-200 dark:border-neutral-700 cursor-pointer hover:shadow-lg transition-shadow"
+																					onClick={() => openModal(index)}
+																				>
 																					<img
 																						src={
 																							evolution.beforeImage?.startsWith(
@@ -521,7 +799,10 @@ const CaseStudy: React.FC = () => {
 																				<h4 className="text-lg font-medium text-neutral-800 dark:text-neutral-200 text-center">
 																					After
 																				</h4>
-																				<div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md border border-neutral-200 dark:border-neutral-700">
+																				<div 
+																					className="aspect-[4/3] rounded-lg overflow-hidden shadow-md border border-neutral-200 dark:border-neutral-700 cursor-pointer hover:shadow-lg transition-shadow"
+																					onClick={() => openModal(index)}
+																				>
 																					<img
 																						src={
 																							evolution.afterImage?.startsWith(
@@ -636,7 +917,9 @@ const CaseStudy: React.FC = () => {
 						{/* Navigation */}
 						<div
 							ref={(el) => (sectionRefs.current[sidebarStartIndex + 3] = el)}
-							className={`mt-16 pt-12 border-t border-neutral-200 dark:border-neutral-700 transform transition-all duration-700`}
+							className={`mt-16 pt-12 border-t border-neutral-200 dark:border-neutral-700 transform transition-all duration-700 ${
+								visibleSections.includes(sidebarStartIndex + 3) ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+							}`}
 						>
 							<div className="flex flex-col sm:flex-row justify-between items-center gap-6">
 								<button
