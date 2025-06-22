@@ -103,7 +103,7 @@ const Hero: React.FC = () => {
           </h1>
           
           <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 mb-8 max-w-2xl animate-on-scroll opacity-0 translate-y-8 transition-all duration-700 delay-500">
-            I design and build user-centered interfaces that are both beautiful and functional. 
+            I design and develop user-centered interfaces that are both beautiful and functional. 
             Specializing in creating seamless digital experiences that delight users and drive business growth.
           </p>
           
