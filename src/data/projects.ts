@@ -54,7 +54,7 @@ export const projects: Project[] = [
       ],
 
       duration: "3 years",
-      role: "Lead Mobile Developer",
+      role: "Frontend UI/UX Developer",
       designEvolution: [{
         description: "Due to NDA and confidentiality agreements, I am unable to share specific before and after images of the design evolution. However, the transition from Material UI and Angular Material to PrimeNG significantly improved the design consistency and maintainability of the platform.",
       }]
