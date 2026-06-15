@@ -60,22 +60,22 @@ export const projects: Project[] = [
       }]
     }
   },
-  {
-    id: 3,
-    title: "Soletechs",
-    description: "A marketing website for an HCM (Human Capital Management) service provider in the Middle East. Built from scratch using mobile-first approach. Current updates to the live version are ongoing. Also implemented design strategy for RTL and LTR due to arabic text direction requirements.",
-    image: "images/Soletechs.png",
-    tags: ["HTML", "CSS", "Angular", "TypeScript", "SCSS", "Bootstrap"],
-    link: "https://soletechs.com/",
-    year: "2023",
-    category: "Marketing Website",
-  }
+  // {
+  //   id: 3,
+  //   title: "Soletechs",
+  //   description: "A marketing website for an HCM (Human Capital Management) service provider in the Middle East. Built from scratch using mobile-first approach. Current updates to the live version are ongoing. Also implemented design strategy for RTL and LTR due to arabic text direction requirements.",
+  //   image: "images/Soletechs.png",
+  //   tags: ["HTML", "CSS", "Angular", "TypeScript", "SCSS", "Bootstrap"],
+  //   link: "https://soletechs.com/",
+  //   year: "2023",
+  //   category: "Marketing Website",
+  // }
 ];
 
 export const allProjects = [
   ...projects,
   {
-    id: 4,
+    id: 3,
     title: "Portfolio Website",
     link: "https://farhanatif.com",
     description: "Decided to finally build my own portfolio website to showcase my work and skills. It is deployed on Netlify and uses EmailJS for contact form functionality. Built using React, TypeScript, and Tailwind with a mobile-first approach.",
@@ -85,7 +85,7 @@ export const allProjects = [
     category: "Web Application"
   },
   {
-    id: 5,
+    id: 4,
     title: "Microsoft POS Order Modifier Screen Redesign",
     description: "Legacy POS software provided by Microsoft for hospitality industry. The goal was to redesign the order modifier screen to improve usability and reduce complexity. The original design was very old and not very conducive to modern user experience standards.",
     image: "images/POS.png",
