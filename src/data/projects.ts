@@ -70,10 +70,6 @@ export const projects: Project[] = [
   //   year: "2023",
   //   category: "Marketing Website",
   // }
-];
-
-export const allProjects = [
-  ...projects,
   {
     id: 3,
     title: "Portfolio Website",
@@ -84,6 +80,10 @@ export const allProjects = [
     year: "2025",
     category: "Web Application"
   },
+];
+
+export const allProjects = [
+  ...projects,
   {
     id: 4,
     title: "Microsoft POS Order Modifier Screen Redesign",
@@ -110,4 +110,43 @@ export const allProjects = [
       }]
     }
   },
+  {
+    id: 5,
+    title: "Amigos Overseas Education",
+    description: "A study abroad consultancy website built from scratch to provide students with clear guidance on international education opportunities, university admissions, and visa processes. Focused on creating a structured information architecture and intuitive user journeys for content-heavy pages.",
+    image: "images/AmigosOverseasEducation.png",
+    tags: [
+      "HTML",
+      "CSS",
+      "React",
+      "TypeScript",
+      "SCSS",
+      "Vite",
+      "GitHub Actions",
+      "Hostinger",
+    ],
+    link: "https://amigosoverseaseducation.com/",
+    year: "2025",
+    category: "Marketing Website"
+  },
+  {
+    id: 6,
+    title: "Amigos Aura",
+    description: "A branding and marketing website built from scratch with a focus on visual hierarchy, clean layouts, and responsive user experiences. Designed to establish a strong digital presence while maintaining scalability and consistency across devices.",
+    image: "images/AmigosAura.png",
+    tags: [
+      "HTML",
+      "CSS",
+      "React",
+      "TypeScript",
+      "SCSS",
+      "Vite",
+      "GitHub Actions",
+      "Hostinger",
+    ],
+    link: "https://amigosaura.com/",
+    year: "2025",
+    category: "Marketing Website"
+  }
+
 ];

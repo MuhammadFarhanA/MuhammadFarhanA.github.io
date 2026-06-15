@@ -7,27 +7,39 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
-    title: "Software Engineer II",
-    company: "Illumina Technology Solutions",
+    title: "Frontend & Mobile UI Developer",
+    company: "Lumovy Technology Solutions (formerly Illumina Technology Solutions)",
     period: "January 2025 - Present",
     description: [
-      "At Illumina Technology Solutions, I’ve held dual roles as a Frontend UI Developer and React Native UI Developer, contributing to both web and mobile platforms. On the web side, I designed and built over 10 UI blocks and page layouts for an internal company portal, aligning with branding, accessibility, and responsive design standards. I worked with a headless WordPress setup using Next.js and PHP, and collaborated with stakeholders to translate business requirements into interactive wireframes and high-fidelity mockups. I emphasized modular development through reusable components and design systems, optimizing performance and ensuring cross-browser compatibility. In the mobile domain, I developed a cross-platform React Native app integrated with MS Dynamics 365, using TypeScript, Tailwind CSS, and GluestackUI. I built over 15 custom components focused on accessibility and responsiveness, optimized app navigation, and cut load times by 50%, delivering a seamless and performant user experience across Android and iOS."
+      "Created Figma prototypes for redesigned ecommerce and POS flows, then implemented the approved designs using React, HTML, and SCSS to improve usability and maintain consistency between design and production UI.",
+      "Designed and implemented UI enhancements for client demos, adapting Microsoft Dynamics 365 Commerce experiences through CMS configurations and frontend code customizations while following Microsoft extension guidelines.",
+      "Developed 25+ reusable React Native UI components for a Microsoft Dynamics 365 Commerce mobile application implementation, focusing on consistent user flows, reusable patterns, and mobile-friendly UI behavior.",
+      "Built reusable UI components, layout patterns, and utility functions to support scalable frontend development and reduce repeated implementation work.",
+      "Used ChatGPT and Claude as part of the development workflow to explore approaches, speed up iteration, and validate implementation decisions while maintaining code quality."
     ]
   },
   {
-    title: "Consultant Frontend",
-    company: "PartnerLinq",
-    period: "2022 - 2025",
+    title: "Consultant Frontend Engineer",
+    company: "PartnerLinQ (Visionet Systems / Systems Limited Subsidiary)",
+    period: "March 2022 - January 2025",
     description: [
-      "At this role, I was responsible for implementing figma design for the various portals we had for our product. I independently suggested and managed enhancements to the styling structures of multiple internal projects, working closely with design and front-end teams to ensure proper implementation of UX principles. I proactively applied responsive web design practices, often without formal design guidance, to ensure usability across devices. A key achievement was leading the redesign of an internal styling library, which improved build efficiency by 30% through reusable class utilities and consistent theming. I also contributed to Angular front-end development to sharpen my skills and take ownership of key UI responsibilities. Additionally, I led the transition from Angular Material to PrimeNG, resulting in better performance and a more consistent user experience across the platform. Throughout the role, I engaged with senior management to drive improvements in design structure and implementation."
+      "Served as one of two frontend/UI specialists responsible for designing, implementing, and maintaining UI experiences across multiple enterprise applications.",
+      "Led the UI migration effort from Angular Material to PrimeNG, rebuilding existing components, standardizing behavior, and aligning interfaces with updated design requirements.",
+      "Designed and implemented a reusable SCSS mixin-based styling system that enabled dynamic utility-style classes, improving consistency and reducing repetitive styling across applications.",
+      "Developed new reusable components and improved existing ones to support evolving business requirements while keeping the user experience cohesive.",
+      "Redesigned and refined dashboard interfaces and user flows to improve usability, information hierarchy, and overall interaction quality.",
+      "Identified and resolved UI inconsistencies across applications by standardizing frontend patterns and improving component maintainability."
     ]
   },
   {
-    title: "Junior Consultant",
+    title: "Junior Consultant Frontend",
     company: "Systems Limited",
-    period: "2021 - 2022",
+    period: "July 2021 - March 2022",
     description: [
-      "In this role, I collaborated with product managers, UX designers, and developers to translate project requirements into intuitive, visually appealing UI designs. I ensured smooth handoff and integration with development teams, embraced iterative design based on feedback, and actively participated in training programs to deepen my expertise in UI design and front-end development."
+      "Implemented frontend UI for enterprise applications using Angular, HTML, SCSS, and JavaScript, focusing on clean layout structure and accurate design implementation.",
+      "Built responsive interfaces and reusable UI components aligned with Figma designs and project requirements.",
+      "Handled common UI issues such as layout misalignment, inconsistent spacing, and component reuse across modules.",
+      "Worked with designers and developers to refine interfaces, improve usability, and maintain consistency across screens."
     ]
   }
 ];
