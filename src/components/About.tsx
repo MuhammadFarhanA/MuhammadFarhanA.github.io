@@ -167,7 +167,7 @@ const About: React.FC = () => {
 						style={{ transitionDelay: "0.6s" }}
 					>
 						<a
-							href="/Muhammad Farhan Atif - Resume.pdf"
+							href="/Muhammad_Farhan_Atif_Frontend_Engineer.pdf"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="group inline-flex items-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-medium hover:shadow-strong relative overflow-hidden"
