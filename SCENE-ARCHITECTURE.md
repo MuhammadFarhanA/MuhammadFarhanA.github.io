@@ -10,4 +10,4 @@ The home route is a continuous vertical narrative:
 6. Quiet editorial — poetry previews and direct poem pages.
 7. Architectural reveal — contact and social links with the visual system returning.
 
-Every scene is semantic HTML. The architectural visual is deliberately CSS-native, so the content remains available when WebGL is unavailable and the project avoids a second rendering runtime.
+Every scene is semantic HTML layered over one persistent WebGL canvas. The canvas contains real meshes, box and plane geometry, standard materials, ambient/directional lights, a perspective camera, and a GSAP ScrollTrigger-controlled camera path. If WebGL is unavailable, the HTML content remains available.

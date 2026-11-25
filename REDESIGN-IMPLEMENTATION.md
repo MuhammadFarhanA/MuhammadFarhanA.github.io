@@ -1,6 +1,6 @@
 # Redesign implementation
 
-The portfolio is now an HTML-first, seven-scene “Interface Architect” experience. The home route keeps professional content searchable and semantic while the visual layer uses reusable CSS perspective geometry, architectural grids, layered panels, and scene-specific materials. Project, case-study, poetry, and resume URLs remain accessible.
+The portfolio is now an HTML-first, seven-scene “Interface Architect” experience. The home route keeps professional content searchable and semantic while a persistent React Three Fiber canvas renders reusable Three.js architecture, materials, lights, perspective camera movement, and two connected spatial environments. Project, case-study, poetry, and resume URLs remain accessible.
 
 The previous utility CSS framework has been removed completely: dependency, config, PostCSS plugin, directives, and legacy utility-only UI files are gone. Styling now lives in `src/index.css` with design tokens and responsive rules.
 
