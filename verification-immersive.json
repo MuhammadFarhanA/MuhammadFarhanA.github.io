@@ -1,0 +1,200 @@
+{
+  "canvas": 1,
+  "standardCanvasCount": 0,
+  "reducedCanvasCount": 0,
+  "forwardStart": "WEBGL DEBUG\ncontainer: ready\nscroll updates: 17\nscene: hero · progress: 0.000\ncamera: 4.28 / 2.84 / -11.10\nrotation: -2.87 / 0.41 / 3.03\nfps: 1 · draw calls: 40\nmeshes: 53 · triangles: 876\nmode: immersive · reduced: off\nInspect camera",
+  "forwardEnd": "WEBGL DEBUG\ncontainer: ready\nscroll updates: 20\nscene: identity · progress: 1.000\ncamera: 4.28 / 3.07 / -11.44\nrotation: -0.59 / 0.66 / 0.39\nfps: 1 · draw calls: 17\nmeshes: 53 · triangles: 1654\nmode: immersive · reduced: off\nInspect camera",
+  "backwardReturn": "WEBGL DEBUG\ncontainer: ready\nscroll updates: 23\nscene: hero · progress: 0.000\ncamera: 6.80 / 4.28 / 3.83\nrotation: -0.66 / 0.80 / 0.51\nfps: 1 · draw calls: 53\nmeshes: 53 · triangles: 2500\nmode: immersive · reduced: off\nInspect camera",
+  "checkpoints": [
+    {
+      "percent": 0,
+      "progress": "",
+      "debug": "WEBGL DEBUG\ncontainer: ready\nscroll updates: 0\nscene: hero · progress: 0.000\ncamera: 7.80 / 4.80 / 8.60\nrotation: -0.43 / 0.62 / 0.26\nfps: 1 · draw calls: 53\nmeshes: 53 · triangles: 2500\nmode: immersive · reduced: off\nInspect camera",
+      "transforms": [
+        {
+          "x": -2.8,
+          "y": 0.15,
+          "z": 0.8
+        },
+        {
+          "x": -1.7199999999999998,
+          "y": 0.29000000000000004,
+          "z": 0.42000000000000004
+        },
+        {
+          "x": -0.6399999999999997,
+          "y": 0.15,
+          "z": 0.040000000000000036
+        },
+        {
+          "x": 0.4400000000000004,
+          "y": 0.29000000000000004,
+          "z": -0.3400000000000001
+        },
+        {
+          "x": 1.5200000000000005,
+          "y": 0.15,
+          "z": -0.72
+        },
+        {
+          "x": 2.6000000000000005,
+          "y": 0.29000000000000004,
+          "z": -1.0999999999999999
+        }
+      ]
+    },
+    {
+      "percent": 25,
+      "progress": "0.2506",
+      "activeScene": "hero",
+      "debug": "WEBGL DEBUG\ncontainer: ready\nscroll updates: 4\nscene: hero · progress: 0.251\ncamera: 3.74 / 2.51 / 5.36\nrotation: -0.23 / 0.34 / 0.08\nfps: 1 · draw calls: 53\nmeshes: 53 · triangles: 2500\nmode: immersive · reduced: off\nInspect camera",
+      "transforms": [
+        {
+          "x": -2.1782373522962235,
+          "y": 0.12512949409184895,
+          "z": 0.5015539291021873
+        },
+        {
+          "x": -1.327046006651213,
+          "y": 0.19549207754902603,
+          "z": 0.19119134564501036
+        },
+        {
+          "x": -0.4758546610062029,
+          "y": 0.12512949409184895,
+          "z": -0.1191712378121667
+        },
+        {
+          "x": 0.3753366846388074,
+          "y": 0.19549207754902603,
+          "z": -0.4295338212693438
+        },
+        {
+          "x": 1.2265280302838177,
+          "y": 0.12512949409184895,
+          "z": -0.7398964047265209
+        },
+        {
+          "x": 2.077719375928828,
+          "y": 0.19549207754902603,
+          "z": -1.0502589881836977
+        }
+      ]
+    },
+    {
+      "percent": 50,
+      "progress": "0.5000",
+      "activeScene": "hero",
+      "debug": "WEBGL DEBUG\ncontainer: ready\nscroll updates: 6\nscene: hero · progress: 0.500\ncamera: -2.57 / 1.58 / -0.10\nrotation: -0.16 / -0.29 / -0.05\nfps: 1 · draw calls: 47\nmeshes: 53 · triangles: 2428\nmode: immersive · reduced: off\nInspect camera",
+      "transforms": [
+        {
+          "x": -1.7275825333141273,
+          "y": 0.1071033013325651,
+          "z": 0.2852396159907811
+        },
+        {
+          "x": -1.0422321610545282,
+          "y": 0.12699254506374735,
+          "z": 0.025350372259598873
+        },
+        {
+          "x": -0.3568817887949296,
+          "y": 0.1071033013325651,
+          "z": -0.2345388714715834
+        },
+        {
+          "x": 0.32846858346466934,
+          "y": 0.12699254506374735,
+          "z": -0.4944281152027657
+        },
+        {
+          "x": 1.013818955724268,
+          "y": 0.1071033013325651,
+          "z": -0.7543173589339479
+        },
+        {
+          "x": 1.6991693279838669,
+          "y": 0.12699254506374735,
+          "z": -1.0142066026651302
+        }
+      ]
+    },
+    {
+      "percent": 75,
+      "progress": "0.7506",
+      "activeScene": "identity",
+      "debug": "WEBGL DEBUG\ncontainer: ready\nscroll updates: 10\nscene: identity · progress: 0.751\ncamera: -4.44 / 1.71 / -9.68\nrotation: -0.47 / -0.97 / -0.39\nfps: 1 · draw calls: 17\nmeshes: 53 · triangles: 1654\nmode: immersive · reduced: off\nInspect camera",
+      "transforms": [
+        {
+          "x": -1.56032637760855,
+          "y": 0.10041305510434201,
+          "z": 0.204956661252104
+        },
+        {
+          "x": -0.9365262706486035,
+          "y": 0.1015696093964996,
+          "z": -0.03619989304005361
+        },
+        {
+          "x": -0.3127261636886572,
+          "y": 0.10041305510434201,
+          "z": -0.2773564473322112
+        },
+        {
+          "x": 0.3110739432712892,
+          "y": 0.1015696093964996,
+          "z": -0.5185130016243689
+        },
+        {
+          "x": 0.9348740502312356,
+          "y": 0.10041305510434201,
+          "z": -0.7596695559165264
+        },
+        {
+          "x": 1.558674157191182,
+          "y": 0.1015696093964996,
+          "z": -1.000826110208684
+        }
+      ]
+    },
+    {
+      "percent": 100,
+      "progress": "1.0000",
+      "activeScene": "identity",
+      "debug": "WEBGL DEBUG\ncontainer: ready\nscroll updates: 14\nscene: identity · progress: 1.000\ncamera: 0.50 / 2.21 / -15.93\nrotation: -1.54 / 0.22 / 1.44\nfps: 1 · draw calls: 13\nmeshes: 53 · triangles: 1606\nmode: immersive · reduced: off\nInspect camera",
+      "transforms": [
+        {
+          "x": -1.5510169116193862,
+          "y": 0.10004067646477544,
+          "z": 0.20048811757730528
+        },
+        {
+          "x": -0.9306426881434519,
+          "y": 0.10015457056614667,
+          "z": -0.039625776524065924
+        },
+        {
+          "x": -0.3102684646675179,
+          "y": 0.10004067646477544,
+          "z": -0.27973967062543714
+        },
+        {
+          "x": 0.3101057588084161,
+          "y": 0.10015457056614667,
+          "z": -0.5198535647268084
+        },
+        {
+          "x": 0.9304799822843501,
+          "y": 0.10004067646477544,
+          "z": -0.7599674588281796
+        },
+        {
+          "x": 1.5508542057602843,
+          "y": 0.10015457056614667,
+          "z": -1.000081352929551
+        }
+      ]
+    }
+  ],
+  "consoleErrors": []
+}
