@@ -1,98 +1,43 @@
-import React, { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import About from './components/About';
-import WorkExperience from './components/WorkExperience';
-// import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import BackToTop from './components/BackToTop';
-import ProjectList from './pages/ProjectList';
-import PoemList from './pages/PoemList';
-import PoemDetail from './pages/PoemDetail';
-import CaseStudy from './pages/CaseStudy';
+import { useEffect, useRef, useState } from 'react';
+import { Link, Route, Routes, useLocation, useParams, BrowserRouter } from 'react-router-dom';
+import { ArrowUpRight, Github, Linkedin, Mail, Menu, MoveDown } from 'lucide-react';
+import { projects, allProjects } from './data/projects';
+import { experiences } from './data/experience';
+import { poems } from './data/poems';
+import emailjs from '@emailjs/browser';
 import './index.css';
 
-function App() {
+const skills = ['React', 'Angular', 'TypeScript', 'JavaScript', 'HTML', 'CSS / SCSS', 'React Native', 'PrimeNG', 'Figma', 'Git', 'Vite', 'EmailJS'];
+
+function Frame({ children }: { children: React.ReactNode }) {
   const location = useLocation();
-
-  useEffect(() => {
-    document.title = 'Muhammad Farhan Atif';
-
-    // Always apply saved theme on mount
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else if (savedTheme === 'light') {
-      document.documentElement.classList.remove('dark');
-    } else {
-      // No saved preference, use system
-      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      document.documentElement.classList.toggle('dark', isDark);
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const elements = document.querySelectorAll('.animate-on-scroll');
-    elements.forEach((el) => observer.observe(el));
-
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
-  }, []);
-
-  useEffect(() => {
-    if (location.state && (location.state as any).scrollTo) {
-      const section = (location.state as any).scrollTo;
-      const el = document.getElementById(section);
-      if (el) {
-        setTimeout(() => {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }, 100); // slight delay to ensure DOM is ready
-      }
-    }
-  }, [location]);
-
-  return (
-    <div className="relative">
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div className="min-h-screen bg-background-light dark:bg-background-dark text-neutral-900 dark:text-neutral-100 relative z-10">
-              <Header />
-              <main>
-                <Hero />
-                <About />
-                <WorkExperience />
-                {/* <Skills /> */}
-                <Projects />
-                <Contact />
-              </main>
-              <Footer />
-              <BackToTop />
-            </div>
-          }
-        />
-        <Route path="/projects" element={<ProjectList />} />
-        <Route path="/poems" element={<PoemList />} />
-        <Route path="/poems/:id" element={<PoemDetail />} />
-        <Route path="/case-study/:projectId" element={<CaseStudy />} />
-      </Routes>
-    </div>
-  );
+  useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, [location.pathname]);
+  return <div className="site-shell"><div className="blueprint" aria-hidden="true" /><Navigation />{children}<footer className="footer"><span>FARHAN ATIF / INTERFACE ARCHITECT</span><span>© {new Date().getFullYear()} · Lahore, Pakistan</span></footer></div>;
 }
 
+function Navigation() {
+  const [open, setOpen] = useState(false);
+  return <header className="nav"><Link to="/" className="wordmark" aria-label="Farhan Atif home"><span>FA</span><strong>farhan<br />atif</strong></Link><nav className={open ? 'nav-links open' : 'nav-links'}><a href="/#about" onClick={() => setOpen(false)}>About</a><a href="/#experience" onClick={() => setOpen(false)}>Experience</a><a href="/#work" onClick={() => setOpen(false)}>Work</a><Link to="/poems" onClick={() => setOpen(false)}>Poetry</Link><a href="/#contact" onClick={() => setOpen(false)}>Contact</a><a href="/Muhammad_Farhan_Atif_Frontend_Engineer.pdf" target="_blank" rel="noreferrer">Resume ↗</a></nav><button className="menu-button" aria-label="Toggle navigation" onClick={() => setOpen(!open)}>{open ? '×' : <Menu size={20} />}</button></header>;
+}
+
+function Scene({ number, label, children, id, tone = '' }: { number: string; label: string; children: React.ReactNode; id?: string; tone?: string }) { return <section id={id} className={`scene ${tone}`}><div className="scene-label"><span>{number}</span><span>{label}</span></div>{children}</section>; }
+function Architecture({ compact = false }: { compact?: boolean }) { return <div className={`architecture ${compact ? 'compact' : ''}`} aria-hidden="true"><div className="arch-orbit orbit-one" /><div className="arch-orbit orbit-two" /><div className="arch-grid" /><div className="arch-panel panel-back" /><div className="arch-panel panel-mid"><i /><i /><i /></div><div className="arch-panel panel-front"><b>01</b><span>INTERFACE<br />SYSTEM</span></div><div className="arch-beam beam-one" /><div className="arch-beam beam-two" /></div>; }
+function ContactForm() { const form = useRef<HTMLFormElement>(null); const [status, setStatus] = useState(''); const submit = async (event: React.FormEvent) => { event.preventDefault(); if (!form.current) return; setStatus('Sending…'); try { await emailjs.sendForm('service_io5fvnc', 'template_w6adcfj', form.current, 'HB1oMyt3lOhWF0qfG'); form.current.reset(); setStatus('Message sent — thank you.'); } catch { setStatus('Could not send right now. Email me directly instead.'); } }; return <form className="contact-form" ref={form} onSubmit={submit}><input name="user_name" required placeholder="Your name" aria-label="Your name" /><input type="email" name="user_email" required placeholder="Your email" aria-label="Your email" /><input name="subject" required placeholder="Subject" aria-label="Subject" /><textarea name="message" required placeholder="Tell me about the project" aria-label="Your message" rows={4} /><button className="button primary" type="submit">Send message ↗</button>{status && <small>{status}</small>}</form>; }
+
+function Home() { return <main>
+  <Scene number="01 — 07" label="Interface construction" tone="hero-scene"><div className="hero-grid"><div className="hero-copy"><p className="eyebrow">Frontend engineer · UI/UX systems · Lahore</p><h1>I build interfaces.<br /><em>I engineer experiences.</em></h1><p className="hero-lede">I’m Farhan Atif — a frontend engineer who turns complex requirements into clear, durable, and expressive digital products.</p><div className="hero-actions"><a className="button primary" href="#work">Explore selected work <ArrowUpRight size={17} /></a><a className="text-link" href="#contact">Start a conversation ↘</a></div></div><Architecture /></div><div className="scroll-cue"><MoveDown size={16} /> scroll to assemble</div></Scene>
+  <Scene number="02 — 07" label="Identity / system" id="about" tone="paper-scene"><div className="section-heading"><p className="eyebrow">About the practice</p><h2>Precision is a creative act.</h2></div><div className="about-layout"><div className="about-note"><span className="note-mark">/</span><p>Good interfaces make complicated things feel inevitable. My work lives between design intent and production reality — mapping systems, shaping interactions, and making the final surface feel considered.</p><p>I bring a design-system mindset to frontend engineering, with experience across enterprise applications, ecommerce, POS, mobile interfaces, and content-heavy websites.</p></div><div className="spec-sheet"><span>FIELD NOTES / 002</span><div><strong>DESIGN</strong><b>↔</b><strong>ENGINEERING</strong></div><small>Reusable systems<br />Readable decisions<br />Human outcomes</small></div></div></Scene>
+  <Scene number="03 — 07" label="Career architecture" id="experience"><div className="section-heading split"><div><p className="eyebrow">Experience</p><h2>Built across systems<br />that matter.</h2></div><p className="section-aside">A timeline of frontend, UI, and mobile work — from enterprise platforms to client-facing product experiences.</p></div><div className="timeline">{experiences.map((item, index) => <article className="timeline-item" key={item.company}><div className="station"><span>0{index + 1}</span><i /></div><div><p className="eyebrow">{item.period}</p><h3>{item.title}</h3><p className="company">{item.company}</p><ul>{item.description.slice(0, 3).map((line) => <li key={line}>{line}</li>)}</ul></div></article>)}</div></Scene>
+  <Scene number="04 — 07" label="Component architecture" tone="dark-scene"><div className="section-heading split"><div><p className="eyebrow">Technologies</p><h2>Tools for making<br />the invisible work.</h2></div><p className="section-aside">A practical stack for translating systems into responsive, maintainable interfaces.</p></div><div className="skill-rack">{skills.map((skill, index) => <span key={skill} style={{ '--i': index } as React.CSSProperties}>{skill}<small>0{index + 1}</small></span>)}</div></Scene>
+  <Scene number="05 — 07" label="Digital exhibition" id="work" tone="exhibition-scene"><div className="section-heading split"><div><p className="eyebrow">Selected work</p><h2>Interfaces in the wild.</h2></div><Link className="text-link" to="/projects">View all projects ↗</Link></div><div className="project-exhibition">{projects.map((project, index) => <Link to={`/case-study/${project.id}`} className={`project-display display-${index + 1}`} key={project.id}><div className="project-image"><img src={`/${project.image}`} alt={`${project.title} interface`} /><span>0{index + 1}</span></div><div className="project-meta"><p className="eyebrow">{project.category} · {project.year}</p><h3>{project.title}</h3><p>{project.description}</p><div className="tags">{project.tags.slice(0, 4).map(tag => <span key={tag}>{tag}</span>)}</div></div><ArrowUpRight className="project-arrow" size={20} /></Link>)}</div></Scene>
+  <Scene number="06 — 07" label="Quiet editorial" tone="poetry-scene"><div className="poetry-intro"><div><p className="eyebrow">Poetry / creative expression</p><h2>When the system<br /><em>goes quiet.</em></h2></div><p>Outside the interface, I write about memory, faith, loss, and the small architectures of being human.</p></div><div className="poetry-strip">{poems.slice(0, 3).map((poem) => <Link to={`/poems/${poem.id}`} key={poem.id}><span>{poem.title}</span><p>{poem.content[0]}</p><ArrowUpRight size={18} /></Link>)}</div><Link to="/poems" className="text-link">Enter the poetry archive ↗</Link></Scene>
+  <Scene number="07 — 07" label="Architectural reveal" id="contact" tone="contact-scene"><div className="contact-layout"><div><p className="eyebrow">Contact</p><h2>Let’s build the<br /><em>next layer.</em></h2><p className="hero-lede">Have a product, interface, or system that needs a clearer shape? I’d like to hear about it.</p><div className="contact-links"><a href="mailto:farhan45778@gmail.com"><Mail size={16} /> farhan45778@gmail.com</a><a href="https://github.com/MuhammadFarhanA" target="_blank" rel="noreferrer"><Github size={16} /> GitHub</a><a href="https://www.linkedin.com/in/muhammad-farhan-atif/" target="_blank" rel="noreferrer"><Linkedin size={16} /> LinkedIn</a></div></div><div><ContactForm /><Architecture compact /></div></div></Scene>
+</main>; }
+
+function Page({ title, intro, children }: { title: string; intro: string; children: React.ReactNode }) { return <main className="inner-page"><div className="inner-heading"><p className="eyebrow">Farhan Atif / archive</p><h1>{title}</h1><p>{intro}</p></div>{children}</main>; }
+function ProjectList() { return <Page title="Selected work" intro="A catalogue of interfaces, systems, and design decisions."><div className="catalogue">{allProjects.map(p => <Link className="catalogue-row" to={`/case-study/${p.id}`} key={p.id}><img src={`/${p.image}`} alt="" /><div><p className="eyebrow">{p.category} · {p.year}</p><h2>{p.title}</h2><p>{p.description}</p></div><ArrowUpRight size={20} /></Link>)}</div></Page>; }
+function CaseStudy() { const { projectId } = useParams(); const project = allProjects.find(p => String(p.id) === projectId) || allProjects[0]; return <Page title={project.title} intro={project.description}><article className="case-study"><img className="case-hero" src={`/${project.image}`} alt={`${project.title} screenshot`} /><div className="case-grid"><div><p className="eyebrow">Project brief</p><h2>{project.caseStudy?.overview || 'A focused frontend build shaped around clarity, responsive behavior, and a considered interface system.'}</h2></div><div className="case-copy"><p>{project.caseStudy?.challenge}</p><p>{project.caseStudy?.solution}</p><div className="tags">{project.tags.map(t => <span key={t}>{t}</span>)}</div>{project.link && <a className="button primary" href={project.link} target="_blank" rel="noreferrer">Open live project ↗</a>}</div></div></article></Page>; }
+function Poems() { return <Page title="Poetry archive" intro="A quieter room for work that doesn’t need to ship."><div className="poem-list">{poems.map(poem => <Link to={`/poems/${poem.id}`} key={poem.id}><span>{String(poem.id).padStart(2, '0')}</span><div><h2>{poem.title}</h2><p>{poem.content[0]} …</p></div><span>↗</span></Link>)}</div></Page>; }
+function PoemDetail() { const { id } = useParams(); const poem = poems.find(p => String(p.id) === id) || poems[0]; return <Page title={poem.title} intro={poem.date || 'From the archive'}><article className="poem-detail">{poem.content.map((line, i) => <p key={`${line}-${i}`}>{line}</p>)}</article></Page>; }
+function App() { return <BrowserRouter><Frame><Routes><Route path="/" element={<Home />} /><Route path="/projects" element={<ProjectList />} /><Route path="/case-study/:projectId" element={<CaseStudy />} /><Route path="/poems" element={<Poems />} /><Route path="/poems/:id" element={<PoemDetail />} /><Route path="*" element={<Home />} /></Routes></Frame></BrowserRouter>; }
 export default App;

@@ -45,7 +45,7 @@ export const projects: Project[] = [
     caseStudy: {
       overview: "Worked as a UI/UX developer for about 3 years on new features and enhancements as well as maintaining the existing codebase of PartnerlinQ, an EDI platform used by various international partners for onboarding and exchanging data. The platform had multiple internal portals all with their own functionality and user experience requirements.",
       challenge: "Since it was an evolving product with multiple internal portals, there was always the issue of increasing design inconsistencies and user confusion. The goal was to create a unified design system that could be used across all portals, ensuring a consistent user experience. There was significant design burden with global styling reaching thousands of lines across multiple platforms rather than a unified design system. Using Material UI and Angular Material also added on significant complexity with multiple design overrides needed as per changing design requirements.",
-      solution: "Replaced Material UI and Angular Material with PrimeNG to create a more consistent and maintainable design system. Developed a custom design system that could be used across all portals, ensuring a unified user experience. Created custom utility classes using mixins mimicing Tailwind functionality since completely removing Bootstrap was not part of current scope. Reworked all components' reusability and modularity to reduce design burden and improve maintainability. Moving to PrimeNG also allowed us to shift the design towards a more modern style, aligning with current design trends.",
+      solution: "Replaced Material UI and Angular Material with PrimeNG to create a more consistent and maintainable design system. Developed a custom design system that could be used across all portals, ensuring a unified user experience. Created custom utility classes using mixins while reworking component reusability and modularity to reduce design burden and improve maintainability. Moving to PrimeNG also allowed us to shift the design towards a more modern style, aligning with current design trends.",
       results: [
         "80% reduction in design inconsistencies across portals",
         "50% faster development time for new features due to easier class structure",
@@ -74,9 +74,9 @@ export const projects: Project[] = [
     id: 3,
     title: "Portfolio Website",
     link: "https://farhanatif.com",
-    description: "Decided to finally build my own portfolio website to showcase my work and skills. It is deployed on Netlify and uses EmailJS for contact form functionality. Built using React, TypeScript, and Tailwind with a mobile-first approach.",
+    description: "Decided to finally build my own portfolio website to showcase my work and skills. It is deployed on Netlify and uses EmailJS for contact form functionality. Built using React, TypeScript, and a mobile-first approach.",
     image: "images/Portfolio.png",
-    tags: ["HTML", "CSS", "React", "TypeScript", "SCSS", "Tailwind CSS", "EmailJS", "Vite"],
+    tags: ["HTML", "CSS", "React", "TypeScript", "SCSS", "EmailJS", "Vite"],
     year: "2025",
     category: "Web Application"
   },
