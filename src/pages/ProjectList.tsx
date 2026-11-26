@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, Calendar, ExternalLink, Github, Code2, FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';

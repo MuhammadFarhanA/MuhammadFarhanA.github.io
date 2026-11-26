@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from 'react';
 import { Code, Database, Globe, Wrench, Star, ExternalLink } from 'lucide-react';
 

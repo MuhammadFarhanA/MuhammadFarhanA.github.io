@@ -245,6 +245,36 @@ section {
 .animate-delay-400 { animation-delay: 400ms; }
 .animate-delay-500 { animation-delay: 500ms; }
 
+/* Fractal immersive experience */
+:root { --fractal-ink:#e8ebec; --fractal-muted:#a7afb1; --fractal-blue:#7690ff; --fractal-ivory:#eeeae2; }
+.fractal-home { min-height:100vh; background:#080b0d; color:var(--fractal-ink); overflow:hidden; }
+.fractal-journey { position:relative; height:300vh; }
+.fractal-canvas { position:sticky; top:0; z-index:0; height:100vh; margin-bottom:-100vh; pointer-events:none; }
+.fractal-canvas canvas { display:block; width:100% !important; height:100% !important; }
+.fractal-overlay { position:relative; z-index:1; pointer-events:none; }
+.dimension { min-height:150vh; display:flex; align-items:center; padding:10vw; position:relative; pointer-events:none; }
+.dimension > div { max-width:650px; pointer-events:auto; }
+.entrance-copy { color:#eef1f2; background:linear-gradient(90deg,rgba(8,11,13,.82),rgba(8,11,13,.12) 72%,transparent); }
+.identity-copy { color:#20262b; justify-content:flex-end; background:linear-gradient(90deg,transparent 12%,rgba(238,234,226,.18) 55%,rgba(238,234,226,.08)); }
+.micro,.after-kicker { font:11px 'DM Mono',monospace; letter-spacing:.16em; text-transform:uppercase; color:var(--fractal-blue); margin:0 0 22px; }
+.dimension h1,.dimension h2,.after-journey h2 { margin:0; font-size:clamp(54px,8vw,128px); line-height:.88; letter-spacing:-.09em; font-weight:700; }
+.dimension h1 em,.dimension h2 em,.after-journey h2 em { font-family:Georgia,serif; font-weight:400; letter-spacing:-.08em; }
+.dimension p:not(.micro) { max-width:520px; color:var(--fractal-muted); line-height:1.7; font-size:17px; margin:30px 0 0; }
+.identity-copy p:not(.micro) { color:#586166; }
+.actions { display:flex; align-items:center; gap:25px; margin-top:32px; }
+.solid-action,.line-action { display:inline-flex; align-items:center; gap:9px; font:11px 'DM Mono',monospace; text-transform:uppercase; letter-spacing:.06em; padding:14px 17px; }
+.solid-action { color:#080b0d; background:#e8ebec; }.solid-action:hover { background:var(--fractal-blue); color:#fff; }
+.line-action { color:inherit; border-bottom:1px solid currentColor; padding-left:0; padding-right:0; }
+.scroll-prompt { position:absolute; left:50%; bottom:80px; transform:translateX(-50%); display:flex; align-items:center; gap:9px; color:#8b9598; font:10px 'DM Mono',monospace; text-transform:uppercase; }
+.fractal-nav { position:fixed; top:0; left:0; right:0; z-index:30; display:flex; align-items:center; justify-content:space-between; padding:28px 4vw; color:#eef1f2; mix-blend-mode:screen; }
+.fractal-logo { display:flex; align-items:center; gap:12px; font:bold 16px 'DM Mono',monospace; }.fractal-logo span { font:10px 'DM Mono',monospace; color:#9da7a9; text-transform:uppercase; }
+.fractal-nav nav { display:flex; align-items:center; gap:20px; }.fractal-nav nav a,.fractal-nav nav button { border:0; color:inherit; background:none; cursor:pointer; font:10px 'DM Mono',monospace; text-transform:uppercase; }.fractal-nav nav button.active { color:var(--fractal-blue); }.fractal-nav .mode-toggle { border:1px solid rgba(255,255,255,.35); padding:9px 11px; }.journey-progress { font:11px 'DM Mono',monospace; color:var(--fractal-blue); }
+.fractal-debug { position:fixed; right:18px; bottom:18px; z-index:40; display:flex; flex-direction:column; gap:5px; padding:12px; color:#e8ebec; background:rgba(8,11,13,.8); border:1px solid rgba(118,144,255,.55); font:10px 'DM Mono',monospace; pointer-events:auto; }.fractal-debug button { margin-top:5px; padding:6px; border:1px solid var(--fractal-blue); background:none; color:inherit; font:10px 'DM Mono',monospace; cursor:pointer; }
+.after-journey { min-height:95vh; position:relative; z-index:2; padding:12vw 10vw; background:var(--fractal-ivory); color:#20262b; }.after-journey:nth-of-type(odd) { background:#d8dddb; }.after-journey p { max-width:500px; color:#5f686c; font-size:17px; line-height:1.7; }.after-journey .solid-action { background:#20262b; color:#fff; margin-top:18px; }
+[data-experience-mode="standard"] .fractal-journey { height:auto; }[data-experience-mode="standard"] .fractal-canvas { display:none; }
+@media (prefers-reduced-motion:reduce) { .fractal-journey { height:auto; }.fractal-canvas { display:none; }.fractal-overlay { color:#20262b; }.entrance-copy,.identity-copy { min-height:100vh; background:var(--fractal-ivory); color:#20262b; }.dimension p:not(.micro) { color:#5f686c; } }
+@media (max-width:800px) { .fractal-nav { padding:20px 6vw; }.fractal-nav nav a:nth-child(n+3) { display:none; }.fractal-logo span { display:none; }.dimension { min-height:150vh; padding:120px 10vw 90px; align-items:center; }.identity-copy { justify-content:flex-start; }.dimension h1,.dimension h2 { font-size:clamp(48px,13vw,82px); }.dimension p:not(.micro) { font-size:15px; }.actions { align-items:flex-start; flex-direction:column; gap:18px; }.fractal-debug { right:8px; bottom:8px; font-size:9px; }.after-journey { padding:22vw 10vw; min-height:75vh; } }
+
 /* Hover effects */
 .hover-lift {
   transition: transform 0.3s ease, box-shadow 0.3s ease;

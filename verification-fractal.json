@@ -1,0 +1,35 @@
+{
+  "canvas": 1,
+  "standardCanvas": 0,
+  "reducedCanvas": 0,
+  "screenshots": [
+    {
+      "percent": 0,
+      "debug": "FRACTAL RUNTIME\ndepth: entrance\nprogress: 0.000\ncamera: 8.00 / 3.20 / 9.00\nfov: 48.0\nfps: 19 · calls: 33\nmeshes: 33 · triangles: 2650\nmode: immersive · reduced: off\nInspect free camera",
+      "path": "verification-fractal-0.png"
+    },
+    {
+      "percent": 25,
+      "debug": "FRACTAL RUNTIME\ndepth: entrance\nprogress: 0.250\ncamera: 3.88 / 1.61 / 5.08\nfov: 47.7\nfps: 20 · calls: 33\nmeshes: 33 · triangles: 2650\nmode: immersive · reduced: off\nInspect free camera",
+      "path": "verification-fractal-25.png"
+    },
+    {
+      "percent": 50,
+      "debug": "FRACTAL RUNTIME\ndepth: identity\nprogress: 0.500\ncamera: 0.31 / 1.39 / 0.41\nfov: 47.3\nfps: 13 · calls: 29\nmeshes: 33 · triangles: 2602\nmode: immersive · reduced: off\nInspect free camera",
+      "path": "verification-fractal-50.png"
+    },
+    {
+      "percent": 75,
+      "debug": "FRACTAL RUNTIME\ndepth: identity\nprogress: 0.750\ncamera: 1.80 / 2.00 / -5.91\nfov: 46.8\nfps: 16 · calls: 6\nmeshes: 33 · triangles: 2036\nmode: immersive · reduced: off\nInspect free camera",
+      "path": "verification-fractal-75.png"
+    },
+    {
+      "percent": 100,
+      "debug": "FRACTAL RUNTIME\ndepth: identity\nprogress: 1.000\ncamera: -0.81 / 1.65 / -11.51\nfov: 46.3\nfps: 18 · calls: 3\nmeshes: 33 · triangles: 16\nmode: immersive · reduced: off\nInspect free camera",
+      "path": "verification-fractal-100.png"
+    }
+  ],
+  "projectsRoute": true,
+  "poemsRoute": true,
+  "errors": []
+}
