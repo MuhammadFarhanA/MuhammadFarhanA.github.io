@@ -1,6 +1,6 @@
 import type * as THREE from 'three';
 
-export type DimensionId = 'entrance' | 'fractal' | 'liquid-metal';
+export type DimensionId = 'mirror-chamber' | 'fractal-architecture' | 'liquid-metal';
 
 export interface TravelState {
   current: number;
@@ -21,6 +21,8 @@ export interface RuntimeDiagnostics {
 
 export interface SpatialScene {
   readonly id: DimensionId;
+  readonly scene: THREE.Scene;
   readonly group: THREE.Group;
+  readonly portalSurface: THREE.Mesh;
   dispose(): void;
 }

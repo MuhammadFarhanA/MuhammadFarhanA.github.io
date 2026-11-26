@@ -9,12 +9,18 @@ const context = await browser.newContext({
 });
 const page = await context.newPage();
 const errors = [];
+const checkpoints = [];
+
 page.on('console', (message) => {
-  if (message.type() === 'error') errors.push(message.text());
+  if (message.type() === 'error') {
+    errors.push(message.text());
+  }
 });
 page.on('pageerror', (error) => errors.push(error.message));
+
 await page.goto(baseURL, { waitUntil: 'networkidle' });
 await page.waitForSelector('canvas');
+
 const applyWheel = async (delta) => {
   const direction = Math.sign(delta);
   let remaining = Math.abs(delta);
@@ -25,30 +31,40 @@ const applyWheel = async (delta) => {
     await page.waitForTimeout(80);
   }
 };
-const checkpoints = [];
+
+const capture = async (name) => {
+  await page.waitForTimeout(1400);
+  const debug = await page.locator('.spatial-debug').innerText();
+  await page.screenshot({ path: `verification-spatial-${name}.png` });
+  checkpoints.push({ name, debug });
+  return debug;
+};
+
 const bodyMetrics = await page.evaluate(() => ({
   scrollY,
   scrollHeight: document.documentElement.scrollHeight,
   innerHeight,
 }));
-for (const [name, delta] of [
-  ['entrance', 0],
-  ['white-fractal', 700],
-  ['liquid-metal', 500],
-]) {
-  if (delta) await applyWheel(delta);
-  await page.waitForTimeout(900);
-  const debug = await page.locator('.spatial-debug').innerText();
-  const path = `verification-spatial-${name}.png`;
-  await page.screenshot({ path });
-  checkpoints.push({ name, debug });
-}
-await applyWheel(700);
-await page.waitForTimeout(1200);
-const forward = await page.locator('.spatial-debug').innerText();
-await applyWheel(-1400);
-await page.waitForTimeout(4000);
-const backward = await page.locator('.spatial-debug').innerText();
+
+await capture('initial-mirror-chamber');
+await applyWheel(180);
+await capture('mirror-chamber-midpoint');
+await applyWheel(260);
+await capture('first-portal-approach');
+await applyWheel(100);
+await capture('first-portal-boundary-crossing');
+await applyWheel(250);
+await capture('fractal-arrival');
+await applyWheel(350);
+await capture('second-portal-boundary-crossing');
+await applyWheel(250);
+await capture('liquid-metal-arrival');
+await applyWheel(-800);
+await capture('reverse-liquid-approach');
+await applyWheel(-700);
+const reverseEntrance = await capture('reverse-entrance');
+
+const finalState = await page.locator('.spatial-debug').innerText();
 const afterBackward = await page.evaluate(() => ({
   scrollY,
   scrollHeight: document.documentElement.scrollHeight,
@@ -56,17 +72,31 @@ const afterBackward = await page.evaluate(() => ({
 const video = await page.video().path();
 await context.close();
 await fs.copyFile(video, 'verification-spatial-journey.webm');
-const report = { bodyMetrics, checkpoints, forward, backward, afterBackward, errors };
+
+const report = {
+  bodyMetrics,
+  checkpoints,
+  finalState,
+  reverseEntrance,
+  afterBackward,
+  errors,
+};
 await fs.writeFile('verification-spatial.json', JSON.stringify(report, null, 2));
 console.log(JSON.stringify(report, null, 2));
 await browser.close();
+
+const hasDimension = (name) => checkpoints.some(({ debug }) => debug.includes(name));
+const crossedToFractal = hasDimension('dimension: fractal-architecture');
+const crossedToLiquid = hasDimension('dimension: liquid-metal');
+const returnedToEntrance = /travel: 0\.0/.test(reverseEntrance);
+
 if (
   errors.length ||
   bodyMetrics.scrollY !== 0 ||
   bodyMetrics.scrollHeight !== bodyMetrics.innerHeight ||
-  !checkpoints[1].debug.includes('dimension: fractal') ||
-  !checkpoints[2].debug.includes('dimension: liquid-metal') ||
-  !/travel: 0\.0/.test(backward) ||
-  !forward.includes('dimension: liquid-metal')
-)
+  !crossedToFractal ||
+  !crossedToLiquid ||
+  !returnedToEntrance
+) {
   process.exitCode = 1;
+}

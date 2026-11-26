@@ -32,15 +32,15 @@ export const createSceneMaterials = (): Record<string, THREE.Material> => ({
     color: '#aeb7b8',
     metalness: 1,
     roughness: 0.08,
-    emissive: '#7f969d',
-    emissiveIntensity: 0.9,
+    emissive: '#26363a',
+    emissiveIntensity: 0.28,
   }),
   warm: new THREE.MeshStandardMaterial({
     color: '#986d47',
     metalness: 0.78,
     roughness: 0.22,
     emissive: '#6c3a1c',
-    emissiveIntensity: 0.8,
+    emissiveIntensity: 0.35,
   }),
 });
 

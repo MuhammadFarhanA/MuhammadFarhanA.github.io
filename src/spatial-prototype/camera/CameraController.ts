@@ -15,13 +15,9 @@ export class CameraController {
     this.camera.position.set(0, CAMERA_PATH.verticalOffset, CAMERA_PATH.startZ);
   }
 
-  public update(travel: number): void {
-    const z = THREE.MathUtils.lerp(CAMERA_PATH.startZ, CAMERA_PATH.endZ, travel);
-    const x = Math.sin(travel * Math.PI * 2) * 2.1;
-    const y = CAMERA_PATH.verticalOffset + Math.sin(travel * Math.PI * 3) * 0.75;
-
-    this.camera.position.set(x, y, z);
-    this.camera.lookAt(x * 0.18, 0, z - CAMERA_PATH.lookAhead);
+  public update(localZ: number): void {
+    this.camera.position.set(0, CAMERA_PATH.verticalOffset, localZ);
+    this.camera.lookAt(0, CAMERA_PATH.verticalOffset, localZ - CAMERA_PATH.lookAhead);
   }
 
   public resize(): void {

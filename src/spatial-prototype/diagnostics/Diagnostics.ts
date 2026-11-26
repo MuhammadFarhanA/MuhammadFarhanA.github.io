@@ -31,7 +31,10 @@ export class Diagnostics {
 
   public update(diagnostics: RuntimeDiagnostics): void {
     this.set('dimension', `dimension: ${diagnostics.dimension}`);
-    this.set('portal', `portal: ${diagnostics.dimension === 'entrance' ? 'first' : 'second'}`);
+    this.set(
+      'portal',
+      `portal: ${diagnostics.dimension === 'mirror-chamber' ? 'first' : 'second'}`,
+    );
     this.set(
       'travel',
       `travel: ${diagnostics.travel.current.toFixed(3)} / target ${diagnostics.travel.target.toFixed(3)}`,

@@ -2,42 +2,64 @@ import * as THREE from 'three';
 import { EntranceScene } from '../scenes/EntranceScene';
 import { FractalScene } from '../scenes/FractalScene';
 import { LiquidMetalScene } from '../scenes/LiquidMetalScene';
+import type { EnvironmentAssetLoader } from '../environment/EnvironmentAssetLoader';
 import type { DimensionId, SpatialScene } from '../types/SpatialTypes';
 
 export class SceneManager {
-  public readonly group = new THREE.Group();
-  private readonly scenes: SpatialScene[] = [
-    new EntranceScene(),
-    new FractalScene(),
-    new LiquidMetalScene(),
-  ];
+  private readonly scenes: SpatialScene[];
+  private activeIndex = 0;
 
-  public constructor() {
-    this.scenes.forEach((scene) => this.group.add(scene.group));
+  public constructor(environmentLoader: EnvironmentAssetLoader) {
+    this.scenes = [
+      new EntranceScene(environmentLoader),
+      new FractalScene(environmentLoader),
+      new LiquidMetalScene(environmentLoader),
+    ];
   }
 
-  public getDimension(travel: number): DimensionId {
-    if (travel < 0.29) {
-      return 'entrance';
-    }
+  public get activeScene(): THREE.Scene {
+    return this.scenes[this.activeIndex].scene;
+  }
 
-    if (travel < 0.68) {
-      return 'fractal';
-    }
+  public get activeDimension(): DimensionId {
+    return this.scenes[this.activeIndex].id;
+  }
 
-    return 'liquid-metal';
+  public get destinationScene(): THREE.Scene {
+    const destinationIndex = this.activeIndex === 0 ? 1 : this.activeIndex - 1;
+    return this.scenes[destinationIndex].scene;
+  }
+
+  public get sourcePortal(): THREE.Mesh {
+    return this.scenes[this.activeIndex].portalSurface;
+  }
+
+  public get destinationPortal(): THREE.Mesh {
+    const destinationIndex = this.activeIndex === 0 ? 1 : this.activeIndex - 1;
+    return this.scenes[destinationIndex].portalSurface;
   }
 
   public update(travel: number): void {
-    this.scenes[0].group.rotation.z = travel * 0.08;
-    this.scenes[1].group.rotation.y = travel * 0.12;
-    this.scenes[2].group.rotation.y = travel * 0.04;
+    const nextIndex = travel >= 0.67 ? 2 : travel >= 0.34 ? 1 : 0;
+    if (nextIndex !== this.activeIndex) {
+      this.activeIndex = nextIndex;
+    }
   }
 
-  public getPortalSurfaces(): THREE.Mesh[] {
-    const entrance = this.scenes[0] as EntranceScene;
-    const fractal = this.scenes[1] as FractalScene;
-    return [entrance.portalSurface, fractal.portalSurface];
+  public getCameraZ(travel: number): number {
+    if (travel < 0.34) {
+      return THREE.MathUtils.lerp(12, -24, travel / 0.34);
+    }
+
+    if (travel < 0.67) {
+      return THREE.MathUtils.lerp(14, -24, (travel - 0.34) / 0.33);
+    }
+
+    return THREE.MathUtils.lerp(14, -24, (travel - 0.67) / 0.33);
+  }
+
+  public getPortalBoundary(): number {
+    return this.activeIndex === 0 ? 0.34 : 0.67;
   }
 
   public dispose(): void {

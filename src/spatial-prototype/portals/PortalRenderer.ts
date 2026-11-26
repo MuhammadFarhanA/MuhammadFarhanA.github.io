@@ -1,15 +1,12 @@
 import * as THREE from 'three';
 
 export class PortalRenderer {
-  private readonly target = new THREE.WebGLRenderTarget(512, 512, {
-    depthBuffer: true,
-    stencilBuffer: false,
-  });
+  private readonly target = new THREE.WebGLRenderTarget(512, 512);
   private readonly portalCamera = new THREE.PerspectiveCamera(46, 1, 0.1, 260);
-  private readonly surfaces: THREE.Mesh[] = [];
+  private registeredSurface: THREE.Mesh | undefined;
 
   public register(surface: THREE.Mesh): void {
-    this.surfaces.push(surface);
+    this.registeredSurface = surface;
     const material = surface.material as THREE.MeshBasicMaterial;
     material.map = this.target.texture;
     material.needsUpdate = true;
@@ -17,29 +14,38 @@ export class PortalRenderer {
 
   public render(
     renderer: THREE.WebGLRenderer,
-    scene: THREE.Scene,
+    destinationScene: THREE.Scene,
     camera: THREE.PerspectiveCamera,
+    sourcePortal: THREE.Mesh,
+    destinationPortal: THREE.Mesh,
   ): number {
-    const surface = this.surfaces.find((candidate) => {
-      const destinationZ = candidate.userData.destinationZ ?? -84;
-      return camera.position.z > destinationZ;
-    });
-
+    const surface = this.registeredSurface;
     if (!surface) {
       return 0;
     }
 
-    const destinationZ = (surface.userData.destinationZ as number) ?? -84;
-    const visibility = surface.visible;
+    const sourcePosition = new THREE.Vector3();
+    const destinationPosition = new THREE.Vector3();
+    sourcePortal.getWorldPosition(sourcePosition);
+    destinationPortal.getWorldPosition(destinationPosition);
+    const cameraOffset = camera.position.z - sourcePosition.z;
+
     surface.visible = false;
-    this.portalCamera.position.copy(camera.position);
-    this.portalCamera.position.z = destinationZ - 6;
-    this.portalCamera.rotation.copy(camera.rotation);
+    this.portalCamera.position.set(
+      destinationPosition.x + (camera.position.x - sourcePosition.x),
+      destinationPosition.y + (camera.position.y - sourcePosition.y),
+      destinationPosition.z + cameraOffset,
+    );
+    this.portalCamera.lookAt(
+      destinationPosition.x,
+      destinationPosition.y,
+      destinationPosition.z - 8,
+    );
     this.portalCamera.updateProjectionMatrix();
     renderer.setRenderTarget(this.target);
-    renderer.render(scene, this.portalCamera);
+    renderer.render(destinationScene, this.portalCamera);
     renderer.setRenderTarget(null);
-    surface.visible = visibility;
+    surface.visible = true;
     return 1;
   }
 
