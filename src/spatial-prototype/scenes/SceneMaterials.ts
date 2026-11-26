@@ -28,20 +28,6 @@ export const createSceneMaterials = (): Record<string, THREE.Material> => ({
     emissive: '#8da7ad',
     emissiveIntensity: 0.65,
   }),
-  liquid: new THREE.MeshStandardMaterial({
-    color: '#aeb7b8',
-    metalness: 1,
-    roughness: 0.08,
-    emissive: '#26363a',
-    emissiveIntensity: 0.28,
-  }),
-  warm: new THREE.MeshStandardMaterial({
-    color: '#986d47',
-    metalness: 0.78,
-    roughness: 0.22,
-    emissive: '#6c3a1c',
-    emissiveIntensity: 0.35,
-  }),
 });
 
 export const disposeMaterials = (materials: Record<string, THREE.Material>): void => {

@@ -21,6 +21,8 @@ export class Diagnostics {
       'frameTime',
       'drawCalls',
       'triangles',
+      'milestone',
+      'settled',
     ].forEach((name) => {
       const field = document.createElement('span');
       field.dataset.field = name;
@@ -48,6 +50,11 @@ export class Diagnostics {
     this.set('frameTime', `frame: ${diagnostics.frameTime.toFixed(2)}ms`);
     this.set('drawCalls', `draw calls: ${diagnostics.drawCalls}`);
     this.set('triangles', `triangles: ${diagnostics.triangles}`);
+    this.set(
+      'milestone',
+      `milestone: ${diagnostics.milestoneIndex + 1} · ${diagnostics.milestoneName}`,
+    );
+    this.set('settled', `settled: ${diagnostics.settled ? 'yes' : 'transitioning'}`);
   }
 
   public dispose(): void {

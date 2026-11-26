@@ -1,10 +1,10 @@
 import { INPUT_CONFIG } from '../config/InputConfig';
-import type { TravelController } from '../navigation/TravelController';
+import type { MilestoneNavigation } from '../navigation/MilestoneNavigation';
 
 export class InputController {
   private touchY = 0;
 
-  public constructor(private readonly travel: TravelController) {}
+  public constructor(private readonly navigation: MilestoneNavigation) {}
 
   public connect(): () => void {
     const onWheel = (event: WheelEvent): void => {
@@ -13,7 +13,7 @@ export class InputController {
         -INPUT_CONFIG.maxWheelDelta,
         Math.min(INPUT_CONFIG.maxWheelDelta, event.deltaY),
       );
-      this.travel.addInput(delta * INPUT_CONFIG.wheelScale);
+      this.navigation.addInput(delta * INPUT_CONFIG.wheelScale);
     };
 
     const onTouchStart = (event: TouchEvent): void => {
@@ -23,19 +23,19 @@ export class InputController {
     const onTouchMove = (event: TouchEvent): void => {
       event.preventDefault();
       const nextY = event.touches[0]?.clientY ?? this.touchY;
-      this.travel.addInput((this.touchY - nextY) * INPUT_CONFIG.touchScale);
+      this.navigation.addInput((this.touchY - nextY) * INPUT_CONFIG.touchScale);
       this.touchY = nextY;
     };
 
     const onKeyDown = (event: KeyboardEvent): void => {
       if (event.key === 'ArrowDown' || event.key === 'PageDown') {
         event.preventDefault();
-        this.travel.addInput(INPUT_CONFIG.keyboardStep);
+        this.navigation.addInput(INPUT_CONFIG.keyboardStep);
       }
 
       if (event.key === 'ArrowUp' || event.key === 'PageUp') {
         event.preventDefault();
-        this.travel.addInput(-INPUT_CONFIG.keyboardStep);
+        this.navigation.addInput(-INPUT_CONFIG.keyboardStep);
       }
     };
 

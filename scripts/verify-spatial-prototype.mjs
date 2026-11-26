@@ -33,7 +33,7 @@ const applyWheel = async (delta) => {
 };
 
 const capture = async (name) => {
-  await page.waitForTimeout(1400);
+  await page.waitForTimeout(2500);
   const debug = await page.locator('.spatial-debug').innerText();
   await page.screenshot({ path: `verification-spatial-${name}.png` });
   checkpoints.push({ name, debug });
@@ -46,23 +46,30 @@ const bodyMetrics = await page.evaluate(() => ({
   innerHeight,
 }));
 
-await capture('initial-mirror-chamber');
+await capture('milestone-1-mirror-arrival');
 await applyWheel(180);
-await capture('mirror-chamber-midpoint');
-await applyWheel(260);
-await capture('first-portal-approach');
-await applyWheel(100);
-await capture('first-portal-boundary-crossing');
-await applyWheel(250);
-await capture('fractal-arrival');
-await applyWheel(350);
-await capture('second-portal-boundary-crossing');
-await applyWheel(250);
-await capture('liquid-metal-arrival');
-await applyWheel(-800);
-await capture('reverse-liquid-approach');
-await applyWheel(-700);
-const reverseEntrance = await capture('reverse-entrance');
+await capture('milestone-2-mirror-introduction');
+await applyWheel(180);
+await capture('milestone-3-mirror-content');
+await applyWheel(180);
+await capture('milestone-4-fractal-arrival-portal-crossing');
+await applyWheel(180);
+await capture('milestone-5-fractal-introduction');
+await applyWheel(180);
+await capture('milestone-6-fractal-content');
+
+await applyWheel(-180);
+await capture('reverse-milestone-5');
+await applyWheel(-180);
+await applyWheel(-180);
+await applyWheel(-180);
+await applyWheel(-180);
+const reverseEntrance = await capture('reverse-milestone-1');
+
+await page.getByRole('button', { name: 'Fractal architecture' }).click();
+const directNavigation = await capture('direct-fractal-navigation');
+await page.getByRole('button', { name: 'Mirror chamber' }).click();
+await capture('direct-mirror-navigation');
 
 const finalState = await page.locator('.spatial-debug').innerText();
 const afterBackward = await page.evaluate(() => ({
@@ -76,6 +83,7 @@ await fs.copyFile(video, 'verification-spatial-journey.webm');
 const report = {
   bodyMetrics,
   checkpoints,
+  directNavigation,
   finalState,
   reverseEntrance,
   afterBackward,
@@ -85,18 +93,23 @@ await fs.writeFile('verification-spatial.json', JSON.stringify(report, null, 2))
 console.log(JSON.stringify(report, null, 2));
 await browser.close();
 
-const hasDimension = (name) => checkpoints.some(({ debug }) => debug.includes(name));
-const crossedToFractal = hasDimension('dimension: fractal-architecture');
-const crossedToLiquid = hasDimension('dimension: liquid-metal');
-const returnedToEntrance = /travel: 0\.0/.test(reverseEntrance);
+const hasMilestone = (index) =>
+  checkpoints.some(({ debug }) => debug.includes(`milestone: ${index}`));
+const reachedAllMilestones = [1, 2, 3, 4, 5, 6].every(hasMilestone);
+const milestonesSettled = checkpoints
+  .slice(0, 6)
+  .every(({ debug }) => debug.includes('settled: yes'));
+const returnedToEntrance = /milestone: 1/.test(reverseEntrance);
+const directNavigationWorked = /milestone: 4/.test(directNavigation);
 
 if (
   errors.length ||
   bodyMetrics.scrollY !== 0 ||
   bodyMetrics.scrollHeight !== bodyMetrics.innerHeight ||
-  !crossedToFractal ||
-  !crossedToLiquid ||
-  !returnedToEntrance
+  !reachedAllMilestones ||
+  !milestonesSettled ||
+  !returnedToEntrance ||
+  !directNavigationWorked
 ) {
   process.exitCode = 1;
 }

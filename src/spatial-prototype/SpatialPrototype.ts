@@ -3,18 +3,20 @@ import { EnvironmentAssetLoader } from './environment/EnvironmentAssetLoader';
 import { Renderer } from './core/Renderer';
 import { Diagnostics } from './diagnostics/Diagnostics';
 import { InputController } from './input/InputController';
+import { MilestoneNavigation } from './navigation/MilestoneNavigation';
+import { NavigationOverlay } from './navigation/NavigationOverlay';
 import { SceneManager } from './navigation/SceneManager';
-import { TravelController } from './navigation/TravelController';
 import { PortalRenderer } from './portals/PortalRenderer';
 
 export class SpatialPrototype {
   private readonly camera = new CameraController();
   private readonly renderer: Renderer;
-  private readonly travel = new TravelController();
+  private readonly navigation = new MilestoneNavigation();
   private readonly input: InputController;
   private readonly scenes: SceneManager;
   private readonly environments: EnvironmentAssetLoader;
   private readonly diagnostics: Diagnostics;
+  private readonly overlay: NavigationOverlay;
   private readonly portals = new PortalRenderer();
   private lastTime = performance.now();
   private fpsTime = this.lastTime;
@@ -27,13 +29,13 @@ export class SpatialPrototype {
     this.renderer = new Renderer(root);
     this.environments = new EnvironmentAssetLoader(this.renderer.instance);
     this.scenes = new SceneManager(this.environments);
-    this.input = new InputController(this.travel);
+    this.input = new InputController(this.navigation);
     this.diagnostics = new Diagnostics(root);
+    this.overlay = new NavigationOverlay(root, (index) => this.navigation.jumpTo(index));
     this.portals.register(this.scenes.sourcePortal);
     void this.environments.preload([
       '/assets/hdri/studio_small_03_2k.hdr',
       '/assets/hdri/white_studio_06_2k.hdr',
-      '/assets/hdri/studio_wizja_03_2k.hdr',
     ]);
   }
 
@@ -51,6 +53,7 @@ export class SpatialPrototype {
     this.portals.dispose();
     this.environments.dispose();
     this.diagnostics.dispose();
+    this.overlay.dispose();
     this.renderer.dispose();
   }
 
@@ -62,10 +65,10 @@ export class SpatialPrototype {
   private readonly renderFrame = (now: number): void => {
     const deltaTime = Math.min(0.05, (now - this.lastTime) / 1000);
     this.lastTime = now;
-    const travel = this.travel.update(deltaTime);
-    this.scenes.update(travel.current);
+    const milestone = this.navigation.update(deltaTime);
+    this.scenes.update(milestone.position);
     this.portals.register(this.scenes.sourcePortal);
-    this.camera.update(this.scenes.getCameraZ(travel.current));
+    this.camera.update(milestone.position);
 
     const portalPasses = this.portals.render(
       this.renderer.instance,
@@ -78,7 +81,7 @@ export class SpatialPrototype {
     this.renderer.instance.render(this.scenes.activeScene, this.camera.camera);
     this.diagnostics.update({
       dimension: this.scenes.activeDimension,
-      travel,
+      travel: this.navigation.getTravelState(),
       camera: this.camera.camera,
       fps: this.fps,
       frameTime: deltaTime * 1000,
@@ -86,7 +89,11 @@ export class SpatialPrototype {
       triangles: this.renderer.instance.info.render.triangles,
       portalPasses,
       reflectionPasses: 0,
+      milestoneIndex: milestone.currentIndex,
+      milestoneName: milestone.milestone.id,
+      settled: milestone.settled,
     });
+    this.overlay.update(milestone);
     this.frameId = requestAnimationFrame(this.renderFrame);
   };
 
