@@ -7,19 +7,19 @@
   "checkpoints": [
     {
       "name": "entrance",
-      "debug": "SPATIAL PROTOTYPE\ndimension: 1 · recursive mirrors\ntravel: 0.000 / target 0.000\ncamera: 0.00 / 0.70 / 14.00\nfps: 8"
+      "debug": "SPATIAL PROTOTYPEdimension: entranceportal: firsttravel: 0.000 / target 0.000camera: 0.00 / 0.70 / 14.00fov: 46.0fps: 3frame: 50.00msdraw calls: 89triangles: 31626"
     },
     {
       "name": "white-fractal",
-      "debug": "SPATIAL PROTOTYPE\ndimension: 2 · white fractal world\ntravel: 0.441 / target 0.504\ncamera: 0.76 / 0.06 / -45.98\nfps: 40"
+      "debug": "SPATIAL PROTOTYPEdimension: fractalportal: secondtravel: 0.441 / target 0.504camera: 0.75 / 0.06 / -46.04fov: 46.0fps: 3frame: 50.00msdraw calls: 124triangles: 62120"
     },
     {
       "name": "liquid-metal",
-      "debug": "SPATIAL PROTOTYPE\ndimension: 3 · liquid metal world\ntravel: 0.861 / target 0.864\ncamera: -1.61 / 1.42 / -103.11\nfps: 2"
+      "debug": "SPATIAL PROTOTYPEdimension: liquid-metalportal: secondtravel: 0.863 / target 0.864camera: -1.59 / 1.42 / -103.39fov: 46.0fps: 17frame: 50.00msdraw calls: 6triangles: 21314"
     }
   ],
-  "forward": "SPATIAL PROTOTYPE\ndimension: 3 · liquid metal world\ntravel: 1.000 / target 1.000\ncamera: -0.00 / 0.70 / -121.97\nfps: 2",
-  "backward": "SPATIAL PROTOTYPE\ndimension: 1 · recursive mirrors\ntravel: 0.003 / target 0.000\ncamera: 0.04 / 0.72 / 13.62\nfps: 2",
+  "forward": "SPATIAL PROTOTYPEdimension: liquid-metalportal: secondtravel: 1.000 / target 1.000camera: -0.00 / 0.70 / -122.00fov: 46.0fps: 60frame: 16.60msdraw calls: 3triangles: 11712",
+  "backward": "SPATIAL PROTOTYPEdimension: entranceportal: firsttravel: 0.008 / target 0.000camera: 0.10 / 0.75 / 12.95fov: 46.0fps: 3frame: 50.00msdraw calls: 89triangles: 31626",
   "afterBackward": {
     "scrollY": 0,
     "scrollHeight": 900

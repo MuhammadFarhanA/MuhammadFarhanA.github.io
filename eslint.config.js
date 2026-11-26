@@ -19,10 +19,15 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
-  }
+  },
+  {
+    files: ['src/App.tsx', 'src/components/**/*.tsx', 'src/pages/**/*.tsx'],
+    rules: {
+      // Legacy portfolio files are outside the isolated prototype refactor.
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+    },
+  },
 );

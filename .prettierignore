@@ -1,0 +1,7 @@
+node_modules
+dist
+package-lock.json
+verification-spatial-*.png
+verification-spatial-*.webm
+verification-spatial.json
+spatial-video

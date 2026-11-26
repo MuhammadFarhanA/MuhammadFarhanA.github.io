@@ -18,7 +18,7 @@ const ProjectList: React.FC = () => {
   const openDemo = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
-  
+
   // Scroll to top and reset animations when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -41,17 +41,17 @@ const ProjectList: React.FC = () => {
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              const index = projectRefs.current.findIndex(ref => ref === entry.target);
+              const index = projectRefs.current.findIndex((ref) => ref === entry.target);
               if (index !== -1 && !visibleProjects.includes(index)) {
-                setVisibleProjects(prev => [...prev, index]);
+                setVisibleProjects((prev) => [...prev, index]);
               }
             }
           });
         },
-        { 
+        {
           threshold: 0.3,
-          rootMargin: '-20px 0px -20px 0px'
-        }
+          rootMargin: '-20px 0px -20px 0px',
+        },
       );
 
       projectRefs.current.forEach((ref) => {
@@ -76,16 +76,24 @@ const ProjectList: React.FC = () => {
 
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-32 right-32 w-64 h-64 bg-gradient-to-br from-slate-200/20 to-gray-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-32 left-32 w-64 h-64 bg-gradient-to-br from-zinc-200/20 to-slate-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div
+            className="absolute top-32 right-32 w-64 h-64 bg-gradient-to-br from-slate-200/20 to-gray-200/20 rounded-full blur-3xl animate-pulse"
+            style={{ animationDelay: '1s' }}
+          ></div>
+          <div
+            className="absolute bottom-32 left-32 w-64 h-64 bg-gradient-to-br from-zinc-200/20 to-slate-200/20 rounded-full blur-3xl animate-pulse"
+            style={{ animationDelay: '2s' }}
+          ></div>
         </div>
 
         <div className="container mx-auto px-4 md:px-8 lg:px-16 py-20 pt-32 relative z-10">
           <div className="max-w-6xl mx-auto">
             {/* Back Button - Outside Header */}
-            <div className={`mb-8 transform transition-all duration-700 ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`}>
+            <div
+              className={`mb-8 transform transition-all duration-700 ${
+                isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+              }`}
+            >
               <button
                 onClick={() => navigate('/')}
                 className="group inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-all duration-300 font-medium"
@@ -98,9 +106,12 @@ const ProjectList: React.FC = () => {
             {/* Header */}
             <div className="mb-12">
               <div className="text-center">
-                <div className={`flex items-center justify-center gap-3 mb-4 transform transition-all duration-700 ${
-                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-                }`} style={{ transitionDelay: '0.2s' }}>
+                <div
+                  className={`flex items-center justify-center gap-3 mb-4 transform transition-all duration-700 ${
+                    isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+                  }`}
+                  style={{ transitionDelay: '0.2s' }}
+                >
                   <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-full">
                     <Code2 size={24} className="text-primary-600 dark:text-primary-400" />
                   </div>
@@ -108,10 +119,14 @@ const ProjectList: React.FC = () => {
                     Complete Project Collection
                   </h2>
                 </div>
-                <p className={`text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto transform transition-all duration-700 ${
-                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-                }`} style={{ transitionDelay: '0.4s' }}>
-                  A comprehensive collection of projects showcasing various technologies and development approaches.
+                <p
+                  className={`text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto transform transition-all duration-700 ${
+                    isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+                  }`}
+                  style={{ transitionDelay: '0.4s' }}
+                >
+                  A comprehensive collection of projects showcasing various technologies and
+                  development approaches.
                 </p>
               </div>
             </div>
@@ -134,13 +149,13 @@ const ProjectList: React.FC = () => {
                   {/* Project Image */}
                   <div className="lg:w-1/2 relative overflow-hidden">
                     <div className="aspect-[4/3] overflow-hidden">
-                      <img 
-                        src={project.image} 
+                      <img
+                        src={project.image}
                         alt={project.title}
                         className="w-full h-full object-cover transition-transform duration-700 scale-105 group-hover:scale-100"
                       />
                     </div>
-                    
+
                     {/* Image Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
                       <div className="absolute top-4 left-4">
@@ -164,26 +179,35 @@ const ProjectList: React.FC = () => {
                       <h2 className="text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-all duration-300 transform group-hover:translate-x-2">
                         {project.title}
                       </h2>
-                      
+
                       {/* Description */}
-                      <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed transform transition-all duration-300 group-hover:translate-x-2" style={{ transitionDelay: '0.1s' }}>
+                      <p
+                        className="text-neutral-600 dark:text-neutral-400 leading-relaxed transform transition-all duration-300 group-hover:translate-x-2"
+                        style={{ transitionDelay: '0.1s' }}
+                      >
                         {project.description}
                       </p>
 
                       {/* Technology Tags */}
-                      <div className="flex flex-wrap gap-2 transform transition-all duration-300 group-hover:translate-x-2" style={{ transitionDelay: '0.2s' }}>
+                      <div
+                        className="flex flex-wrap gap-2 transform transition-all duration-300 group-hover:translate-x-2"
+                        style={{ transitionDelay: '0.2s' }}
+                      >
                         {project.tags.map((tech, techIndex) => (
-                            <span 
-                            key={techIndex} 
+                          <span
+                            key={techIndex}
                             className={`tech-tag px-3 py-1.5 text-sm font-medium rounded-lg border ${getTagColor(tech)}`}
-                            >
+                          >
                             {tech}
-                            </span>
+                          </span>
                         ))}
                       </div>
 
                       {/* Project Links */}
-                      <div className="flex flex-wrap gap-3 pt-4 transform transition-all duration-300 group-hover:translate-x-2" style={{ transitionDelay: '0.3s' }}>
+                      <div
+                        className="flex flex-wrap gap-3 pt-4 transform transition-all duration-300 group-hover:translate-x-2"
+                        style={{ transitionDelay: '0.3s' }}
+                      >
                         {project.link ? (
                           <button
                             onClick={() => openDemo(project.link!)}
@@ -222,9 +246,12 @@ const ProjectList: React.FC = () => {
             </div>
 
             {/* Back to Main Projects */}
-            <div className={`text-center mt-16 transform transition-all duration-700 ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`} style={{ transitionDelay: '0.8s' }}>
+            <div
+              className={`text-center mt-16 transform transition-all duration-700 ${
+                isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+              }`}
+              style={{ transitionDelay: '0.8s' }}
+            >
               <button
                 onClick={() => navigate('/#projects')}
                 className="group inline-flex items-center gap-2 px-6 py-3 bg-secondary-600 hover:bg-secondary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-medium hover:shadow-strong relative overflow-hidden"

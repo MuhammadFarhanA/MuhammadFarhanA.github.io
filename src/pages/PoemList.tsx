@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { poems } from "../data/poems";
-import { BookOpen, ArrowLeft } from "lucide-react";
-import Header from "../components/Header";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { poems } from '../data/poems';
+import { BookOpen, ArrowLeft } from 'lucide-react';
+import Header from '../components/Header';
 
 const PoemList: React.FC = () => {
   const navigate = useNavigate();
@@ -20,19 +20,27 @@ const PoemList: React.FC = () => {
 
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
-        <div className="absolute top-32 right-32 w-64 h-64 bg-gradient-to-br from-secondary-200/20 to-secondary-100/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-32 left-32 w-64 h-64 bg-gradient-to-br from-secondary-100/20 to-secondary-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div
+          className="absolute top-32 right-32 w-64 h-64 bg-gradient-to-br from-secondary-200/20 to-secondary-100/20 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: '1s' }}
+        ></div>
+        <div
+          className="absolute bottom-32 left-32 w-64 h-64 bg-gradient-to-br from-secondary-100/20 to-secondary-200/20 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: '2s' }}
+        ></div>
       </div>
 
       {/* Main Content */}
       <div className="container mx-auto px-4 md:px-8 lg:px-16 py-20 pt-32 relative z-10">
         <div className="max-w-3xl mx-auto">
           {/* Back Button - Outside Header */}
-          <div className={`mb-8 transform transition-all duration-700 ${
-            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-          }`}>
+          <div
+            className={`mb-8 transform transition-all duration-700 ${
+              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`}
+          >
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate('/')}
               className="group inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-all duration-300 font-medium"
             >
               <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
@@ -41,9 +49,12 @@ const PoemList: React.FC = () => {
           </div>
 
           <div className="mb-12 text-center">
-            <div className={`flex items-center justify-center gap-3 mb-4 transform transition-all duration-700 ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`} style={{ transitionDelay: '0.2s' }}>
+            <div
+              className={`flex items-center justify-center gap-3 mb-4 transform transition-all duration-700 ${
+                isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+              }`}
+              style={{ transitionDelay: '0.2s' }}
+            >
               <div className="p-3 bg-secondary-50 dark:bg-secondary-900/20 rounded-full">
                 <BookOpen size={24} className="text-secondary-600 dark:text-secondary-400" />
               </div>

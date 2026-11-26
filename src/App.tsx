@@ -13,7 +13,6 @@ import ProjectList from './pages/ProjectList';
 import PoemList from './pages/PoemList';
 import PoemDetail from './pages/PoemDetail';
 import CaseStudy from './pages/CaseStudy';
-import './index.css';
 
 function App() {
   const location = useLocation();
@@ -42,7 +41,7 @@ function App() {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     const elements = document.querySelectorAll('.animate-on-scroll');

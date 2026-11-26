@@ -18,7 +18,7 @@ const SkillBar: React.FC<SkillBarProps> = ({ name, percentage, color }) => {
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (skillRef.current) {
@@ -37,7 +37,7 @@ const SkillBar: React.FC<SkillBarProps> = ({ name, percentage, color }) => {
         <span className="text-neutral-600 dark:text-neutral-400">{percentage}%</span>
       </div>
       <div className="h-2 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
-        <div 
+        <div
           className={`h-full bg-gradient-to-r ${color} rounded-full transition-all duration-1000 ease-out`}
           style={{ width: isVisible ? `${percentage}%` : '0%' }}
         ></div>

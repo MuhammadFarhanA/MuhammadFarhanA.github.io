@@ -11,9 +11,9 @@ const BackToTop: React.FC = () => {
       const scrollTop = window.pageYOffset;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      
+
       setScrollProgress(Math.min(Math.max(scrollPercent, 0), 100));
-      
+
       // Show button when user scrolls down 400px (after hero section)
       if (scrollTop > 400) {
         setIsVisible(true);
@@ -31,7 +31,7 @@ const BackToTop: React.FC = () => {
     const observer = new MutationObserver(checkModalState);
     observer.observe(document.body, {
       attributes: true,
-      attributeFilter: ['style']
+      attributeFilter: ['style'],
     });
 
     window.addEventListener('scroll', updateScrollProgress, { passive: true });
@@ -47,7 +47,7 @@ const BackToTop: React.FC = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   };
 
@@ -61,15 +61,17 @@ const BackToTop: React.FC = () => {
   const strokeDashoffset = circumference - (scrollProgress / 100) * circumference;
 
   return (
-    <div className={`fixed bottom-8 right-8 z-50 transition-all duration-500 ease-out ${
-      shouldShow 
-        ? 'opacity-100 translate-y-0 pointer-events-auto scale-100' 
-        : 'opacity-0 translate-y-8 pointer-events-none scale-75'
-    }`}>
+    <div
+      className={`fixed bottom-8 right-8 z-50 transition-all duration-500 ease-out ${
+        shouldShow
+          ? 'opacity-100 translate-y-0 pointer-events-auto scale-100'
+          : 'opacity-0 translate-y-8 pointer-events-none scale-75'
+      }`}
+    >
       <div className="relative group">
         {/* Outer glow effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-full blur-xl scale-150 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-        
+
         {/* Main button container */}
         <button
           onClick={scrollToTop}
@@ -78,12 +80,9 @@ const BackToTop: React.FC = () => {
         >
           {/* Animated background gradient */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 dark:from-primary-900/20 dark:via-secondary-900/20 dark:to-accent-900/20 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-full"></div>
-          
+
           {/* Progress ring background */}
-          <svg 
-            className="absolute inset-1 w-12 h-12 transform -rotate-90" 
-            viewBox="0 0 48 48"
-          >
+          <svg className="absolute inset-1 w-12 h-12 transform -rotate-90" viewBox="0 0 48 48">
             {/* Background circle */}
             <circle
               cx="24"
@@ -116,24 +115,24 @@ const BackToTop: React.FC = () => {
               </linearGradient>
             </defs>
           </svg>
-          
+
           {/* Inner content container */}
           <div className="relative z-10 flex items-center justify-center w-full h-full">
             {/* Dual arrow design */}
             <div className="relative">
               {/* Primary arrow */}
-              <ChevronUp 
-                size={20} 
-                className="transform transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-0.5 group-active:scale-90" 
+              <ChevronUp
+                size={20}
+                className="transform transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-0.5 group-active:scale-90"
               />
               {/* Secondary arrow for depth */}
-              <ChevronUp 
-                size={16} 
-                className="absolute top-1 left-1/2 transform -translate-x-1/2 opacity-30 group-hover:opacity-60 transition-all duration-300 group-hover:-translate-y-1" 
+              <ChevronUp
+                size={16}
+                className="absolute top-1 left-1/2 transform -translate-x-1/2 opacity-30 group-hover:opacity-60 transition-all duration-300 group-hover:-translate-y-1"
               />
             </div>
           </div>
-          
+
           {/* Ripple effect on click */}
           <div className="absolute inset-0 rounded-full bg-primary-400/30 scale-0 group-active:scale-150 transition-transform duration-300 ease-out"></div>
         </button>
@@ -153,13 +152,15 @@ const BackToTop: React.FC = () => {
             <div
               key={i}
               className={`absolute w-1 h-1 bg-primary-400/60 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-1000 ${
-                i === 0 ? 'top-2 right-2 group-hover:animate-ping' :
-                i === 1 ? 'bottom-3 left-3 group-hover:animate-pulse' :
-                'top-3 left-2 group-hover:animate-bounce'
+                i === 0
+                  ? 'top-2 right-2 group-hover:animate-ping'
+                  : i === 1
+                    ? 'bottom-3 left-3 group-hover:animate-pulse'
+                    : 'top-3 left-2 group-hover:animate-bounce'
               }`}
-              style={{ 
+              style={{
                 animationDelay: `${i * 200}ms`,
-                animationDuration: `${1000 + i * 200}ms`
+                animationDuration: `${1000 + i * 200}ms`,
               }}
             />
           ))}

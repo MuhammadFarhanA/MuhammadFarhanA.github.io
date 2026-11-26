@@ -1,4 +1,0 @@
-html, body, #spatial-root { width:100%; height:100%; margin:0; overflow:hidden; background:#030405; }
-#spatial-root { position:fixed; inset:0; }
-#spatial-root canvas { display:block; width:100%; height:100%; }
-.spatial-debug { position:fixed; right:18px; bottom:18px; z-index:4; display:flex; flex-direction:column; gap:5px; padding:12px; min-width:190px; color:#e6ebec; background:rgba(3,4,5,.72); border:1px solid rgba(214,224,227,.4); font:10px/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; pointer-events:none; }

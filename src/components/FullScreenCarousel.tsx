@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { X, ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon } from "lucide-react";
+import React, { useState } from 'react';
+import { X, ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon } from 'lucide-react';
 
 interface CarouselIteration {
   title?: string;
@@ -24,20 +24,18 @@ export default function FullScreenCarousel({
 }: FullScreenCarouselProps) {
   const iteration = iterations[currentIndex];
   const { title, beforeImage, afterImage } = iteration;
-  const [currentView, setCurrentView] = useState<"before" | "after">("before");
-  const src = currentView === "before" ? beforeImage : afterImage;
+  const [currentView, setCurrentView] = useState<'before' | 'after'>('before');
+  const src = currentView === 'before' ? beforeImage : afterImage;
 
-  const resolveSrc = (s?: string) =>
-    s?.startsWith("http") || s?.startsWith("/") ? s : `/${s}`;
+  const resolveSrc = (s?: string) => (s?.startsWith('http') || s?.startsWith('/') ? s : `/${s}`);
 
-  const altText =
-    `${currentView === "before" ? "Before" : "After"} - ${
-      title || `Iteration ${currentIndex + 1}`
-    }`;
+  const altText = `${currentView === 'before' ? 'Before' : 'After'} - ${
+    title || `Iteration ${currentIndex + 1}`
+  }`;
 
   // Determine disabled states for image carousel
-  const canPrevImage = currentView === "after";
-  const canNextImage = currentView === "before";
+  const canPrevImage = currentView === 'after';
+  const canNextImage = currentView === 'before';
 
   return (
     <div className="fixed inset-0 z-50 bg-black flex flex-col">
@@ -79,15 +77,15 @@ export default function FullScreenCarousel({
           <>
             {/* Label above image */}
             <div className="absolute top-2 left-1/2 transform -translate-x-1/2 bg-black/50 text-white text-lg px-3 py-1 rounded">
-              {currentView === "before" ? "Before" : "After"}
+              {currentView === 'before' ? 'Before' : 'After'}
             </div>
 
             {/* Prev image arrow */}
             <button
-              onClick={() => canPrevImage && setCurrentView("before")}
+              onClick={() => canPrevImage && setCurrentView('before')}
               disabled={!canPrevImage}
               className={`absolute left-2 sm:left-4 p-3 sm:p-2 rounded-full text-white transition z-10 ${
-                canPrevImage ? "hover:bg-white/10" : "opacity-50 cursor-not-allowed !bg-none"
+                canPrevImage ? 'hover:bg-white/10' : 'opacity-50 cursor-not-allowed !bg-none'
               }`}
               aria-label="Show before image"
             >
@@ -95,18 +93,14 @@ export default function FullScreenCarousel({
             </button>
 
             {/* Main image */}
-            <img
-              src={resolveSrc(src)}
-              alt={altText}
-              className="object-contain max-h-[80vh]"
-            />
+            <img src={resolveSrc(src)} alt={altText} className="object-contain max-h-[80vh]" />
 
             {/* Next image arrow */}
             <button
-              onClick={() => canNextImage && setCurrentView("after")}
+              onClick={() => canNextImage && setCurrentView('after')}
               disabled={!canNextImage}
               className={`absolute right-2 sm:right-4 p-3 sm:p-2 rounded-full text-white transition z-10 ${
-                canNextImage ? "hover:bg-white/10" : "opacity-50 cursor-not-allowed !bg-none"
+                canNextImage ? 'hover:bg-white/10' : 'opacity-50 cursor-not-allowed !bg-none'
               }`}
               aria-label="Show after image"
             >

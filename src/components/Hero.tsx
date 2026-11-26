@@ -19,7 +19,7 @@ const Hero: React.FC = () => {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     const elements = document.querySelectorAll('.animate-on-scroll');
@@ -33,7 +33,7 @@ const Hero: React.FC = () => {
   // Typewriter effect
   useEffect(() => {
     const currentWord = words[currentWordIndex];
-    
+
     const handleTyping = () => {
       if (!isDeleting) {
         // Typing
@@ -74,19 +74,25 @@ const Hero: React.FC = () => {
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary-200/30 to-accent-200/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-secondary-200/30 to-tertiary-200/30 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-accent-100/20 to-primary-100/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div
+          className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-secondary-200/30 to-tertiary-200/30 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: '1s' }}
+        ></div>
+        <div
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-accent-100/20 to-primary-100/20 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: '2s' }}
+        ></div>
       </div>
-      
+
       <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-primary-50/20 to-accent-50/10 dark:from-background-dark dark:to-surface-dark z-0"></div>
-      
+
       <div className="container mx-auto px-4 md:px-8 lg:px-16 py-16 relative z-10">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-primary-600 dark:text-primary-400 font-medium mb-4 animate-on-scroll opacity-0 translate-y-8 transition-all duration-700 delay-100">
             Hello, I'm Farhan
           </h2>
-          
-          <h1 
+
+          <h1
             ref={textRef}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-neutral-800 dark:text-neutral-100 mb-8 leading-tight animate-on-scroll opacity-0 translate-y-8 transition-all duration-700 delay-300"
           >
@@ -101,15 +107,16 @@ const Hero: React.FC = () => {
               Crafting Digital Experiences
             </span>
           </h1>
-          
+
           <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 mb-8 max-w-2xl animate-on-scroll opacity-0 translate-y-8 transition-all duration-700 delay-500">
-            I design and develop user-centered interfaces that are both beautiful and functional. 
-            Specializing in creating seamless digital experiences that delight users and drive business growth.
+            I design and develop user-centered interfaces that are both beautiful and functional.
+            Specializing in creating seamless digital experiences that delight users and drive
+            business growth.
           </p>
-          
+
           <div className="flex justify-center animate-on-scroll opacity-0 translate-y-8 transition-all duration-700 delay-700">
-            <a 
-              href="#contact" 
+            <a
+              href="#contact"
               className="group px-8 py-3 text-center bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-medium hover:shadow-strong relative overflow-hidden"
             >
               <span className="relative z-10">Get In Touch</span>
@@ -120,12 +127,15 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden lg:block">
-        <button 
+        <button
           onClick={scrollToAbout}
           className="group p-3 rounded-full bg-white/80 dark:bg-surface-dark backdrop-blur-sm transition-all duration-300 transform hover:-translate-y-1 shadow-soft hover:shadow-medium border border-neutral-200/50 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600"
           aria-label="Scroll down"
         >
-          <ArrowDown size={20} className="text-primary-600 dark:text-primary-400 group-hover:animate-pulse" />
+          <ArrowDown
+            size={20}
+            className="text-primary-600 dark:text-primary-400 group-hover:animate-pulse"
+          />
         </button>
       </div>
     </section>
